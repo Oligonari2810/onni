@@ -48,13 +48,13 @@ export default function Hero({ lang }: HeroProps) {
         <div className="flex gap-4 opacity-0 animate-[fadeUp_0.8s_0.8s_forwards]">
           <a
             href="#productos"
-            className="px-9 py-4 bg-rose text-white text-xs uppercase tracking-widest hover:bg-opacity-80 transition-all"
+            className="px-9 py-4 bg-rose text-white text-xs uppercase tracking-widest hover:bg-rose/80 transition-all"
           >
             {t.hero.cta1}
           </a>
           <a
             href="#b2b"
-            className="px-9 py-4 border border-white border-opacity-20 text-white text-xs uppercase tracking-widest hover:border-blush hover:text-blush transition-all"
+            className="px-9 py-4 border border-white/20 text-white text-xs uppercase tracking-widest hover:border-blush hover:text-blush transition-all"
           >
             {t.hero.cta2}
           </a>

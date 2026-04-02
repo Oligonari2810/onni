@@ -70,14 +70,14 @@ export default function ContactForm({ lang }: ContactFormProps) {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs uppercase tracking-widest text-white text-opacity-35">
+          <label className="text-xs uppercase tracking-widest text-white/35">
             {t.form.name}
           </label>
           <input
             {...register('name')}
             type="text"
             placeholder="Tu nombre"
-            className="bg-white bg-opacity-5 border border-white border-opacity-10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors"
+            className="bg-white/5 border border-white/10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors"
           />
           {errors.name && (
             <p className="text-xs text-rose">{errors.name.message}</p>
@@ -85,14 +85,14 @@ export default function ContactForm({ lang }: ContactFormProps) {
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs uppercase tracking-widest text-white text-opacity-35">
+          <label className="text-xs uppercase tracking-widest text-white/35">
             {t.form.establishment}
           </label>
           <input
             {...register('establishment')}
             type="text"
             placeholder="Farmacia / Clínica / Spa"
-            className="bg-white bg-opacity-5 border border-white border-opacity-10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors"
+            className="bg-white/5 border border-white/10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors"
           />
           {errors.establishment && (
             <p className="text-xs text-rose">{errors.establishment.message}</p>
@@ -102,14 +102,14 @@ export default function ContactForm({ lang }: ContactFormProps) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs uppercase tracking-widest text-white text-opacity-35">
+          <label className="text-xs uppercase tracking-widest text-white/35">
             {t.form.email}
           </label>
           <input
             {...register('email')}
             type="email"
             placeholder="tu@email.com"
-            className="bg-white bg-opacity-5 border border-white border-opacity-10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors"
+            className="bg-white/5 border border-white/10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors"
           />
           {errors.email && (
             <p className="text-xs text-rose">{errors.email.message}</p>
@@ -117,12 +117,12 @@ export default function ContactForm({ lang }: ContactFormProps) {
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs uppercase tracking-widest text-white text-opacity-35">
+          <label className="text-xs uppercase tracking-widest text-white/35">
             {t.form.country}
           </label>
           <select
             {...register('country')}
-            className="bg-white bg-opacity-5 border border-white border-opacity-10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors"
+            className="bg-white/5 border border-white/10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors"
           >
             <option value="" style={{ color: '#1A0A12' }}>
               Select country
@@ -156,14 +156,14 @@ export default function ContactForm({ lang }: ContactFormProps) {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs uppercase tracking-widest text-white text-opacity-35">
+        <label className="text-xs uppercase tracking-widest text-white/35">
           {t.form.message}
         </label>
         <textarea
           {...register('message')}
           rows={3}
           placeholder="Cuéntanos sobre tu establecimiento..."
-          className="bg-white bg-opacity-5 border border-white border-opacity-10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors resize-none"
+          className="bg-white/5 border border-white/10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors resize-none"
         />
         {errors.message && (
           <p className="text-xs text-rose">{errors.message.message}</p>
@@ -178,7 +178,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
             ? 'bg-green-600'
             : submitStatus === 'error'
               ? 'bg-rose'
-              : 'bg-rose hover:bg-opacity-80'
+              : 'bg-rose hover:bg-rose/80'
         } disabled:opacity-50`}
       >
         {submitStatus === 'success'
