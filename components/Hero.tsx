@@ -36,12 +36,12 @@ export default function Hero({ lang }: HeroProps) {
           <span className="text-2xl opacity-50 tracking-widest font-korean">언니</span>
         </h1>
 
-        <p className="font-korean text-sm text-white text-opacity-25 mb-10 tracking-widest opacity-0 animate-[fadeUp_0.8s_0.5s_forwards]">
+        <p className="font-korean text-sm text-white/25 mb-10 tracking-widest opacity-0 animate-[fadeUp_0.8s_0.5s_forwards]">
           La hermana mayor del Caribe
         </p>
 
         <p
-          className="text-base leading-relaxed text-white text-opacity-60 max-w-sm mb-12 opacity-0 animate-[fadeUp_0.8s_0.6s_forwards]"
+          className="text-base leading-relaxed text-white/60 max-w-sm mb-12 opacity-0 animate-[fadeUp_0.8s_0.6s_forwards]"
           dangerouslySetInnerHTML={{ __html: t.hero.description }}
         />
 
@@ -71,7 +71,7 @@ export default function Hero({ lang }: HeroProps) {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="relative w-96 h-96">
             <div
-              className="absolute w-80 h-80 rounded-full opacity-40 animate-pulse"
+              className="absolute w-80 h-80 rounded-full opacity-40 animate-pulse-centered"
               style={{
                 top: '50%',
                 left: '50%',
@@ -81,7 +81,7 @@ export default function Hero({ lang }: HeroProps) {
               }}
             />
             <div
-              className="absolute w-56 h-56 rounded-full opacity-70 animate-pulse"
+              className="absolute w-56 h-56 rounded-full opacity-70 animate-pulse-centered"
               style={{
                 top: '50%',
                 left: '50%',
@@ -108,7 +108,7 @@ export default function Hero({ lang }: HeroProps) {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-px bg-white bg-opacity-12 relative z-10">
+        <div className="grid grid-cols-3 gap-px bg-white/[0.12] relative z-10">
           {t.hero.stats.map((stat, i) => (
             <div
               key={i}

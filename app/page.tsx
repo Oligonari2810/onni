@@ -67,6 +67,8 @@ export default function Home() {
 
   return (
     <>
+      <div id="cur" className="cursor" />
+      <div id="curR" className="cursor-ring" />
       <Navbar lang={lang} onLangChange={setLang} />
       <Hero lang={lang} />
 
@@ -75,16 +77,16 @@ export default function Home() {
         <div className="flex gap-12 animate-marquee whitespace-nowrap">
           {[...Array(4)].map((_, i) => (
             <div key={i} className="flex gap-12">
-              <span className="text-xs uppercase tracking-widest text-white text-opacity-80 flex items-center gap-12 flex-shrink-0">
+              <span className="text-xs uppercase tracking-widest text-white/80 flex items-center gap-12 flex-shrink-0">
                 Ciencia coreana
               </span>
-              <span className="text-xs uppercase tracking-widest text-white text-opacity-80 flex items-center gap-12 flex-shrink-0">
+              <span className="text-xs uppercase tracking-widest text-white/80 flex items-center gap-12 flex-shrink-0">
                 Formulado para el Caribe
               </span>
-              <span className="text-xs uppercase tracking-widest text-white text-opacity-80 flex items-center gap-12 flex-shrink-0">
+              <span className="text-xs uppercase tracking-widest text-white/80 flex items-center gap-12 flex-shrink-0">
                 Sin cast blanco
               </span>
-              <span className="text-xs uppercase tracking-widest text-white text-opacity-80 flex items-center gap-12 flex-shrink-0">
+              <span className="text-xs uppercase tracking-widest text-white/80 flex items-center gap-12 flex-shrink-0">
                 Seleccionado con criterio
               </span>
             </div>
@@ -99,7 +101,7 @@ export default function Home() {
             <h3 className="font-cormorant text-3xl md:text-4xl font-light text-white leading-tight mb-4">
               Hablemos de <em className="italic text-blush">tu negocio</em>
             </h3>
-            <p className="text-sm leading-relaxed text-white text-opacity-40 mb-6">
+            <p className="text-sm leading-relaxed text-white/40 mb-6">
               Escríbenos con los datos de tu establecimiento y te enviamos el
               dossier de producto, condiciones de distribución y pricing B2B en
               24 horas.
@@ -114,7 +116,7 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer className="bg-charcoal px-12 md:px-20 py-16 text-center">
-        <p className="text-xs text-white text-opacity-20">
+        <p className="text-xs text-white/20">
           © 2025 Onni Cosmetics. Hecho con <span className="text-rose">♥</span>{' '}
           para el Caribe.
         </p>

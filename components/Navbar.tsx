@@ -25,7 +25,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
     <nav
       className={`fixed top-0 w-full z-100 px-12 py-6 flex items-center justify-between transition-all duration-400 ${
         scrolled
-          ? 'bg-opacity-95 backdrop-blur-sm border-b border-opacity-12 border-rose'
+          ? 'backdrop-blur-sm border-b border-rose/[0.12]'
           : ''
       }`}
       style={{
