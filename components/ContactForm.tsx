@@ -23,9 +23,7 @@ interface ContactFormProps {
 export default function ContactForm({ lang }: ContactFormProps) {
   const t = getTranslation(lang)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>(
-    'idle'
-  )
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
   const {
     register,
@@ -64,122 +62,53 @@ export default function ContactForm({ lang }: ContactFormProps) {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-3.5"
-    >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs uppercase tracking-widest text-white/35">
-            {t.form.name}
-          </label>
-          <input
-            {...register('name')}
-            type="text"
-            placeholder="Tu nombre"
-            className="bg-white/5 border border-white/10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors"
-          />
-          {errors.name && (
-            <p className="text-xs text-rose">{errors.name.message}</p>
-          )}
+    <form onSubmit={handleSubmit(onSubmit)} className="contact-form">
+      <div className="form-row">
+        <div className="fg">
+          <label>{t.form.name}</label>
+          <input {...register('name')} type="text" placeholder="Tu nombre" />
+          {errors.name && <p style={{ fontSize: '.72rem', color: 'var(--rose)' }}>{errors.name.message}</p>}
         </div>
-
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs uppercase tracking-widest text-white/35">
-            {t.form.establishment}
-          </label>
-          <input
-            {...register('establishment')}
-            type="text"
-            placeholder="Farmacia / Clínica / Spa"
-            className="bg-white/5 border border-white/10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors"
-          />
-          {errors.establishment && (
-            <p className="text-xs text-rose">{errors.establishment.message}</p>
-          )}
+        <div className="fg">
+          <label>{t.form.establishment}</label>
+          <input {...register('establishment')} type="text" placeholder="Farmacia / Clínica / Spa" />
+          {errors.establishment && <p style={{ fontSize: '.72rem', color: 'var(--rose)' }}>{errors.establishment.message}</p>}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs uppercase tracking-widest text-white/35">
-            {t.form.email}
-          </label>
-          <input
-            {...register('email')}
-            type="email"
-            placeholder="tu@email.com"
-            className="bg-white/5 border border-white/10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors"
-          />
-          {errors.email && (
-            <p className="text-xs text-rose">{errors.email.message}</p>
-          )}
+      <div className="form-row">
+        <div className="fg">
+          <label>{t.form.email}</label>
+          <input {...register('email')} type="email" placeholder="tu@email.com" />
+          {errors.email && <p style={{ fontSize: '.72rem', color: 'var(--rose)' }}>{errors.email.message}</p>}
         </div>
-
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs uppercase tracking-widest text-white/35">
-            {t.form.country}
-          </label>
-          <select
-            {...register('country')}
-            className="bg-white/5 border border-white/10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors"
-          >
-            <option value="" style={{ color: '#1A0A12' }}>
-              Select country
-            </option>
-            <option value="DO" style={{ color: '#1A0A12' }}>
-              República Dominicana
-            </option>
-            <option value="TC" style={{ color: '#1A0A12' }}>
-              Turks & Caicos
-            </option>
-            <option value="PR" style={{ color: '#1A0A12' }}>
-              Puerto Rico
-            </option>
-            <option value="TT" style={{ color: '#1A0A12' }}>
-              Trinidad y Tobago
-            </option>
-            <option value="JM" style={{ color: '#1A0A12' }}>
-              Jamaica
-            </option>
-            <option value="BB" style={{ color: '#1A0A12' }}>
-              Barbados
-            </option>
-            <option value="ES" style={{ color: '#1A0A12' }}>
-              España
-            </option>
+        <div className="fg">
+          <label>{t.form.country}</label>
+          <select {...register('country')}>
+            <option value="">Select country</option>
+            <option value="DO">República Dominicana</option>
+            <option value="TC">Turks &amp; Caicos</option>
+            <option value="PR">Puerto Rico</option>
+            <option value="TT">Trinidad y Tobago</option>
+            <option value="JM">Jamaica</option>
+            <option value="BB">Barbados</option>
+            <option value="ES">España</option>
           </select>
-          {errors.country && (
-            <p className="text-xs text-rose">{errors.country.message}</p>
-          )}
+          {errors.country && <p style={{ fontSize: '.72rem', color: 'var(--rose)' }}>{errors.country.message}</p>}
         </div>
       </div>
 
-      <div className="flex flex-col gap-1.5">
-        <label className="text-xs uppercase tracking-widest text-white/35">
-          {t.form.message}
-        </label>
-        <textarea
-          {...register('message')}
-          rows={3}
-          placeholder="Cuéntanos sobre tu establecimiento..."
-          className="bg-white/5 border border-white/10 px-4 py-3 text-white text-sm outline-none focus:border-rose transition-colors resize-none"
-        />
-        {errors.message && (
-          <p className="text-xs text-rose">{errors.message.message}</p>
-        )}
+      <div className="fg">
+        <label>{t.form.message}</label>
+        <textarea {...register('message')} rows={3} placeholder="Cuéntanos sobre tu establecimiento..." />
+        {errors.message && <p style={{ fontSize: '.72rem', color: 'var(--rose)' }}>{errors.message.message}</p>}
       </div>
 
       <button
         type="submit"
         disabled={isSubmitting || submitStatus !== 'idle'}
-        className={`px-4 py-4 text-white text-xs uppercase tracking-widest font-medium transition-all ${
-          submitStatus === 'success'
-            ? 'bg-green-600'
-            : submitStatus === 'error'
-              ? 'bg-rose'
-              : 'bg-rose hover:bg-rose/80'
-        } disabled:opacity-50`}
+        className={`form-submit${submitStatus === 'success' ? ' success' : ''}`}
+        style={submitStatus === 'error' ? { background: 'var(--rose)' } : undefined}
       >
         {submitStatus === 'success'
           ? t.form.success
