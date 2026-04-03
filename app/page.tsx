@@ -4,10 +4,7 @@ import { useState, useEffect } from 'react'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import ContactForm from '@/components/ContactForm'
-import { type Language } from '@/lib/i18n'
-
 export default function Home() {
-  const [lang, setLang] = useState<Language>('es')
   const [expandedPhase, setExpandedPhase] = useState<string | null>('phase-1')
 
   useEffect(() => {
@@ -47,8 +44,8 @@ export default function Home() {
 
   return (
     <>
-      <Navbar lang={lang} onLangChange={setLang} />
-      <Hero lang={lang} />
+      <Navbar />
+      <Hero />
 
       {/* MARQUEE */}
       <div className="marquee">

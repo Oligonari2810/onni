@@ -1,15 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getTranslation, type Language } from '@/lib/i18n'
 
-interface NavbarProps {
-  lang: Language
-  onLangChange: (lang: Language) => void
-}
-
-export default function Navbar({ lang, onLangChange }: NavbarProps) {
-  const t = getTranslation(lang)
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [nosotrosOpen, setNosotrosOpen] = useState(false)
@@ -49,24 +42,11 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
               </div>
             )}
           </li>
-          <li><a href="#productos">{t.nav.links.products}</a></li>
-          <li><a href="#b2b">{t.nav.links.b2b}</a></li>
+          <li><a href="#productos">Productos</a></li>
+          <li><a href="#b2b">B2B</a></li>
         </ul>
 
         <div className="nav-right">
-          <div className="lang-sel">
-            {(['es', 'en', 'fr'] as const).map((l, i, arr) => (
-              <span key={l}>
-                <button
-                  onClick={() => onLangChange(l)}
-                  className={`lang-btn${lang === l ? ' active' : ''}`}
-                >
-                  {l.toUpperCase()}
-                </button>
-                {i < arr.length - 1 && <span className="lang-sep">·</span>}
-              </span>
-            ))}
-          </div>
           <button
             className="hamburger"
             onClick={() => setMobileOpen(true)}
@@ -88,17 +68,6 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
               <a href="#productos" onClick={() => setMobileOpen(false)}>Productos</a>
               <a href="#b2b" onClick={() => setMobileOpen(false)}>B2B</a>
               <a href="#expansion" onClick={() => setMobileOpen(false)}>Expansión</a>
-            </div>
-            <div className="mobile-lang">
-              {(['es', 'en', 'fr'] as const).map((l) => (
-                <button
-                  key={l}
-                  onClick={() => { onLangChange(l); setMobileOpen(false) }}
-                  className={`lang-btn${lang === l ? ' active' : ''}`}
-                >
-                  {l.toUpperCase()}
-                </button>
-              ))}
             </div>
           </div>
         </div>

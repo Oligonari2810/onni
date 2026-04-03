@@ -1,12 +1,6 @@
 'use client'
 
-import { type Language } from '@/lib/i18n'
-
-interface HeroProps {
-  lang: Language
-}
-
-export default function Hero({ lang }: HeroProps) {
+export default function Hero() {
   return (
     <section className="hero" id="inicio">
       <div className="hero-left hero-left-centered">
