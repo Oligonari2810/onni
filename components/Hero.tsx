@@ -20,7 +20,7 @@ export default function Hero({ lang }: HeroProps) {
         </p>
         <div className="hero-actions">
           <a href="#b2b" className="btn-primary">Solicitar punto ONNI</a>
-          <a href="https://wa.me/18091234567?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20ser%20punto%20ONNI." className="btn-ghost" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp</a>
+          <a href="https://wa.me/18494754442?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20ser%20punto%20ONNI." className="btn-ghost" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp</a>
         </div>
       </div>
 

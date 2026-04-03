@@ -246,33 +246,25 @@ export default function Home() {
         </div>
         <div className="expansion-accordion reveal">
           {[
-            { id: 'phase-1', label: 'Activo 2026', status: 's-activo', countries: [{ flag: '🇩🇴', name: 'Rep. Dominicana', desc: 'Base · SD + Punta Cana' }] },
-            { id: 'phase-2', label: 'Próximamente', status: 's-pronto', countries: [{ flag: '🇹🇨', name: 'Turks & Caicos', desc: 'Providenciales · Premium' }] },
-            { id: 'phase-3', label: '2026', status: 's-pronto', countries: [{ flag: '🇵🇷', name: 'Puerto Rico', desc: 'San Juan · Puerta EE.UU.' }, { flag: '🇹🇹', name: 'Trinidad & Tobago', desc: 'Mayor PIB del Caribe' }] },
-            { id: 'phase-4', label: '2027', status: 's-futuro', countries: [{ flag: '🇯🇲', name: 'Jamaica', desc: 'Kingston · 3M hab.' }, { flag: '🇧🇧', name: 'Barbados', desc: 'Bridgetown · Premium' }, { flag: '🇨🇼', name: 'Curazao', desc: 'Willemstad · Europa' }, { flag: '🇦🇼', name: 'Aruba', desc: 'Oranjestad · Turismo' }] },
-            { id: 'phase-5', label: '2028', status: 's-futuro', countries: [{ flag: '🇲🇶', name: 'Martinica', desc: 'Dpto. francés' }, { flag: '🇬🇵', name: 'Guadalupe', desc: 'Caribe francófono' }, { flag: '🇻🇮', name: 'Islas Vírgenes US', desc: 'St. Thomas · USA' }] },
-            { id: 'phase-6', label: '2029+', status: 's-futuro', countries: [{ flag: '🇸🇷', name: 'Surinam', desc: 'Caribe continental' }, { flag: '🇧🇿', name: 'Belice', desc: 'Puente LATAM-Caribe' }, { flag: '🇭🇹', name: 'Haití', desc: '11M hab. · Con socio local' }] },
+            { id: 'phase-1', label: 'Activo · 2026', status: 's-activo', title: 'República Dominicana', text: 'Base de operaciones · Santo Domingo + Punta Cana' },
+            { id: 'phase-2', label: 'Próximamente · 2026', status: 's-pronto', title: 'Turks & Caicos', text: 'Providenciales · Mercado premium anglófono' },
+            { id: 'phase-3', label: '2026', status: 's-pronto', title: 'Puerto Rico · Trinidad & Tobago', text: 'Puerta al mercado hispano EE.UU. · Mayor PIB del Caribe' },
+            { id: 'phase-4', label: '2027', status: 's-futuro', title: 'Jamaica · Barbados · Curazao · Aruba', text: 'Caribe anglófono y holandés' },
+            { id: 'phase-5', label: '2028', status: 's-futuro', title: 'Martinica · Guadalupe · Islas Vírgenes US', text: 'Caribe francófono y americano' },
+            { id: 'phase-6', label: '2029+', status: 's-futuro', title: 'Surinam · Belice · Haití', text: 'Con socios locales' },
           ].map((phase) => (
-            <div key={phase.id} className="accordion-phase">
+            <div key={phase.id} className={`accordion-phase${phase.id === 'phase-1' ? ' accordion-phase-active' : ''}`}>
               <button
                 className={`accordion-trigger${expandedPhase === phase.id ? ' open' : ''}`}
                 onClick={() => setExpandedPhase(expandedPhase === phase.id ? null : phase.id)}
               >
                 <span className={`country-status ${phase.status}`}>{phase.label}</span>
-                <span className="accordion-count">{phase.countries.length} {phase.countries.length === 1 ? 'país' : 'países'}</span>
+                <span className="accordion-title">{phase.title}</span>
                 <span className="accordion-arrow">{expandedPhase === phase.id ? '−' : '+'}</span>
               </button>
               {expandedPhase === phase.id && (
                 <div className="accordion-content">
-                  {phase.countries.map((c) => (
-                    <div key={c.name} className="accordion-country">
-                      <span className="country-flag">{c.flag}</span>
-                      <div>
-                        <div className="country-name">{c.name}</div>
-                        <p className="country-desc">{c.desc}</p>
-                      </div>
-                    </div>
-                  ))}
+                  <p className="accordion-text">{phase.text}</p>
                 </div>
               )}
             </div>
@@ -300,9 +292,8 @@ export default function Home() {
           <div className="footer-col">
             <h4>Empresa</h4>
             <ul>
-              <li><a href="#nosotras">Nuestra historia</a></li>
-              <li><a href="#caribe">Por qué el Caribe</a></li>
-              <li><a href="#puntos">Puntos Onni</a></li>
+              <li><a href="#nosotras">Nosotros</a></li>
+              <li><a href="#productos">Productos</a></li>
               <li><a href="#expansion">Expansión</a></li>
               <li><a href="#">Onni Academy</a></li>
             </ul>
@@ -310,7 +301,6 @@ export default function Home() {
           <div className="footer-col">
             <h4>B2B</h4>
             <ul>
-              <li><a href="#b2b">Farmacias</a></li>
               <li><a href="#b2b">Clínicas estéticas</a></li>
               <li><a href="#b2b">Spas &amp; wellness</a></li>
               <li><a href="#b2b">Dermatólogos</a></li>
@@ -321,11 +311,10 @@ export default function Home() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2026 Onni Cosmetics. Hecho con <span>♥</span> para el Caribe.</p>
+          <p>© 2026 Onni Cosmetics</p>
           <div className="footer-social">
-            <a href="#">Instagram</a>
-            <a href="#">TikTok</a>
-            <a href="#">WhatsApp</a>
+            <a href="https://www.instagram.com/onni_cosmetics_rd/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://wa.me/18494754442" target="_blank" rel="noopener noreferrer">WhatsApp</a>
           </div>
         </div>
       </footer>
