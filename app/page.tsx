@@ -143,21 +143,21 @@ export default function Home() {
         <div className="contexto-grid">
           <div className="contexto-card reveal">
             <span className="distro-circle" style={{ background: '#D8E5F3' }} />
-            <h3>Alta radiación UV</h3>
-            <p>La exposición solar constante exige protectores ligeros, cómodos y de uso diario real.</p>
+            <h3>Radiación UV constante</h3>
+            <p>Requiere protectores que realmente se usen a diario, sin residuo ni incomodidad.</p>
           </div>
           <div className="contexto-card reveal">
             <span className="distro-circle" style={{ background: '#FBEBBB' }} />
-            <h3>Humedad y sebo</h3>
-            <p>En clima tropical, las texturas densas saturan la piel. Las fórmulas ligeras marcan la diferencia.</p>
+            <h3>Humedad que satura la piel</h3>
+            <p>En clima tropical, las texturas densas saturan la piel y provocan brotes. Las fórmulas ligeras evitan ese problema.</p>
           </div>
           <div className="contexto-card reveal">
             <span className="distro-circle" style={{ background: '#E2F3DC' }} />
-            <h3>Manchas y PIH</h3>
-            <p>La hiperpigmentación postinflamatoria requiere activos bien elegidos y buena tolerancia cutánea.</p>
+            <h3>Manchas y PIH recurrentes</h3>
+            <p>Requiere activos bien elegidos y buena tolerancia cutánea en uso diario.</p>
           </div>
         </div>
-        <p className="contexto-closing reveal">Por eso ONNI no importa por catálogo. Selecciona con criterio.</p>
+        <p className="contexto-closing reveal">Por eso ONNI no importa por catálogo. Selecciona lo que funciona aquí.</p>
       </section>
 
       {/* PRODUCTOS */}
