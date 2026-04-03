@@ -1,42 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { getTranslation, type Language } from '@/lib/i18n'
 
-const inquirySchema = z.object({
-  name: z.string().min(2, 'Name is required'),
-  establishment: z.string().min(2, 'Establishment is required'),
-  email: z.string().email('Invalid email'),
-  country: z.string().min(1, 'Country is required'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
-})
-
-type InquiryForm = z.infer<typeof inquirySchema>
-
-interface ContactFormProps {
-  lang: Language
-}
-
-export default function ContactForm({ lang }: ContactFormProps) {
-  const t = getTranslation(lang)
+export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<InquiryForm>({
-    resolver: zodResolver(inquirySchema),
-  })
-
-  const onSubmit = async (data: InquiryForm) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     setIsSubmitting(true)
     setSubmitStatus('idle')
+
+    const formData = new FormData(e.currentTarget)
+    const data = Object.fromEntries(formData)
 
     try {
       const response = await fetch('/api/inquiries', {
@@ -48,13 +24,11 @@ export default function ContactForm({ lang }: ContactFormProps) {
       if (!response.ok) throw new Error('Failed to submit')
 
       setSubmitStatus('success')
-      reset()
-
-      setTimeout(() => setSubmitStatus('idle'), 4000)
+      e.currentTarget.reset()
+      setTimeout(() => setSubmitStatus('idle'), 5000)
     } catch (error) {
       console.error(error)
       setSubmitStatus('error')
-
       setTimeout(() => setSubmitStatus('idle'), 4000)
     } finally {
       setIsSubmitting(false)
@@ -62,46 +36,51 @@ export default function ContactForm({ lang }: ContactFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="contact-form">
+    <form onSubmit={handleSubmit} className="contact-form">
       <div className="form-row">
         <div className="fg">
-          <label>{t.form.name}</label>
-          <input {...register('name')} type="text" placeholder="Tu nombre" />
-          {errors.name && <p style={{ fontSize: '.72rem', color: 'var(--rose)' }}>{errors.name.message}</p>}
+          <label>Nombre</label>
+          <input name="name" type="text" placeholder="Tu nombre" required />
         </div>
         <div className="fg">
-          <label>{t.form.establishment}</label>
-          <input {...register('establishment')} type="text" placeholder="Farmacia / Clínica / Spa" />
-          {errors.establishment && <p style={{ fontSize: '.72rem', color: 'var(--rose)' }}>{errors.establishment.message}</p>}
+          <label>Negocio / establecimiento</label>
+          <input name="establishment" type="text" placeholder="Nombre del espacio" required />
         </div>
       </div>
 
       <div className="form-row">
         <div className="fg">
-          <label>{t.form.email}</label>
-          <input {...register('email')} type="email" placeholder="tu@email.com" />
-          {errors.email && <p style={{ fontSize: '.72rem', color: 'var(--rose)' }}>{errors.email.message}</p>}
+          <label>Tipo de espacio</label>
+          <select name="type" required>
+            <option value="">Seleccionar</option>
+            <option value="clinica">Clínica estética</option>
+            <option value="spa">Spa / wellness</option>
+            <option value="dermatologo">Dermatólogo</option>
+            <option value="esteticista">Esteticista / facialista</option>
+            <option value="tienda">Tienda especializada</option>
+            <option value="otro">Otro espacio profesional</option>
+          </select>
         </div>
         <div className="fg">
-          <label>{t.form.country}</label>
-          <select {...register('country')}>
-            <option value="">Select country</option>
-            <option value="DO">República Dominicana</option>
-            <option value="TC">Turks &amp; Caicos</option>
-            <option value="PR">Puerto Rico</option>
-            <option value="TT">Trinidad y Tobago</option>
-            <option value="JM">Jamaica</option>
-            <option value="BB">Barbados</option>
-            <option value="ES">España</option>
-          </select>
-          {errors.country && <p style={{ fontSize: '.72rem', color: 'var(--rose)' }}>{errors.country.message}</p>}
+          <label>Ciudad / zona</label>
+          <input name="city" type="text" placeholder="Ej. Santo Domingo, Punta Cana" required />
+        </div>
+      </div>
+
+      <div className="form-row">
+        <div className="fg">
+          <label>WhatsApp</label>
+          <input name="whatsapp" type="tel" placeholder="+1 809 000 0000" required />
+        </div>
+        <div className="fg">
+          <label>Email</label>
+          <input name="email" type="email" placeholder="tu@email.com" required />
         </div>
       </div>
 
       <div className="fg">
-        <label>{t.form.message}</label>
-        <textarea {...register('message')} rows={3} placeholder="Cuéntanos sobre tu establecimiento..." />
-        {errors.message && <p style={{ fontSize: '.72rem', color: 'var(--rose)' }}>{errors.message.message}</p>}
+        <label>Mensaje <span style={{ fontWeight: 300, opacity: 0.5 }}>(opcional)</span></label>
+        <textarea name="message" rows={3} placeholder="Cuéntanos brevemente sobre tu espacio..." />
       </div>
 
       <button
@@ -111,11 +90,12 @@ export default function ContactForm({ lang }: ContactFormProps) {
         style={submitStatus === 'error' ? { background: 'var(--rose)' } : undefined}
       >
         {submitStatus === 'success'
-          ? t.form.success
+          ? '✓ Solicitud recibida'
           : submitStatus === 'error'
-            ? 'Error. Try again.'
-            : t.form.submit}
+            ? 'Error. Intenta de nuevo.'
+            : 'Solicitar dossier B2B'}
       </button>
+      <p className="form-micro">Revisamos cada solicitud y te contactamos si hay encaje.</p>
     </form>
   )
 }

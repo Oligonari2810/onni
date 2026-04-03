@@ -109,26 +109,23 @@ nav.scrolled { background:rgba(250,244,240,.95); backdrop-filter:blur(12px); pad
 .contexto-card p { font-size:.84rem; line-height:1.7; color:var(--gray); }
 .contexto-closing { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:400; font-style:italic; color:var(--rose); text-align:center; margin-top:48px; }
 
-/* ─── PRODUCTOS ──────────────────────────────── */
-.productos { padding:140px 80px; background:var(--cream); }
-.productos-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:72px; }
-.productos-sub { font-size:.86rem; color:var(--gray); max-width:280px; text-align:right; line-height:1.6; }
-.productos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
-.prod-card { background:var(--nude); overflow:hidden; position:relative; transition:transform .4s; }
-.prod-card:hover { transform:translateY(-4px); }
-.prod-visual { height:260px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
-.prod-visual::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(196,73,122,.06) 0%,transparent 60%); }
-.prod-emoji { font-size:4rem; position:relative; z-index:1; }
-.prod-badge { position:absolute; top:20px; right:20px; font-size:.62rem; letter-spacing:.15em; text-transform:uppercase; padding:5px 12px; background:var(--rose); color:var(--white); z-index:2; }
-.prod-info { padding:28px; }
-.prod-brand { font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--rose); margin-bottom:8px; }
-.prod-name { font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:400; color:var(--deep); margin-bottom:10px; line-height:1.2; }
-.prod-claim { font-size:.8rem; line-height:1.6; color:var(--gray); margin-bottom:18px; }
-.prod-footer { display:flex; justify-content:space-between; align-items:center; padding-top:16px; border-top:1px solid var(--line); }
-.prod-price { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:300; color:var(--deep); }
-.prod-price span { font-family:'DM Sans',sans-serif; font-size:.72rem; color:var(--gray); }
-.prod-tags { display:flex; gap:4px; }
-.prod-tag { font-size:.58rem; padding:3px 8px; background:rgba(196,73,122,.08); color:var(--rose); letter-spacing:.05em; }
+/* ─── CATÁLOGO B2B ───────────────────────────── */
+.catalogo { padding:120px 80px; background:var(--deep); }
+.catalogo-header { text-align:center; margin-bottom:64px; max-width:700px; margin-left:auto; margin-right:auto; }
+.catalogo-header .section-label { color:var(--blush); }
+.catalogo-header .section-title { color:var(--white); }
+.catalogo-desc { font-size:.92rem; line-height:1.8; color:rgba(255,255,255,.7); max-width:600px; margin:20px auto 0; }
+.catalogo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; max-width:1200px; margin:0 auto; }
+.catalogo-card { background:rgba(255,255,255,.03); padding:36px 32px; border:1px solid rgba(255,255,255,.05); transition:all .4s; position:relative; overflow:hidden; }
+.catalogo-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--rose); transform:scaleX(0); transition:transform .4s; transform-origin:left; }
+.catalogo-card:hover { background:rgba(196,73,122,.06); }
+.catalogo-card:hover::before { transform:scaleX(1); }
+.catalogo-cat { font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--blush); display:block; margin-bottom:10px; }
+.catalogo-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:400; color:var(--white); margin-bottom:12px; line-height:1.2; }
+.catalogo-benefit { font-size:.84rem; line-height:1.65; color:rgba(255,255,255,.72); margin-bottom:8px; }
+.catalogo-micro { font-size:.72rem; line-height:1.5; color:rgba(255,255,255,.6); font-style:italic; }
+.catalogo-closing { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:400; font-style:italic; color:var(--blush); text-align:center; margin-top:48px; max-width:700px; margin-left:auto; margin-right:auto; }
+.catalogo-cta { text-align:center; margin-top:32px; }
 
 /* ─── CARIBE ─────────────────────────────────── */
 .caribe { padding:140px 80px; background:var(--nude); display:grid; grid-template-columns:1fr 1fr; gap:100px; align-items:center; }
@@ -205,22 +202,14 @@ nav.scrolled { background:rgba(250,244,240,.95); backdrop-filter:blur(12px); pad
 .puntos-cta { text-align:center; margin-top:48px; }
 .puntos-cta p { font-size:.86rem; color:var(--gray); margin-bottom:18px; }
 
-/* ─── B2B ────────────────────────────────────── */
-.b2b { padding:140px 80px; background:var(--cream); }
-.b2b-header { text-align:center; margin-bottom:72px; }
-.b2b-header p { font-size:.95rem; color:var(--gray); max-width:500px; margin:16px auto 0; line-height:1.7; }
-.b2b-canales { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-bottom:72px; }
-.b2b-canal { padding:44px 32px; background:var(--nude); text-align:center; transition:all .3s; }
-.b2b-canal:hover { background:var(--rose); }
-.b2b-canal:hover h3,.b2b-canal:hover p { color:var(--white); }
-.b2b-canal .icon { font-size:2.2rem; margin-bottom:18px; display:block; }
-.b2b-canal h3 { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:400; color:var(--deep); margin-bottom:10px; transition:color .3s; }
-.b2b-canal p { font-size:.8rem; line-height:1.6; color:var(--gray); transition:color .3s; }
-.b2b-contact { background:var(--deep); padding:72px 80px; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
-.b2b-contact-l h3 { font-family:'Cormorant Garamond',serif; font-size:2.4rem; font-weight:300; color:var(--white); line-height:1.2; margin-bottom:18px; }
-.b2b-contact-l h3 em { font-style:italic; color:var(--blush); }
-.b2b-contact-l p { font-size:.88rem; line-height:1.7; color:rgba(255,255,255,.4); }
-.b2b-supervision { font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--blush); margin-top:12px; }
+/* ─── B2B V3 ─────────────────────────────────── */
+.b2b-v3 { padding:120px 80px; background:var(--deep); }
+.b2b-v3-header { text-align:center; max-width:660px; margin:0 auto 56px; }
+.b2b-v3-header .section-label { color:var(--blush); }
+.b2b-v3-title { color:var(--white); }
+.b2b-v3-desc { font-size:.92rem; line-height:1.8; color:rgba(255,255,255,.7); margin-top:20px; }
+.b2b-v3-filter { font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--blush); margin-top:16px; }
+.b2b-v3-form { max-width:640px; margin:0 auto; }
 .contact-form { display:flex; flex-direction:column; gap:14px; }
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 .fg { display:flex; flex-direction:column; gap:6px; }
@@ -232,6 +221,7 @@ nav.scrolled { background:rgba(250,244,240,.95); backdrop-filter:blur(12px); pad
 .form-submit { padding:16px; background:var(--rose); color:var(--white); border:none; font-family:'DM Sans',sans-serif; font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; transition:background .3s; cursor:pointer; }
 .form-submit:hover { background:#a3365e; }
 .form-submit.success { background:#2E7D4F; }
+.form-micro { font-size:.72rem; color:rgba(255,255,255,.4); text-align:center; margin-top:14px; }
 
 /* ─── EXPANSIÓN ──────────────────────────────── */
 .expansion { padding:140px 80px; background:var(--nude); }
@@ -373,19 +363,15 @@ footer { background:var(--charcoal); padding:72px 80px 40px; }
   .manifesto{ grid-template-columns:1fr; gap:52px; padding:80px 28px; }
   .contexto{ padding:80px 28px; }
   .contexto-grid{ grid-template-columns:1fr; }
-  .productos{ padding:80px 28px; }
-  .productos-header{ flex-direction:column; gap:16px; align-items:flex-start; }
-  .productos-sub{ text-align:left; max-width:100%; }
-  .productos-grid{ grid-template-columns:1fr; }
+  .catalogo{ padding:80px 28px; }
+  .catalogo-grid{ grid-template-columns:1fr; }
   .caribe{ grid-template-columns:1fr; gap:52px; padding:80px 28px; }
   .caribe-facts{ grid-template-columns:1fr; }
   .fact:first-child{ grid-column:span 1; }
   .puntos{ padding:80px 28px; }
   .puntos-grid{ grid-template-columns:1fr 1fr; }
   .exclusividad{ grid-template-columns:1fr; gap:40px; padding:48px 28px; }
-  .b2b{ padding:80px 28px; }
-  .b2b-canales,.b2b-canales-3{ grid-template-columns:1fr; }
-  .b2b-contact{ grid-template-columns:1fr; gap:40px; padding:48px 28px; }
+  .b2b-v3{ padding:80px 28px; }
   .form-row{ grid-template-columns:1fr; }
   .expansion{ padding:80px 28px; }
   footer{ padding:56px 28px 32px; }

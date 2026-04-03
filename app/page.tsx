@@ -161,132 +161,79 @@ export default function Home() {
       </section>
 
       {/* PRODUCTOS */}
-      <section className="productos" id="productos">
-        <div className="productos-header reveal">
-          <div>
-            <span className="section-label">Selección Onni</span>
-            <h2 className="section-title">Los mejores<br /><em>para el Caribe</em></h2>
-          </div>
-          <p className="productos-sub">Cada producto fue elegido por su eficacia específica para el clima del Caribe: texturas ligeras, activos verificados, sin irritantes.</p>
+      <section className="catalogo" id="productos">
+        <div className="catalogo-header reveal">
+          <span className="section-label">Selección ONNI</span>
+          <h2 className="section-title">Una línea pensada para prescripción<br /><em>en clima tropical</em></h2>
+          <p className="catalogo-desc">Siete productos, cuatro necesidades clave del Caribe: protección solar, manchas, limpieza adaptada a humedad y tratamiento complementario.</p>
         </div>
-        <div className="productos-grid">
-          <div className="prod-card reveal">
-            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #FBEBBB 0%, #f5d77a 100%)' }}>
-              <span className="prod-badge">⭐ Estrella</span>
-            </div>
-            <div className="prod-info">
-              <p className="prod-brand">Selección Onni · Sérum tratamiento</p>
-              <h3 className="prod-name">Sérum Niacinamide 10% + TXA 4%</h3>
-              <p className="prod-claim">Manchas, hiperpigmentación, unificación de tono. La tríada activa más potente para el clima del Caribe.</p>
-              <div className="prod-footer">
-                <div className="prod-tags"><span className="prod-tag">Niacinamide</span><span className="prod-tag">TXA</span></div>
-              </div>
-            </div>
+        <div className="catalogo-grid">
+          <div className="catalogo-card reveal">
+            <span className="distro-circle" style={{ background: '#FBEBBB' }} />
+            <span className="catalogo-cat">Manchas</span>
+            <h3>Sérum Niacinamide + TXA</h3>
+            <p className="catalogo-benefit">Ayuda a mejorar hiperpigmentación y tono desigual.</p>
+            <p className="catalogo-micro">Para piel con marcas, PIH o manchas visibles.</p>
           </div>
-
-          <div className="prod-card reveal">
-            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #E2F3DC 0%, #b8dfaa 100%)' }}>
-            </div>
-            <div className="prod-info">
-              <p className="prod-brand">Selección Onni · Limpieza paso 1</p>
-              <h3 className="prod-name">Aceite Limpiador Gentle Black</h3>
-              <p className="prod-claim">Doble limpieza para piel grasa tropical. Sin fragancia, emulsifica al instante, no deja residuo.</p>
-              <div className="prod-footer">
-                <div className="prod-tags"><span className="prod-tag">Oil cleanse</span><span className="prod-tag">Sin alcohol</span></div>
-              </div>
-            </div>
+          <div className="catalogo-card reveal">
+            <span className="distro-circle" style={{ background: '#E2F3DC' }} />
+            <span className="catalogo-cat">Limpieza</span>
+            <h3>Aceite limpiador Gentle Black</h3>
+            <p className="catalogo-benefit">Retira SPF, sebo y residuos sin dejar sensación pesada.</p>
+            <p className="catalogo-micro">Ideal para doble limpieza en piel grasa o mixta.</p>
           </div>
-
-          <div className="prod-card reveal">
-            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #E2F3DC 0%, #b8dfaa 100%)' }}>
-            </div>
-            <div className="prod-info">
-              <p className="prod-brand">Selección Onni · Limpieza paso 2</p>
-              <h3 className="prod-name">Espuma Limpiadora Heartleaf</h3>
-              <p className="prod-claim">Low-pH para equilibrar el microbioma. Controla sebo y poros en clima húmedo sin resecar.</p>
-              <div className="prod-footer">
-                <div className="prod-tags"><span className="prod-tag">Low pH</span><span className="prod-tag">BHA</span></div>
-              </div>
-            </div>
+          <div className="catalogo-card reveal">
+            <span className="distro-circle" style={{ background: '#E2F3DC' }} />
+            <span className="catalogo-cat">Limpieza</span>
+            <h3>Espuma Heartleaf</h3>
+            <p className="catalogo-benefit">Limpia sin resecar y ayuda a mantener equilibrio en clima húmedo.</p>
+            <p className="catalogo-micro">Para uso diario en piel con sebo, poros o sensibilidad.</p>
           </div>
-
-          <div className="prod-card reveal">
-            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #D8E5F3 0%, #a8c4e0 100%)' }}>
-              <span className="prod-badge">⭐ Estrella</span>
-            </div>
-            <div className="prod-info">
-              <p className="prod-brand">Selección Onni · Protección solar</p>
-              <h3 className="prod-name">Protector Solar SPF50+ PA++++</h3>
-              <p className="prod-claim">El SPF que el Caribe necesitaba. Sin cast blanco, textura leche, reef-safe. Protección UV máxima.</p>
-              <div className="prod-footer">
-                <div className="prod-tags"><span className="prod-tag">SPF50+</span><span className="prod-tag">PA++++</span></div>
-              </div>
-            </div>
+          <div className="catalogo-card reveal">
+            <span className="distro-circle" style={{ background: '#D8E5F3' }} />
+            <span className="catalogo-cat">Protección solar</span>
+            <h3>Protector solar SPF50+</h3>
+            <p className="catalogo-benefit">Protección alta con textura ligera y uso cómodo diario.</p>
+            <p className="catalogo-micro">Pensado para alta radiación UV y clima tropical.</p>
           </div>
-
-          <div className="prod-card reveal">
-            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #FBEBBB 0%, #f5d77a 100%)' }}>
-            </div>
-            <div className="prod-info">
-              <p className="prod-brand">Selección Onni · Sérum hidratante</p>
-              <h3 className="prod-name">Sérum Niacinamide 5% + Peach</h3>
-              <p className="prod-claim">Luminosidad e hidratación en textura ultra-ligera. Niacinamida 5%, triple hialurónico, arbutina.</p>
-              <div className="prod-footer">
-                <div className="prod-tags"><span className="prod-tag">Hydrating</span><span className="prod-tag">Glow</span></div>
-              </div>
-            </div>
+          <div className="catalogo-card reveal">
+            <span className="distro-circle" style={{ background: '#D8E5F3' }} />
+            <span className="catalogo-cat">Hidratación</span>
+            <h3>Sérum Peach + Niacinamide</h3>
+            <p className="catalogo-benefit">Aporta luminosidad e hidratación con textura ligera.</p>
+            <p className="catalogo-micro">Para piel opaca o deshidratada en clima cálido.</p>
           </div>
-
-          <div className="prod-card reveal">
-            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #D8E5F3 0%, #a8c4e0 100%)' }}>
-            </div>
-            <div className="prod-info">
-              <p className="prod-brand">Selección Onni · Tratamiento express</p>
-              <h3 className="prod-name">Sheet Masks — Caja x10</h3>
-              <p className="prod-claim">Visible en 20 minutos. Clean beauty, packaging biodegradable, reef-safe. El regalo perfecto.</p>
-              <div className="prod-footer">
-                <div className="prod-tags"><span className="prod-tag">Clean</span><span className="prod-tag">Reef-safe</span></div>
-              </div>
-            </div>
+          <div className="catalogo-card reveal">
+            <span className="distro-circle" style={{ background: '#D8E5F3' }} />
+            <span className="catalogo-cat">Tratamiento complementario</span>
+            <h3>Sheet Masks x10</h3>
+            <p className="catalogo-benefit">Aporte rápido de hidratación y confort.</p>
+            <p className="catalogo-micro">Útiles en cabina, regalo o activación de rutina.</p>
           </div>
-
-          <div className="prod-card reveal">
-            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #C9B8E8 0%, #a893d4 100%)' }}>
-              <span className="prod-badge">⭐ Estrella</span>
-            </div>
-            <div className="prod-info">
-              <p className="prod-brand">Selección Onni · Antiedad</p>
-              <h3 className="prod-name">Sérum Retinol + Bakuchiol</h3>
-              <p className="prod-claim">Firmeza, renovación celular y reducción de arrugas. Bakuchiol sin fotosensibilización — seguro con UV 12 del Caribe.</p>
-              <div className="prod-footer">
-                <div className="prod-tags"><span className="prod-tag">Retinol</span><span className="prod-tag">Bakuchiol</span></div>
-              </div>
-            </div>
+          <div className="catalogo-card reveal">
+            <span className="distro-circle" style={{ background: '#C9B8E8' }} />
+            <span className="catalogo-cat">Antiedad</span>
+            <h3>Sérum Retinol + Bakuchiol</h3>
+            <p className="catalogo-benefit">Apoya renovación y firmeza con enfoque tolerable.</p>
+            <p className="catalogo-micro">Para rutina nocturna en piel que busca prevención o corrección.</p>
           </div>
+        </div>
+        <p className="catalogo-closing reveal">Cada producto cumple una función concreta. La línea completa se entiende mejor en protocolo.</p>
+        <div className="catalogo-cta reveal">
+          <a href="#b2b" className="btn-primary">Solicitar dossier B2B</a>
         </div>
       </section>
 
       {/* B2B */}
-      <section className="b2b" id="b2b">
-        <div className="b2b-header reveal">
-          <span className="section-label">Distribución B2B</span>
-          <h2 className="section-title">Solicita ser<br /><em>Punto Onni</em></h2>
-          <p>Trabajamos con clínicas estéticas, spas y tiendas especializadas en República Dominicana y el Caribe.</p>
+      <section className="b2b-v3" id="b2b">
+        <div className="b2b-v3-header reveal">
+          <span className="section-label">Solicitud B2B</span>
+          <h2 className="section-title b2b-v3-title">Solicita información para<br /><em>tu punto ONNI</em></h2>
+          <p className="b2b-v3-desc">Si tu clínica, spa o espacio profesional encaja con el modelo ONNI, te enviaremos dossier de producto, condiciones de distribución y siguiente paso comercial.</p>
+          <p className="b2b-v3-filter">Trabajamos de forma selectiva y revisamos cada solicitud personalmente.</p>
         </div>
-
-        <div className="b2b-contact reveal">
-          <div className="b2b-contact-l">
-            <h3>Solicita ser<br /><em>Punto Onni</em></h3>
-            <p>Escríbenos con los datos de tu establecimiento y te enviamos el dossier de producto, condiciones de distribución y pricing B2B.</p>
-            <p className="b2b-supervision">Revisamos cada solicitud personalmente. Te respondemos en 48 horas.</p>
-          </div>
-          <ContactForm lang={lang} />
-        </div>
-
-        <div className="b2b-canales b2b-canales-3">
-          <div className="b2b-canal reveal"><span className="b2b-circle" style={{ background: '#D8E5F3' }} /><h3>Clínicas estéticas</h3><p>Línea para prescripción dermatológica. Argumentario científico incluido.</p></div>
-          <div className="b2b-canal reveal"><span className="b2b-circle" style={{ background: '#FBD0DF' }} /><h3>Spas &amp; bienestar</h3><p>Kit de cabina disponible. Formación en K-beauty para tu equipo.</p></div>
-          <div className="b2b-canal reveal"><span className="b2b-circle" style={{ background: '#FBEBBB' }} /><h3>Tiendas especializadas</h3><p>Distribución exclusiva por zona. Material de visual merchandising incluido.</p></div>
+        <div className="b2b-v3-form reveal">
+          <ContactForm />
         </div>
       </section>
 

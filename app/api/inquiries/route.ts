@@ -5,9 +5,11 @@ import { z } from 'zod'
 const inquirySchema = z.object({
   name: z.string().min(2),
   establishment: z.string().min(2),
+  type: z.string().min(1),
+  city: z.string().min(1),
+  whatsapp: z.string().min(5),
   email: z.string().email(),
-  country: z.string().min(1),
-  message: z.string().min(10),
+  message: z.string().optional().default(''),
 })
 
 export async function POST(request: NextRequest) {
@@ -24,8 +26,10 @@ export async function POST(request: NextRequest) {
         {
           name: parsed.name,
           establishment: parsed.establishment,
+          type: parsed.type,
+          city: parsed.city,
+          whatsapp: parsed.whatsapp,
           email: parsed.email,
-          country: parsed.country,
           message: parsed.message,
           created_at: new Date().toISOString(),
         },
@@ -39,14 +43,6 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
-
-    // TODO: Send email notification via Resend
-    // const emailRes = await resend.emails.send({
-    //   from: 'noreply@onni.com',
-    //   to: parsed.email,
-    //   subject: 'Thank you for your inquiry - Onni',
-    //   html: `<p>Hi ${parsed.name},</p><p>We received your inquiry and will contact you soon.</p>`,
-    // })
 
     return NextResponse.json(
       { success: true, data },
