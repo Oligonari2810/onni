@@ -284,7 +284,7 @@ footer { background:var(--charcoal); padding:72px 80px 40px; }
 
 /* ─── V3: HERO B2B ──────────────────────────── */
 .hero-title-v3 { font-size:clamp(2.4rem,4.5vw,4.2rem); line-height:1.15; margin-bottom:24px; }
-.hero-subtitle { font-size:.95rem; line-height:1.75; color:rgba(255,255,255,.5); max-width:520px; margin:0 auto 44px; opacity:0; animation:fadeUp .8s .5s forwards; }
+.hero-subtitle { font-size:.95rem; line-height:1.75; color:rgba(255,255,255,.76); max-width:520px; margin:0 auto 44px; opacity:0; animation:fadeUp .8s .5s forwards; }
 .hero-left-centered .hero-actions { opacity:0; animation:fadeUp .8s .7s forwards; justify-content:center; }
 .hero-br-desktop { display:inline; }
 

@@ -10,7 +10,7 @@ export default function Hero({ lang }: HeroProps) {
   return (
     <section className="hero" id="inicio">
       <div className="hero-left hero-left-centered">
-        <p className="hero-eyebrow">Distribución K-Beauty · Caribe</p>
+        <p className="hero-eyebrow">Distribución especializada · K-Beauty para el Caribe</p>
         <h1 className="hero-title hero-title-v3">
           K-Beauty seleccionado para<br />el clima del <em>Caribe</em>
         </h1>
@@ -20,7 +20,7 @@ export default function Hero({ lang }: HeroProps) {
         </p>
         <div className="hero-actions">
           <a href="#b2b" className="btn-primary">Solicitar punto ONNI</a>
-          <a href="https://wa.me/18091234567" className="btn-ghost" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp</a>
+          <a href="https://wa.me/18091234567?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20ser%20punto%20ONNI." className="btn-ghost" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp</a>
         </div>
       </div>
 
