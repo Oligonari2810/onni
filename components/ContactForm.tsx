@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 export default function ContactForm() {
+  const formRef = useRef<HTMLFormElement>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
@@ -28,7 +29,7 @@ export default function ContactForm() {
       }
 
       setSubmitStatus('success')
-      e.currentTarget.reset()
+      if (formRef.current) formRef.current.reset()
       setTimeout(() => setSubmitStatus('idle'), 5000)
     } catch (error) {
       console.error(error)
@@ -40,7 +41,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="contact-form">
+    <form ref={formRef} onSubmit={handleSubmit} className="contact-form">
       <div className="form-row">
         <div className="fg">
           <label>Nombre</label>
