@@ -278,6 +278,20 @@ footer { background:var(--charcoal); padding:72px 80px 40px; }
 .reveal { opacity:0; transform:translateY(36px); transition:opacity .8s ease, transform .8s ease; }
 .reveal.visible { opacity:1; transform:translateY(0); }
 
+/* ─── DISTRIBUCIÓN B2B ───────────────────────── */
+.distro { padding:120px 80px; background:var(--cream); max-width:1200px; margin:0 auto; }
+.distro-header { text-align:center; margin-bottom:64px; }
+.distro-desc { font-size:.92rem; line-height:1.8; color:var(--gray); max-width:620px; margin:20px auto 0; }
+.distro-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+.distro-card { background:var(--nude); padding:44px 36px; position:relative; transition:all .4s; overflow:hidden; }
+.distro-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--rose); transform:scaleX(0); transition:transform .4s; transform-origin:left; }
+.distro-card:hover { background:var(--mist); }
+.distro-card:hover::before { transform:scaleX(1); }
+.distro-num { font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:300; color:rgba(196,73,122,.15); line-height:1; display:block; margin-bottom:18px; }
+.distro-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:400; color:var(--deep); margin-bottom:12px; line-height:1.2; }
+.distro-card p { font-size:.84rem; line-height:1.7; color:var(--gray); }
+.distro-cta { text-align:center; margin-top:56px; }
+
 /* ─── V2: HERO CENTERED ─────────────────────── */
 .hero-left-centered { align-items:center; text-align:center; }
 .hero-left-centered .hero-desc { max-width:480px; margin-left:auto; margin-right:auto; margin-bottom:0; }
@@ -346,6 +360,8 @@ footer { background:var(--charcoal); padding:72px 80px 40px; }
   .nav-cta{ display:none; }
   .lang-sel{ display:none; }
   .hero{ grid-template-columns:1fr; min-height:auto; }
+  .distro{ padding:80px 28px; }
+  .distro-grid{ grid-template-columns:1fr; }
   .hero-left{ padding:110px 28px 56px; }
   .hero-title-v3{ font-size:clamp(2rem,7vw,2.6rem); }
   .hero-subtitle{ font-size:.88rem; max-width:340px; }

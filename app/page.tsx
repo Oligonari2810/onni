@@ -70,6 +70,35 @@ export default function Home() {
         </div>
       </div>
 
+      {/* DISTRIBUCIÓN */}
+      <section className="distro" id="distribucion">
+        <div className="distro-header reveal">
+          <span className="section-label">Modelo de distribución</span>
+          <h2 className="section-title">Distribución exclusiva <em>ONNI</em></h2>
+          <p className="distro-desc">Trabajamos con clínicas estéticas, spas y profesionales que buscan una línea K-Beauty seleccionada para el clima del Caribe. ONNI desarrolla puntos exclusivos por zona, con catálogo validado, soporte comercial y enfoque de prescripción.</p>
+        </div>
+        <div className="distro-grid">
+          <div className="distro-card reveal">
+            <span className="distro-num">01</span>
+            <h3>Un punto ONNI por zona</h3>
+            <p>Cada zona se trabaja con exclusividad para proteger posicionamiento, margen y diferenciación.</p>
+          </div>
+          <div className="distro-card reveal">
+            <span className="distro-num">02</span>
+            <h3>Catálogo corto y validado</h3>
+            <p>Empezamos con una selección precisa de productos pensados para humedad, manchas y alta radiación UV.</p>
+          </div>
+          <div className="distro-card reveal">
+            <span className="distro-num">03</span>
+            <h3>Soporte comercial y formación</h3>
+            <p>Acompañamos la activación del punto ONNI con argumentario, enfoque de prescripción y apoyo comercial.</p>
+          </div>
+        </div>
+        <div className="distro-cta reveal">
+          <a href="#b2b" className="btn-primary">Solicitar punto ONNI</a>
+        </div>
+      </section>
+
       {/* MANIFIESTO */}
       <section className="manifesto" id="nosotras">
         <div className="reveal">
