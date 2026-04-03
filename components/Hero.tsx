@@ -10,13 +10,18 @@ export default function Hero({ lang }: HeroProps) {
   return (
     <section className="hero" id="inicio">
       <div className="hero-left hero-left-centered">
-        <p className="hero-eyebrow">K-Beauty · Caribe</p>
-        <h1 className="hero-title">
-          <em>Onni</em><br />
-          <span className="hero-title-kr">언니</span>
+        <p className="hero-eyebrow">Distribución K-Beauty · Caribe</p>
+        <h1 className="hero-title hero-title-v3">
+          K-Beauty seleccionado para<br />el clima del <em>Caribe</em>
         </h1>
-        <p className="hero-korean">La hermana mayor del Caribe</p>
-        <p className="hero-desc">Ciencia coreana formulada para el Caribe.</p>
+        <p className="hero-subtitle">
+          Distribución especializada para clínicas, spas y profesionales.<br className="hero-br-desktop" />
+          Formulaciones adaptadas a piel tropical: manchas, humedad y alta radiación UV.
+        </p>
+        <div className="hero-actions">
+          <a href="#b2b" className="btn-primary">Solicitar punto ONNI</a>
+          <a href="https://wa.me/18091234567" className="btn-ghost" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp</a>
+        </div>
       </div>
 
       <div className="hero-right">
