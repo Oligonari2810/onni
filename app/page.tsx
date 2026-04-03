@@ -305,13 +305,13 @@ export default function Home() {
               <li><a href="#b2b">Spas &amp; wellness</a></li>
               <li><a href="#b2b">Dermatólogos</a></li>
               <li><a href="#b2b">Esteticistas</a></li>
-              <li><a href="#b2b">Profesionales independientes</a></li>
+              <li><a href="#b2b" className="footer-link-sm">Profesionales independientes</a></li>
               <li><a href="#b2b">Contacto</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2026 Onni Cosmetics</p>
+          <p>© 2026 Onni Cosmetics · Arias Group Caribe SRL</p>
           <div className="footer-social">
             <a href="https://www.instagram.com/onni_cosmetics_rd/" target="_blank" rel="noopener noreferrer">Instagram</a>
             <a href="https://wa.me/18494754442" target="_blank" rel="noopener noreferrer">WhatsApp</a>
