@@ -21,7 +21,11 @@ export default function ContactForm() {
         body: JSON.stringify(data),
       })
 
-      if (!response.ok) throw new Error('Failed to submit')
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null)
+        console.error('Form submit error:', response.status, errorData)
+        throw new Error(errorData?.error || 'Failed to submit')
+      }
 
       setSubmitStatus('success')
       e.currentTarget.reset()

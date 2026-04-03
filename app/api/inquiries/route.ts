@@ -5,7 +5,7 @@ import { z } from 'zod'
 const inquirySchema = z.object({
   name: z.string().min(2),
   establishment: z.string().min(2),
-  type: z.string().min(1),
+  type: z.string().min(1, 'Selecciona un tipo de espacio'),
   city: z.string().min(1),
   whatsapp: z.string().min(5),
   email: z.string().email(),
