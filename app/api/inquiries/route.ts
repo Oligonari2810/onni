@@ -65,47 +65,50 @@ async function sendNotification(parsed: z.infer<typeof inquirySchema>) {
 export async function POST(request: NextRequest) {
   try {
     const rawBody = await request.json()
+    console.log('[inquiries] Received:', JSON.stringify(rawBody))
 
     const parsed = inquirySchema.parse(rawBody)
+    console.log('[inquiries] Validated OK:', parsed.name, parsed.email)
 
-    // Insert to Supabase
-    const { data, error } = await supabase
-      .from('inquiries')
-      .insert([
-        {
-          name: parsed.name,
-          establishment: parsed.establishment,
-          type: parsed.type,
-          city: parsed.city,
-          whatsapp: parsed.whatsapp,
-          email: parsed.email,
-          message: parsed.message,
-          created_at: new Date().toISOString(),
-        },
-      ])
-      .select()
+    // Try Supabase insert (non-blocking — form works even if DB is not configured)
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    if (supabaseUrl && !supabaseUrl.includes('placeholder')) {
+      const { error } = await supabase
+        .from('inquiries')
+        .insert([
+          {
+            name: parsed.name,
+            establishment: parsed.establishment,
+            type: parsed.type,
+            city: parsed.city,
+            whatsapp: parsed.whatsapp,
+            email: parsed.email,
+            message: parsed.message,
+            created_at: new Date().toISOString(),
+          },
+        ])
 
-    if (error) {
-      console.error('Supabase error:', error)
-      return NextResponse.json(
-        { success: false, error: error.message },
-        { status: 400 }
-      )
+      if (error) {
+        console.error('[inquiries] Supabase error (non-fatal):', error.message)
+      }
+    } else {
+      console.log('[inquiries] Supabase not configured — skipping DB insert')
     }
 
     // Send email notification (non-blocking)
     sendNotification(parsed).catch((err) =>
-      console.error('Notification error:', err)
+      console.error('[inquiries] Notification error:', err)
     )
 
     return NextResponse.json(
-      { success: true, data },
+      { success: true },
       { status: 201 }
     )
   } catch (error) {
-    console.error('Error:', error)
+    console.error('[inquiries] Error:', error)
 
     if (error instanceof z.ZodError) {
+      console.error('[inquiries] Zod issues:', JSON.stringify(error.issues))
       return NextResponse.json(
         { success: false, error: 'Validation error', details: error.issues },
         { status: 400 }
