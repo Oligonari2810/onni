@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import ContactForm from '@/components/ContactForm'
@@ -9,6 +9,7 @@ import { type Language } from '@/lib/i18n'
 export default function Home() {
   const [lang, setLang] = useState<Language>('es')
   const [puntosFilter, setPuntosFilter] = useState('all')
+  const [expandedPhase, setExpandedPhase] = useState<string | null>('phase-1')
 
   useEffect(() => {
     // Custom cursor
@@ -119,21 +120,26 @@ export default function Home() {
           <span className="section-label">Por qué K-beauty para el Caribe</span>
           <h2 className="section-title" style={{ color: 'var(--white)' }}>Tu clima tiene necesidades<br /><em>que nadie estaba sirviendo</em></h2>
         </div>
-        <div className="why-grid">
+        <div className="why-grid why-grid-4">
           <div className="why-card reveal">
-            <span className="why-icon">☀️</span>
+            <span className="why-circle" style={{ background: '#D8E5F3' }} />
             <h3>Índice UV extremo</h3>
             <p>El Caribe tiene UV <strong>10–12</strong> frente al 3–5 de Seúl. El SPF 50+ PA++++ no es lujo — es necesidad. K-beauty lleva 30 años perfeccionándolo sin cast blanco.</p>
           </div>
           <div className="why-card reveal">
-            <span className="why-icon">🌿</span>
+            <span className="why-circle" style={{ background: '#E2F3DC' }} />
             <h3>Hiperpigmentación tropical</h3>
             <p>En el Caribe la hiperpigmentación post-inflamatoria es el problema número uno. <strong>Niacinamida + ácido tranexámico + arbutina</strong> es la tríada que funciona. Nadie la había traído aquí.</p>
           </div>
           <div className="why-card reveal">
-            <span className="why-icon">💧</span>
+            <span className="why-circle" style={{ background: '#FBEBBB' }} />
             <h3>Humedad y sebo</h3>
             <p>Con 70–90% de humedad constante, las cremas densas sofocan y generan acné. K-beauty inventó las texturas <strong>gel y water-based</strong> exactamente para esto.</p>
+          </div>
+          <div className="why-card reveal">
+            <span className="why-circle" style={{ background: '#C9B8E8' }} />
+            <h3>Envejecimiento acelerado</h3>
+            <p>El sol constante acelera el envejecimiento. <strong>Retinol + Bakuchiol</strong> combaten arrugas sin fotosensibilización — seguros con el UV del Caribe.</p>
           </div>
         </div>
       </section>
@@ -149,8 +155,7 @@ export default function Home() {
         </div>
         <div className="productos-grid">
           <div className="prod-card reveal">
-            <div className="prod-visual" style={{ background: 'linear-gradient(135deg,#fce4ec,#f8bbd0)' }}>
-              <span className="prod-emoji">✨</span>
+            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #FBEBBB 0%, #f5d77a 100%)' }}>
               <span className="prod-badge">⭐ Estrella</span>
             </div>
             <div className="prod-info">
@@ -158,45 +163,39 @@ export default function Home() {
               <h3 className="prod-name">Sérum Niacinamide 10% + TXA 4%</h3>
               <p className="prod-claim">Manchas, hiperpigmentación, unificación de tono. La tríada activa más potente para el clima del Caribe.</p>
               <div className="prod-footer">
-                <div className="prod-price">$28–32 <span>USD</span></div>
                 <div className="prod-tags"><span className="prod-tag">Niacinamide</span><span className="prod-tag">TXA</span></div>
               </div>
             </div>
           </div>
 
           <div className="prod-card reveal">
-            <div className="prod-visual" style={{ background: 'linear-gradient(135deg,#1a1a2e,#2c1a24)' }}>
-              <span className="prod-emoji">🌑</span>
+            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #E2F3DC 0%, #b8dfaa 100%)' }}>
             </div>
             <div className="prod-info">
               <p className="prod-brand">Selección Onni · Limpieza paso 1</p>
               <h3 className="prod-name">Aceite Limpiador Gentle Black</h3>
               <p className="prod-claim">Doble limpieza para piel grasa tropical. Sin fragancia, emulsifica al instante, no deja residuo.</p>
               <div className="prod-footer">
-                <div className="prod-price">$22–26 <span>USD</span></div>
                 <div className="prod-tags"><span className="prod-tag">Oil cleanse</span><span className="prod-tag">Sin alcohol</span></div>
               </div>
             </div>
           </div>
 
           <div className="prod-card reveal">
-            <div className="prod-visual" style={{ background: 'linear-gradient(135deg,#e8f5e9,#c8e6c9)' }}>
-              <span className="prod-emoji">🌿</span>
+            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #E2F3DC 0%, #b8dfaa 100%)' }}>
             </div>
             <div className="prod-info">
               <p className="prod-brand">Selección Onni · Limpieza paso 2</p>
               <h3 className="prod-name">Espuma Limpiadora Heartleaf</h3>
               <p className="prod-claim">Low-pH para equilibrar el microbioma. Controla sebo y poros en clima húmedo sin resecar.</p>
               <div className="prod-footer">
-                <div className="prod-price">$18–22 <span>USD</span></div>
                 <div className="prod-tags"><span className="prod-tag">Low pH</span><span className="prod-tag">BHA</span></div>
               </div>
             </div>
           </div>
 
           <div className="prod-card reveal">
-            <div className="prod-visual" style={{ background: 'linear-gradient(135deg,#fff9c4,#fff176)' }}>
-              <span className="prod-emoji">☀️</span>
+            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #D8E5F3 0%, #a8c4e0 100%)' }}>
               <span className="prod-badge">⭐ Estrella</span>
             </div>
             <div className="prod-info">
@@ -204,38 +203,47 @@ export default function Home() {
               <h3 className="prod-name">Protector Solar SPF50+ PA++++</h3>
               <p className="prod-claim">El SPF que el Caribe necesitaba. Sin cast blanco, textura leche, reef-safe. Protección UV máxima.</p>
               <div className="prod-footer">
-                <div className="prod-price">$26–30 <span>USD</span></div>
                 <div className="prod-tags"><span className="prod-tag">SPF50+</span><span className="prod-tag">PA++++</span></div>
               </div>
             </div>
           </div>
 
           <div className="prod-card reveal">
-            <div className="prod-visual" style={{ background: 'linear-gradient(135deg,#fce4ec,#ffe0b2)' }}>
-              <span className="prod-emoji">🍑</span>
+            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #FBEBBB 0%, #f5d77a 100%)' }}>
             </div>
             <div className="prod-info">
               <p className="prod-brand">Selección Onni · Sérum hidratante</p>
               <h3 className="prod-name">Sérum Niacinamide 5% + Peach</h3>
               <p className="prod-claim">Luminosidad e hidratación en textura ultra-ligera. Niacinamida 5%, triple hialurónico, arbutina.</p>
               <div className="prod-footer">
-                <div className="prod-price">$20–24 <span>USD</span></div>
                 <div className="prod-tags"><span className="prod-tag">Hydrating</span><span className="prod-tag">Glow</span></div>
               </div>
             </div>
           </div>
 
           <div className="prod-card reveal">
-            <div className="prod-visual" style={{ background: 'linear-gradient(135deg,#e3f2fd,#bbdefb)' }}>
-              <span className="prod-emoji">🌊</span>
+            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #D8E5F3 0%, #a8c4e0 100%)' }}>
             </div>
             <div className="prod-info">
               <p className="prod-brand">Selección Onni · Tratamiento express</p>
               <h3 className="prod-name">Sheet Masks — Caja x10</h3>
               <p className="prod-claim">Visible en 20 minutos. Clean beauty, packaging biodegradable, reef-safe. El regalo perfecto.</p>
               <div className="prod-footer">
-                <div className="prod-price">$22–26 <span>USD · caja</span></div>
                 <div className="prod-tags"><span className="prod-tag">Clean</span><span className="prod-tag">Reef-safe</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div className="prod-card reveal">
+            <div className="prod-visual" style={{ background: 'radial-gradient(circle at 30% 40%, #C9B8E8 0%, #a893d4 100%)' }}>
+              <span className="prod-badge">⭐ Estrella</span>
+            </div>
+            <div className="prod-info">
+              <p className="prod-brand">Selección Onni · Antiedad</p>
+              <h3 className="prod-name">Sérum Retinol + Bakuchiol</h3>
+              <p className="prod-claim">Firmeza, renovación celular y reducción de arrugas. Bakuchiol sin fotosensibilización — seguro con UV 12 del Caribe.</p>
+              <div className="prod-footer">
+                <div className="prod-tags"><span className="prod-tag">Retinol</span><span className="prod-tag">Bakuchiol</span></div>
               </div>
             </div>
           </div>
@@ -276,50 +284,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* TESTIMONIOS */}
-      <section className="testimonios">
-        <div className="testimonios-header reveal">
-          <span className="section-label">Lo que dicen</span>
-          <h2 className="section-title">Quienes ya <em>confían en Onni</em></h2>
-        </div>
-        <div className="testi-grid">
-          <div className="testi reveal">
-            <div className="testi-stars">★★★★★</div>
-            <p className="testi-text">Llevaba años buscando un SPF que no dejara cara blanca. El de Onni es el primero que realmente funciona. Lo uso todos los días y no se nota absolutamente nada.</p>
-            <div className="testi-footer">
-              <div className="testi-avatar">👤</div>
-              <div><div className="testi-name">María J.</div><div className="testi-role">Santo Domingo · Cliente</div></div>
-            </div>
-          </div>
-          <div className="testi reveal">
-            <div className="testi-stars">★★★★★</div>
-            <p className="testi-text">Como farmacéutica me sorprendió la calidad de los ingredientes activos. El sérum de niacinamida al 10% es comparable a marcas dermatológicas europeas a la mitad del precio.</p>
-            <div className="testi-footer">
-              <div className="testi-avatar">👤</div>
-              <div><div className="testi-name">Dra. Valentina R.</div><div className="testi-role">Farmacéutica · Naco</div></div>
-            </div>
-          </div>
-          <div className="testi reveal">
-            <div className="testi-stars">★★★★★</div>
-            <p className="testi-text">En 6 semanas vi la diferencia en mis manchas. Por fin una selección que entiende lo que le pasa a nuestra piel en este clima. Onni llegó para quedarse.</p>
-            <div className="testi-footer">
-              <div className="testi-avatar">👤</div>
-              <div><div className="testi-name">Carlos M.</div><div className="testi-role">Punta Cana · Cliente</div></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CREDIBILIDAD */}
-      <div className="cred">
-        <div className="cred-item"><span className="cred-icon">🇰🇷</span><span className="cred-text">Origen certificado · Corea del Sur</span></div>
-        <div className="cred-item"><span className="cred-icon">✓</span><span className="cred-text">Registro MISPAS en trámite</span></div>
-        <div className="cred-item"><span className="cred-icon">🌿</span><span className="cred-text">Sin alcohol denat · Sin parabenos</span></div>
-        <div className="cred-item"><span className="cred-icon">🌊</span><span className="cred-text">Reef-safe · SPF certificado</span></div>
-        <div className="cred-item"><span className="cred-icon">🧪</span><span className="cred-text">Testado dermatológicamente</span></div>
-        <div className="cred-item"><span className="cred-icon">📦</span><span className="cred-text">Envío · República Dominicana</span></div>
-      </div>
 
       {/* PUNTOS ONNI */}
       <section className="puntos" id="puntos">
@@ -421,7 +385,7 @@ export default function Home() {
 
         <div className="puntos-cta reveal">
           <p>¿Tu establecimiento quiere ser Punto Onni?</p>
-          <a href="#b2b" className="btn-primary">Solicitar distribución →</a>
+          <a href="#b2b" className="btn-primary">Solicitar ser Punto Onni →</a>
         </div>
       </section>
 
@@ -429,21 +393,22 @@ export default function Home() {
       <section className="b2b" id="b2b">
         <div className="b2b-header reveal">
           <span className="section-label">Distribución B2B</span>
-          <h2 className="section-title">¿Eres farmacia, clínica<br />o <em>espacio de belleza</em>?</h2>
-          <p>Trabajamos con distribuidores, farmacias, clínicas estéticas y spas en República Dominicana y el Caribe.</p>
+          <h2 className="section-title">Solicita ser<br /><em>Punto Onni</em></h2>
+          <p>Trabajamos con clínicas estéticas, spas y tiendas especializadas en República Dominicana y el Caribe.</p>
         </div>
-        <div className="b2b-canales">
-          <div className="b2b-canal reveal"><span className="icon">💊</span><h3>Farmacias</h3><p>Documentación MISPAS completa. Margen atractivo para el canal farmacéutico.</p></div>
-          <div className="b2b-canal reveal"><span className="icon">🏥</span><h3>Clínicas estéticas</h3><p>Línea para prescripción dermatológica. Argumentario científico incluido.</p></div>
-          <div className="b2b-canal reveal"><span className="icon">🌸</span><h3>Spas &amp; bienestar</h3><p>Kit de cabina disponible. Formación en K-beauty para tu equipo.</p></div>
-          <div className="b2b-canal reveal"><span className="icon">🛍️</span><h3>Tiendas especializadas</h3><p>Distribución exclusiva por zona. Material de visual merchandising incluido.</p></div>
-        </div>
+
         <div className="b2b-contact reveal">
           <div className="b2b-contact-l">
-            <h3>Hablemos de<br /><em>tu negocio</em></h3>
+            <h3>Solicita ser<br /><em>Punto Onni</em></h3>
             <p>Escríbenos con los datos de tu establecimiento y te enviamos el dossier de producto, condiciones de distribución y pricing B2B en 24 horas.</p>
           </div>
           <ContactForm lang={lang} />
+        </div>
+
+        <div className="b2b-canales b2b-canales-3">
+          <div className="b2b-canal reveal"><span className="b2b-circle" style={{ background: '#D8E5F3' }} /><h3>Clínicas estéticas</h3><p>Línea para prescripción dermatológica. Argumentario científico incluido.</p></div>
+          <div className="b2b-canal reveal"><span className="b2b-circle" style={{ background: '#FBD0DF' }} /><h3>Spas &amp; bienestar</h3><p>Kit de cabina disponible. Formación en K-beauty para tu equipo.</p></div>
+          <div className="b2b-canal reveal"><span className="b2b-circle" style={{ background: '#FBEBBB' }} /><h3>Tiendas especializadas</h3><p>Distribución exclusiva por zona. Material de visual merchandising incluido.</p></div>
         </div>
       </section>
 
@@ -454,22 +419,39 @@ export default function Home() {
           <h2 className="section-title">Onni llega<br />a todo el <em>Caribe</em></h2>
           <p>Mismo clima. Misma necesidad. Una sola marca que entiende el Caribe entero.</p>
         </div>
-        <div className="countries">
-          <div className="country active reveal"><span className="country-flag">🇩🇴</span><div className="country-name">Rep. Dominicana</div><span className="country-status s-activo">Activo · 2025</span><p className="country-desc">Base · SD + Punta Cana</p></div>
-          <div className="country reveal"><span className="country-flag">🇹🇨</span><div className="country-name">Turks &amp; Caicos</div><span className="country-status s-pronto">Próximamente</span><p className="country-desc">Providenciales · Premium</p></div>
-          <div className="country reveal"><span className="country-flag">🇵🇷</span><div className="country-name">Puerto Rico</div><span className="country-status s-pronto">2026</span><p className="country-desc">San Juan · Puerta EE.UU.</p></div>
-          <div className="country reveal"><span className="country-flag">🇹🇹</span><div className="country-name">Trinidad &amp; Tobago</div><span className="country-status s-pronto">2026</span><p className="country-desc">Mayor PIB del Caribe</p></div>
-          <div className="country reveal"><span className="country-flag">🇯🇲</span><div className="country-name">Jamaica</div><span className="country-status s-futuro">2027</span><p className="country-desc">Kingston · 3M hab.</p></div>
-          <div className="country reveal"><span className="country-flag">🇧🇧</span><div className="country-name">Barbados</div><span className="country-status s-futuro">2027</span><p className="country-desc">Bridgetown · Premium</p></div>
-          <div className="country reveal"><span className="country-flag">🇨🇼</span><div className="country-name">Curazao</div><span className="country-status s-futuro">2027</span><p className="country-desc">Willemstad · Europa</p></div>
-          <div className="country reveal"><span className="country-flag">🇦🇼</span><div className="country-name">Aruba</div><span className="country-status s-futuro">2027</span><p className="country-desc">Oranjestad · Turismo</p></div>
-          <div className="country reveal"><span className="country-flag">🇲🇶</span><div className="country-name">Martinica</div><span className="country-status s-futuro">2028</span><p className="country-desc">Dpto. francés</p></div>
-          <div className="country reveal"><span className="country-flag">🇬🇵</span><div className="country-name">Guadalupe</div><span className="country-status s-futuro">2028</span><p className="country-desc">Caribe francófono</p></div>
-          <div className="country reveal"><span className="country-flag">🇻🇮</span><div className="country-name">Islas Vírgenes US</div><span className="country-status s-futuro">2028</span><p className="country-desc">St. Thomas · USA</p></div>
-          <div className="country reveal"><span className="country-flag">🇸🇷</span><div className="country-name">Surinam</div><span className="country-status s-futuro">2029</span><p className="country-desc">Caribe continental</p></div>
-          <div className="country reveal"><span className="country-flag">🇧🇿</span><div className="country-name">Belice</div><span className="country-status s-futuro">2029</span><p className="country-desc">Puente LATAM-Caribe</p></div>
-          <div className="country reveal"><span className="country-flag">🇭🇹</span><div className="country-name">Haití</div><span className="country-status s-futuro">Largo plazo</span><p className="country-desc">11M hab. · Con socio local</p></div>
-          <div className="country ghost-country reveal"><span className="country-flag">🌍</span><div className="country-name">+ Caribe</div><span className="country-status s-futuro">TBD</span><p className="country-desc">Más mercados</p></div>
+        <div className="expansion-accordion reveal">
+          {[
+            { id: 'phase-1', label: 'Activo 2026', status: 's-activo', countries: [{ flag: '🇩🇴', name: 'Rep. Dominicana', desc: 'Base · SD + Punta Cana' }] },
+            { id: 'phase-2', label: 'Próximamente', status: 's-pronto', countries: [{ flag: '🇹🇨', name: 'Turks & Caicos', desc: 'Providenciales · Premium' }] },
+            { id: 'phase-3', label: '2026', status: 's-pronto', countries: [{ flag: '🇵🇷', name: 'Puerto Rico', desc: 'San Juan · Puerta EE.UU.' }, { flag: '🇹🇹', name: 'Trinidad & Tobago', desc: 'Mayor PIB del Caribe' }] },
+            { id: 'phase-4', label: '2027', status: 's-futuro', countries: [{ flag: '🇯🇲', name: 'Jamaica', desc: 'Kingston · 3M hab.' }, { flag: '🇧🇧', name: 'Barbados', desc: 'Bridgetown · Premium' }, { flag: '🇨🇼', name: 'Curazao', desc: 'Willemstad · Europa' }, { flag: '🇦🇼', name: 'Aruba', desc: 'Oranjestad · Turismo' }] },
+            { id: 'phase-5', label: '2028', status: 's-futuro', countries: [{ flag: '🇲🇶', name: 'Martinica', desc: 'Dpto. francés' }, { flag: '🇬🇵', name: 'Guadalupe', desc: 'Caribe francófono' }, { flag: '🇻🇮', name: 'Islas Vírgenes US', desc: 'St. Thomas · USA' }] },
+            { id: 'phase-6', label: '2029+', status: 's-futuro', countries: [{ flag: '🇸🇷', name: 'Surinam', desc: 'Caribe continental' }, { flag: '🇧🇿', name: 'Belice', desc: 'Puente LATAM-Caribe' }, { flag: '🇭🇹', name: 'Haití', desc: '11M hab. · Con socio local' }] },
+          ].map((phase) => (
+            <div key={phase.id} className="accordion-phase">
+              <button
+                className={`accordion-trigger${expandedPhase === phase.id ? ' open' : ''}`}
+                onClick={() => setExpandedPhase(expandedPhase === phase.id ? null : phase.id)}
+              >
+                <span className={`country-status ${phase.status}`}>{phase.label}</span>
+                <span className="accordion-count">{phase.countries.length} {phase.countries.length === 1 ? 'país' : 'países'}</span>
+                <span className="accordion-arrow">{expandedPhase === phase.id ? '−' : '+'}</span>
+              </button>
+              {expandedPhase === phase.id && (
+                <div className="accordion-content">
+                  {phase.countries.map((c) => (
+                    <div key={c.name} className="accordion-country">
+                      <span className="country-flag">{c.flag}</span>
+                      <div>
+                        <div className="country-name">{c.name}</div>
+                        <p className="country-desc">{c.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </section>
 
@@ -479,7 +461,7 @@ export default function Home() {
           <div className="footer-brand">
             <span className="logo"><em>O</em>NNI</span>
             <span className="tagline">언니 · K-Beauty Formulado para el Caribe</span>
-            <p>División independiente bajo paraguas legal de FASSA (España). Distribución en República Dominicana y el Caribe.</p>
+            <p>K-Beauty seleccionado para el Caribe.</p>
           </div>
           <div className="footer-col">
             <h4>Productos</h4>
@@ -497,20 +479,24 @@ export default function Home() {
               <li><a href="#caribe">Por qué el Caribe</a></li>
               <li><a href="#puntos">Puntos Onni</a></li>
               <li><a href="#expansion">Expansión</a></li>
+              <li><a href="#">Onni Academy</a></li>
             </ul>
           </div>
           <div className="footer-col">
             <h4>B2B</h4>
             <ul>
               <li><a href="#b2b">Farmacias</a></li>
-              <li><a href="#b2b">Clínicas</a></li>
-              <li><a href="#b2b">Spas</a></li>
+              <li><a href="#b2b">Clínicas estéticas</a></li>
+              <li><a href="#b2b">Spas &amp; wellness</a></li>
+              <li><a href="#b2b">Dermatólogos</a></li>
+              <li><a href="#b2b">Esteticistas</a></li>
+              <li><a href="#b2b">Profesionales independientes</a></li>
               <li><a href="#b2b">Contacto</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2025 Onni Cosmetics. Hecho con <span>♥</span> para el Caribe.</p>
+          <p>© 2026 Onni Cosmetics. Hecho con <span>♥</span> para el Caribe.</p>
           <div className="footer-social">
             <a href="#">Instagram</a>
             <a href="#">TikTok</a>
