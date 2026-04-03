@@ -2,15 +2,16 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'ONNI — K-Beauty Formulado para el Caribe',
-  description: 'Los mejores productos K-beauty seleccionados para el clima del Caribe. Ciencia coreana, formulación tropical, precio accesible.',
-  keywords: 'K-beauty, skincare, Caribe, República Dominicana, cosmética, SPF, Punta Cana',
+  title: 'ONNI — K-Beauty seleccionado para el Caribe',
+  description: 'Distribución especializada de K-Beauty coreano para clínicas, spas y profesionales. Seleccionado para el clima tropical del Caribe.',
+  keywords: 'K-Beauty Caribe, distribución cosmética RD, SPF piel tropical, K-Beauty clínicas estéticas, ONNI',
   openGraph: {
-    title: 'ONNI — K-Beauty Formulado para el Caribe',
-    description: 'Los mejores productos K-beauty seleccionados para el clima del Caribe.',
+    title: 'ONNI — K-Beauty seleccionado para el Caribe',
+    description: 'Distribución B2B selectiva de K-Beauty adaptado al Caribe. Protección solar, manchas e hidratación para piel tropical.',
     type: 'website',
-    url: 'https://onni.com',
+    url: 'https://onnicosmetics.com',
     locale: 'es_DO',
+    // TODO: Add og:image once designed — images: [{ url: 'https://onnicosmetics.com/og.jpg', width: 1200, height: 630 }],
   },
 }
 
