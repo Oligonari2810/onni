@@ -277,7 +277,6 @@ export default function Home() {
         <div className="footer-top">
           <div className="footer-brand">
             <span className="logo"><em>O</em>NNI</span>
-            <span className="tagline">언니 · K-Beauty Formulado para el Caribe</span>
             <p>K-Beauty seleccionado para el Caribe.</p>
           </div>
           <div className="footer-col">
