@@ -266,41 +266,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CARIBE */}
-      <section className="caribe" id="caribe">
-        <div className="reveal">
-          <span className="section-label">La ciencia detrás del Caribe</span>
-          <h2 className="section-title" style={{ marginBottom: 24 }}>Por qué el Caribe<br />necesita su <em>propio K-beauty</em></h2>
-          <div className="caribe-left">
-            <p>El Caribe tiene un clima único que destruye los productos formulados para otros mercados. Corea lleva 30 años perfeccionando <strong>exactamente los activos que funcionan aquí</strong>: SPF ligero sin cast, niacinamida para manchas, texturas que no sofocan con 35°C y 85% de humedad.</p>
-            <p style={{ marginBottom: 0 }}>Onni hace la traducción. Seleccionamos los productos con la fórmula correcta para este clima específico, los probamos y los traemos.</p>
-          </div>
-          <div className="caribe-tags">
-            <span className="caribe-tag">República Dominicana</span>
-            <span className="caribe-tag">Turks &amp; Caicos</span>
-            <span className="caribe-tag">Puerto Rico</span>
-            <span className="caribe-tag">Trinidad</span>
-          </div>
-        </div>
-        <div className="caribe-facts reveal">
-          <div className="fact">
-            <div className="fact-n">UV 12</div>
-            <div className="fact-l">Índice UV en el Caribe</div>
-            <div className="fact-d">Versus 3–5 en Seúl. El SPF 50+ PA++++ no es cosmética — es salud pública en el Caribe.</div>
-          </div>
-          <div className="fact">
-            <div className="fact-n">85%</div>
-            <div className="fact-l">Humedad relativa media</div>
-            <div className="fact-d">Las cremas densas sofocan la piel. Las texturas gel y water-based son la solución.</div>
-          </div>
-          <div className="fact">
-            <div className="fact-n">PIH</div>
-            <div className="fact-l">El problema número uno</div>
-            <div className="fact-d">Hiperpigmentación post-inflamatoria. Nadie había traído la solución coreana al Caribe.</div>
-          </div>
-        </div>
-      </section>
-
       {/* B2B */}
       <section className="b2b" id="b2b">
         <div className="b2b-header reveal">
