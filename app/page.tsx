@@ -73,23 +73,23 @@ export default function Home() {
       {/* DISTRIBUCIÓN */}
       <section className="distro" id="distribucion">
         <div className="distro-header reveal">
-          <span className="section-label">Modelo de distribución</span>
-          <h2 className="section-title">Distribución exclusiva <em>ONNI</em></h2>
-          <p className="distro-desc">Trabajamos con clínicas estéticas, spas y profesionales que buscan una línea K-Beauty seleccionada para el clima del Caribe. ONNI desarrolla puntos exclusivos por zona, con catálogo validado, soporte comercial y enfoque de prescripción.</p>
+          <span className="section-label distro-label">Modelo de distribución</span>
+          <h2 className="section-title distro-title">Distribución selectiva<br /><em>ONNI</em></h2>
+          <p className="distro-desc">Trabajamos con clínicas estéticas, spas y profesionales que buscan una línea K-Beauty seleccionada para el clima del Caribe. ONNI desarrolla puntos selectivos por zona, con catálogo validado, soporte comercial y enfoque de prescripción.</p>
         </div>
         <div className="distro-grid">
           <div className="distro-card reveal">
-            <span className="distro-num">01</span>
+            <span className="distro-circle" style={{ background: '#FBD0DF' }} />
             <h3>Un punto ONNI por zona</h3>
             <p>Cada zona se trabaja con exclusividad para proteger posicionamiento, margen y diferenciación.</p>
           </div>
           <div className="distro-card reveal">
-            <span className="distro-num">02</span>
+            <span className="distro-circle" style={{ background: '#D8E5F3' }} />
             <h3>Catálogo corto y validado</h3>
             <p>Empezamos con una selección precisa de productos pensados para humedad, manchas y alta radiación UV.</p>
           </div>
           <div className="distro-card reveal">
-            <span className="distro-num">03</span>
+            <span className="distro-circle" style={{ background: '#E2F3DC' }} />
             <h3>Soporte comercial y formación</h3>
             <p>Acompañamos la activación del punto ONNI con argumentario, enfoque de prescripción y apoyo comercial.</p>
           </div>
@@ -132,34 +132,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* POR QUÉ */}
-      <section className="why">
-        <div className="why-header reveal">
-          <span className="section-label">Por qué K-beauty para el Caribe</span>
-          <h2 className="section-title" style={{ color: 'var(--white)' }}>Tu clima tiene necesidades<br /><em>que nadie estaba sirviendo</em></h2>
+      {/* CONTEXTO CARIBE */}
+      <section className="contexto">
+        <div className="contexto-header reveal">
+          <span className="section-label">El contexto del Caribe</span>
+          <h2 className="section-title contexto-title">El Caribe necesita otra<br /><em>selección cosmética</em></h2>
+          <p className="contexto-desc">Alta radiación UV, humedad constante y tendencia a la hiperpigmentación exigen fórmulas, texturas y activos distintos. ONNI selecciona K-Beauty con mejor adaptación a estas condiciones.</p>
         </div>
-        <div className="why-grid why-grid-4">
-          <div className="why-card reveal">
-            <span className="why-circle" style={{ background: '#D8E5F3' }} />
-            <h3>Índice UV extremo</h3>
-            <p>El Caribe tiene UV <strong>10–12</strong> frente al 3–5 de Seúl. El SPF 50+ PA++++ no es lujo — es necesidad. K-beauty lleva 30 años perfeccionándolo sin cast blanco.</p>
+        <div className="contexto-grid">
+          <div className="contexto-card reveal">
+            <span className="distro-circle" style={{ background: '#D8E5F3' }} />
+            <h3>Alta radiación UV</h3>
+            <p>La exposición solar constante exige protectores ligeros, cómodos y de uso diario real.</p>
           </div>
-          <div className="why-card reveal">
-            <span className="why-circle" style={{ background: '#E2F3DC' }} />
-            <h3>Hiperpigmentación tropical</h3>
-            <p>En el Caribe la hiperpigmentación post-inflamatoria es el problema número uno. <strong>Niacinamida + ácido tranexámico + arbutina</strong> es la tríada que funciona. Nadie la había traído aquí.</p>
-          </div>
-          <div className="why-card reveal">
-            <span className="why-circle" style={{ background: '#FBEBBB' }} />
+          <div className="contexto-card reveal">
+            <span className="distro-circle" style={{ background: '#FBEBBB' }} />
             <h3>Humedad y sebo</h3>
-            <p>Con 70–90% de humedad constante, las cremas densas sofocan y generan acné. K-beauty inventó las texturas <strong>gel y water-based</strong> exactamente para esto.</p>
+            <p>En clima tropical, las texturas densas saturan la piel. Las fórmulas ligeras marcan la diferencia.</p>
           </div>
-          <div className="why-card reveal">
-            <span className="why-circle" style={{ background: '#C9B8E8' }} />
-            <h3>Envejecimiento acelerado</h3>
-            <p>El sol constante acelera el envejecimiento. <strong>Retinol + Bakuchiol</strong> combaten arrugas sin fotosensibilización — seguros con el UV del Caribe.</p>
+          <div className="contexto-card reveal">
+            <span className="distro-circle" style={{ background: '#E2F3DC' }} />
+            <h3>Manchas y PIH</h3>
+            <p>La hiperpigmentación postinflamatoria requiere activos bien elegidos y buena tolerancia cutánea.</p>
           </div>
         </div>
+        <p className="contexto-closing reveal">Por eso ONNI no importa por catálogo. Selecciona con criterio.</p>
       </section>
 
       {/* PRODUCTOS */}

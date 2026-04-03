@@ -95,20 +95,19 @@ nav.scrolled { background:rgba(250,244,240,.95); backdrop-filter:blur(12px); pad
 .manifesto-text h4 { font-size:.82rem; letter-spacing:.1em; text-transform:uppercase; color:var(--deep); margin-bottom:8px; }
 .manifesto-text p { font-size:.88rem; line-height:1.7; color:var(--gray); }
 
-/* ─── POR QUÉ ────────────────────────────────── */
-.why { background:var(--deep); padding:140px 80px; }
-.why-header { text-align:center; margin-bottom:72px; }
-.why-header .section-label { color:var(--blush); }
-.why-header .section-title { color:var(--white); }
-.why-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; max-width:1200px; margin:0 auto; }
-.why-card { background:rgba(255,255,255,.03); padding:48px 36px; border:1px solid rgba(255,255,255,.05); transition:all .4s; position:relative; overflow:hidden; }
-.why-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--rose); transform:scaleX(0); transition:transform .4s; transform-origin:left; }
-.why-card:hover { background:rgba(196,73,122,.06); }
-.why-card:hover::before { transform:scaleX(1); }
-.why-icon { font-size:2rem; margin-bottom:20px; display:block; }
-.why-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:400; color:var(--white); margin-bottom:14px; }
-.why-card p { font-size:.86rem; line-height:1.7; color:rgba(255,255,255,.4); }
-.why-card strong { color:var(--blush); font-weight:400; }
+/* ─── CONTEXTO CARIBE ────────────────────────── */
+.contexto { padding:120px 80px; background:var(--cream); }
+.contexto-header { text-align:center; margin-bottom:64px; max-width:700px; margin-left:auto; margin-right:auto; }
+.contexto-title { color:var(--deep); }
+.contexto-desc { font-size:.92rem; line-height:1.8; color:var(--gray); max-width:620px; margin:20px auto 0; }
+.contexto-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; max-width:1200px; margin:0 auto; }
+.contexto-card { background:var(--nude); padding:44px 36px; position:relative; transition:all .4s; overflow:hidden; }
+.contexto-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--rose); transform:scaleX(0); transition:transform .4s; transform-origin:left; }
+.contexto-card:hover { background:var(--mist); }
+.contexto-card:hover::before { transform:scaleX(1); }
+.contexto-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:400; color:var(--deep); margin-bottom:12px; line-height:1.2; }
+.contexto-card p { font-size:.84rem; line-height:1.7; color:var(--gray); }
+.contexto-closing { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:400; font-style:italic; color:var(--rose); text-align:center; margin-top:48px; }
 
 /* ─── PRODUCTOS ──────────────────────────────── */
 .productos { padding:140px 80px; background:var(--cream); }
@@ -279,17 +278,19 @@ footer { background:var(--charcoal); padding:72px 80px 40px; }
 .reveal.visible { opacity:1; transform:translateY(0); }
 
 /* ─── DISTRIBUCIÓN B2B ───────────────────────── */
-.distro { padding:120px 80px; background:var(--cream); max-width:1200px; margin:0 auto; }
-.distro-header { text-align:center; margin-bottom:64px; }
-.distro-desc { font-size:.92rem; line-height:1.8; color:var(--gray); max-width:620px; margin:20px auto 0; }
-.distro-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
-.distro-card { background:var(--nude); padding:44px 36px; position:relative; transition:all .4s; overflow:hidden; }
+.distro { padding:120px 80px; background:var(--deep); }
+.distro-header { text-align:center; margin-bottom:64px; max-width:700px; margin-left:auto; margin-right:auto; }
+.distro-label { color:var(--blush); }
+.distro-title { color:var(--white); }
+.distro-desc { font-size:.92rem; line-height:1.8; color:rgba(255,255,255,.75); max-width:620px; margin:20px auto 0; }
+.distro-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; max-width:1200px; margin:0 auto; }
+.distro-card { background:rgba(255,255,255,.03); padding:44px 36px; border:1px solid rgba(255,255,255,.05); position:relative; transition:all .4s; overflow:hidden; }
 .distro-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--rose); transform:scaleX(0); transition:transform .4s; transform-origin:left; }
-.distro-card:hover { background:var(--mist); }
+.distro-card:hover { background:rgba(196,73,122,.06); }
 .distro-card:hover::before { transform:scaleX(1); }
-.distro-num { font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:300; color:rgba(196,73,122,.15); line-height:1; display:block; margin-bottom:18px; }
-.distro-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:400; color:var(--deep); margin-bottom:12px; line-height:1.2; }
-.distro-card p { font-size:.84rem; line-height:1.7; color:var(--gray); }
+.distro-circle { width:36px; height:36px; border-radius:50%; display:block; margin-bottom:20px; }
+.distro-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:400; color:var(--white); margin-bottom:12px; line-height:1.2; }
+.distro-card p { font-size:.84rem; line-height:1.7; color:rgba(255,255,255,.7); }
 .distro-cta { text-align:center; margin-top:56px; }
 
 /* ─── V2: HERO CENTERED ─────────────────────── */
@@ -369,8 +370,8 @@ footer { background:var(--charcoal); padding:72px 80px 40px; }
   .hero-left-centered .hero-actions{ flex-direction:column; gap:12px; align-items:center; }
   .hero-right{ display:none; }
   .manifesto{ grid-template-columns:1fr; gap:52px; padding:80px 28px; }
-  .why{ padding:80px 28px; }
-  .why-grid,.why-grid-4{ grid-template-columns:1fr; }
+  .contexto{ padding:80px 28px; }
+  .contexto-grid{ grid-template-columns:1fr; }
   .productos{ padding:80px 28px; }
   .productos-header{ flex-direction:column; gap:16px; align-items:flex-start; }
   .productos-sub{ text-align:left; max-width:100%; }
