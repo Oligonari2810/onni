@@ -75,7 +75,7 @@ export default function Home() {
         <div className="distro-header reveal">
           <span className="section-label distro-label">Modelo de distribución</span>
           <h2 className="section-title distro-title">Distribución selectiva<br /><em>ONNI</em></h2>
-          <p className="distro-desc">Trabajamos con clínicas estéticas, spas y profesionales que buscan una línea K-Beauty seleccionada para el clima del Caribe. ONNI desarrolla puntos selectivos por zona, con catálogo validado, soporte comercial y enfoque de prescripción.</p>
+          <p className="distro-desc">Trabajamos con clínicas estéticas, spas y profesionales que buscan una línea K-Beauty seleccionada para el clima del Caribe y con potencial real de rotación en cabina y retail. ONNI desarrolla puntos selectivos por zona, con catálogo validado, soporte comercial y enfoque de prescripción.</p>
         </div>
         <div className="distro-grid">
           <div className="distro-card reveal">
@@ -86,16 +86,17 @@ export default function Home() {
           <div className="distro-card reveal">
             <span className="distro-circle" style={{ background: '#D8E5F3' }} />
             <h3>Catálogo corto y validado</h3>
-            <p>Empezamos con una selección precisa de productos pensados para humedad, manchas y alta radiación UV.</p>
+            <p>Selección enfocada en rotación y uso real en clima tropical.</p>
           </div>
           <div className="distro-card reveal">
             <span className="distro-circle" style={{ background: '#E2F3DC' }} />
             <h3>Soporte comercial y formación</h3>
-            <p>Acompañamos la activación del punto ONNI con argumentario, enfoque de prescripción y apoyo comercial.</p>
+            <p>Te ayudamos a integrar y vender la línea dentro de tu servicio.</p>
           </div>
         </div>
         <div className="distro-cta reveal">
-          <a href="#b2b" className="btn-primary">Solicitar punto ONNI</a>
+          <a href="#b2b" className="btn-primary">Solicitar punto ONNI en tu zona</a>
+          <p className="distro-micro">Seleccionamos un número limitado de puntos por zona.</p>
         </div>
       </section>
 

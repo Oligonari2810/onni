@@ -292,6 +292,7 @@ footer { background:var(--charcoal); padding:72px 80px 40px; }
 .distro-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:400; color:var(--white); margin-bottom:12px; line-height:1.2; }
 .distro-card p { font-size:.84rem; line-height:1.7; color:rgba(255,255,255,.7); }
 .distro-cta { text-align:center; margin-top:56px; }
+.distro-micro { font-size:.72rem; letter-spacing:.06em; color:rgba(255,255,255,.4); margin-top:16px; }
 
 /* ─── V2: HERO CENTERED ─────────────────────── */
 .hero-left-centered { align-items:center; text-align:center; }
