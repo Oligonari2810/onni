@@ -8,7 +8,6 @@ import { type Language } from '@/lib/i18n'
 
 export default function Home() {
   const [lang, setLang] = useState<Language>('es')
-  const [puntosFilter, setPuntosFilter] = useState('all')
   const [expandedPhase, setExpandedPhase] = useState<string | null>('phase-1')
 
   useEffect(() => {
@@ -45,16 +44,6 @@ export default function Home() {
       reveals.forEach((el) => obs.unobserve(el))
     }
   }, [])
-
-  // Filter puntos
-  const filterPuntos = (type: string, city: string) => {
-    if (puntosFilter === 'all') return true
-    if (puntosFilter === 'sd' || puntosFilter === 'pc') return city === puntosFilter
-    return type === puntosFilter
-  }
-
-  const showSD = puntosFilter !== 'pc'
-  const showPC = puntosFilter !== 'sd'
 
   return (
     <>
@@ -285,110 +274,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PUNTOS ONNI */}
-      <section className="puntos" id="puntos">
-        <div className="puntos-header reveal">
-          <span className="section-label">Red de distribución exclusiva</span>
-          <h2 className="section-title">Puntos <em>Onni</em> seleccionados</h2>
-          <p>Onni no está en todas partes. <strong>Está en los lugares correctos.</strong> Cada punto es elegido por su alineación con los valores de marca, capacidad de prescripción y exclusividad por zona.</p>
-        </div>
-
-        <div className="puntos-filters">
-          {[
-            { key: 'all', label: 'Todos' },
-            { key: 'farmacia', label: '💊 Farmacias' },
-            { key: 'clinica', label: '🏥 Clínicas' },
-            { key: 'spa', label: '🌸 Spas' },
-            { key: 'sd', label: 'Santo Domingo' },
-            { key: 'pc', label: 'Punta Cana' },
-          ].map((f) => (
-            <button
-              key={f.key}
-              className={`pf${puntosFilter === f.key ? ' active' : ''}`}
-              onClick={() => setPuntosFilter(f.key)}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
-
-        {showSD && (
-          <div className="puntos-city reveal" id="city-sd">
-            <div className="puntos-city-title">Santo Domingo <span className="puntos-city-count">11 puntos</span></div>
-            <div className="puntos-grid">
-              {[
-                { icon: '💊', name: 'Carol · Naco', addr: 'Av. Gustavo Mejía Ricart No. 24', type: 'farmacia' },
-                { icon: '💊', name: 'Carol · Bella Vista', addr: 'Av. Sarasota No. 101 · 24h', type: 'farmacia' },
-                { icon: '💊', name: 'Carol · Churchill', addr: 'Av. Winston Churchill esq. Mejía Ricart · 24h', type: 'farmacia' },
-                { icon: '💊', name: 'Los Hidalgos · Piantini', addr: 'Ensanche Piantini, Santo Domingo', type: 'farmacia' },
-                { icon: '💊', name: 'Los Hidalgos · Naco', addr: 'Ensanche Naco, Santo Domingo', type: 'farmacia' },
-                { icon: '💊', name: 'Medicar GBC · Naco', addr: 'Av. Tiradentes #56, Plaza Armiben', type: 'farmacia' },
-                { icon: '🏥', name: 'InMed · Piantini', addr: 'Instituto de Medicina Estética', type: 'clinica' },
-                { icon: '🏥', name: 'Sesderma Skin Center', addr: 'Acrópolis Business Mall · Piantini', type: 'clinica' },
-                { icon: '🏥', name: 'Cifré · Clínica Estética', addr: 'Av. Independencia, Plaza El Portal', type: 'clinica' },
-                { icon: '🌸', name: 'Etra Spa · Piantini', addr: 'Ensanche Piantini · Cadena nacional', type: 'spa' },
-              ].filter((p) => filterPuntos(p.type, 'sd')).map((p) => (
-                <div key={p.name} className="pc" data-type={p.type} data-city="sd">
-                  <span className="pc-icon">{p.icon}</span>
-                  <h4>{p.name}</h4>
-                  <p>{p.addr}</p>
-                  <span className="pc-badge">Lanzamiento 2025</span>
-                </div>
-              ))}
-              {(puntosFilter === 'all' || puntosFilter === 'sd' || puntosFilter === 'farmacia') && (
-                <div className="pc ghost" data-type="farmacia" data-city="sd">
-                  <span className="pc-icon" style={{ filter: 'grayscale(1)' }}>➕</span>
-                  <h4 style={{ color: 'var(--gray)' }}>En selección</h4>
-                  <p>Próximo punto Onni · SD 2025</p>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {showPC && (
-          <div className="puntos-city reveal" id="city-pc" style={{ marginTop: 48 }}>
-            <div className="puntos-city-title">Punta Cana · Bávaro <span className="puntos-city-count">7 puntos</span></div>
-            <div className="puntos-grid">
-              {[
-                { icon: '💊', name: 'Carol · Blue Mall', addr: 'Boulevard Turístico esq. Juanillo', type: 'farmacia' },
-                { icon: '💊', name: 'Los Hidalgos · Bávaro', addr: 'Bávaro City Center · Delivery hoteles', type: 'farmacia' },
-                { icon: '💊', name: 'Medicar GBC · Bávaro', addr: 'Bávaro · Apertura 2024', type: 'farmacia' },
-                { icon: '🏥', name: 'ProfEstetic', addr: 'Plaza Paseo San Juan · Bávaro', type: 'clinica' },
-                { icon: '🏥', name: 'CM-Clinic', addr: 'Av. Alemania, junto Hotel Secrets', type: 'clinica' },
-                { icon: '🌸', name: 'Serenity Beauty Studio', addr: 'Plaza Barceló Local 211 · Bávaro', type: 'spa' },
-                { icon: '🌸', name: 'Etra Spa · Punta Cana', addr: 'Hotel Ocean Blue + VIK Arena Blanca', type: 'spa' },
-              ].filter((p) => filterPuntos(p.type, 'pc')).map((p) => (
-                <div key={p.name} className="pc" data-type={p.type} data-city="pc">
-                  <span className="pc-icon">{p.icon}</span>
-                  <h4>{p.name}</h4>
-                  <p>{p.addr}</p>
-                  <span className="pc-badge">Lanzamiento 2025</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="exclusividad reveal">
-          <div className="excl-left">
-            <span className="section-label" style={{ color: 'var(--blush)' }}>Política de distribución</span>
-            <h3>Onni elige a sus <em>puntos</em></h3>
-            <p>No trabajamos con cualquier establecimiento. Buscamos socios que compartan nuestra visión: <span>prescribir con conocimiento, no solo vender.</span> Cada punto es exclusivo en su zona — si tu competidor llega primero, la ventana se cierra.</p>
-          </div>
-          <div className="excl-criteria">
-            <div className="excl-item"><span className="excl-num">01</span><div className="excl-text"><h4>Alineación de valores</h4><p>Cuidado profesional, no solo comercial.</p></div></div>
-            <div className="excl-item"><span className="excl-num">02</span><div className="excl-text"><h4>Capacidad de prescripción</h4><p>Personal que entiende y explica K-beauty.</p></div></div>
-            <div className="excl-item"><span className="excl-num">03</span><div className="excl-text"><h4>Exclusividad por zona</h4><p>Un solo punto Onni por área geográfica.</p></div></div>
-          </div>
-        </div>
-
-        <div className="puntos-cta reveal">
-          <p>¿Tu establecimiento quiere ser Punto Onni?</p>
-          <a href="#b2b" className="btn-primary">Solicitar ser Punto Onni →</a>
-        </div>
-      </section>
-
       {/* B2B */}
       <section className="b2b" id="b2b">
         <div className="b2b-header reveal">
@@ -400,8 +285,8 @@ export default function Home() {
         <div className="b2b-contact reveal">
           <div className="b2b-contact-l">
             <h3>Solicita ser<br /><em>Punto Onni</em></h3>
-            <p>Escríbenos con los datos de tu establecimiento y te enviamos el dossier de producto, condiciones de distribución y pricing B2B en 24 horas.</p>
-            <p className="b2b-supervision">Revisamos cada solicitud personalmente.</p>
+            <p>Escríbenos con los datos de tu establecimiento y te enviamos el dossier de producto, condiciones de distribución y pricing B2B.</p>
+            <p className="b2b-supervision">Revisamos cada solicitud personalmente. Te respondemos en 48 horas.</p>
           </div>
           <ContactForm lang={lang} />
         </div>

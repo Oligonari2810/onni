@@ -50,7 +50,6 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
             )}
           </li>
           <li><a href="#productos">{t.nav.links.products}</a></li>
-          <li><a href="#puntos">{t.nav.links.points}</a></li>
           <li><a href="#b2b">{t.nav.links.b2b}</a></li>
         </ul>
 
@@ -87,7 +86,6 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
               <a href="#nosotras" onClick={() => setMobileOpen(false)}>Manifiesto</a>
               <a href="#caribe" onClick={() => setMobileOpen(false)}>El Caribe</a>
               <a href="#productos" onClick={() => setMobileOpen(false)}>Productos</a>
-              <a href="#puntos" onClick={() => setMobileOpen(false)}>Puntos Onni</a>
               <a href="#b2b" onClick={() => setMobileOpen(false)}>B2B</a>
               <a href="#expansion" onClick={() => setMobileOpen(false)}>Expansión</a>
             </div>
