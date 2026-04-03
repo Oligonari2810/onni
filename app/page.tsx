@@ -401,6 +401,7 @@ export default function Home() {
           <div className="b2b-contact-l">
             <h3>Solicita ser<br /><em>Punto Onni</em></h3>
             <p>Escríbenos con los datos de tu establecimiento y te enviamos el dossier de producto, condiciones de distribución y pricing B2B en 24 horas.</p>
+            <p className="b2b-supervision">Revisamos cada solicitud personalmente.</p>
           </div>
           <ContactForm lang={lang} />
         </div>

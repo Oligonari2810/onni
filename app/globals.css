@@ -221,6 +221,7 @@ nav.scrolled { background:rgba(250,244,240,.95); backdrop-filter:blur(12px); pad
 .b2b-contact-l h3 { font-family:'Cormorant Garamond',serif; font-size:2.4rem; font-weight:300; color:var(--white); line-height:1.2; margin-bottom:18px; }
 .b2b-contact-l h3 em { font-style:italic; color:var(--blush); }
 .b2b-contact-l p { font-size:.88rem; line-height:1.7; color:rgba(255,255,255,.4); }
+.b2b-supervision { font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--blush); margin-top:12px; }
 .contact-form { display:flex; flex-direction:column; gap:14px; }
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 .fg { display:flex; flex-direction:column; gap:6px; }
