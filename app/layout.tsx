@@ -1,17 +1,20 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { CartProvider } from '@/lib/useCart'
+import CartSidebar from '@/components/CartSidebar'
+import WhatsAppWidget from '@/components/WhatsAppWidget'
 
 export const metadata: Metadata = {
-  title: 'ONNI — K-Beauty seleccionado para el Caribe',
-  description: 'Distribución especializada de K-Beauty coreano para clínicas, spas y profesionales. Seleccionado para el clima tropical del Caribe.',
-  keywords: 'K-Beauty Caribe, distribución cosmética RD, SPF piel tropical, K-Beauty clínicas estéticas, ONNI',
+  title: 'ONNI Cosmetics | K-Beauty Profesional para el Caribe y RD',
+  description: 'Cosmética coreana seleccionada para piel tropical. Texturas ligeras, control de grasa y protección UV para República Dominicana, Caribe y LATAM. Envíos rápidos.',
+  keywords: 'K-Beauty Caribe, cosmética tropical RD, SPF50 piel tropical, skincare clima húmedo, ONNI cosmetics República Dominicana, K-Beauty LATAM, Nequi RD, distribución cosmética Caribe, piel grasa trópico',
   openGraph: {
-    title: 'ONNI — K-Beauty seleccionado para el Caribe',
-    description: 'Distribución B2B selectiva de K-Beauty adaptado al Caribe. Protección solar, manchas e hidratación para piel tropical.',
-    type: 'website',
+    title: 'ONNI - K-Beauty para el Caribe',
+    description: 'Cosmética coreana para clima tropical',
     url: 'https://onnicosmetics.com',
+    siteName: 'ONNI Cosmetics',
     locale: 'es_DO',
-    // TODO: Add og:image once designed — images: [{ url: 'https://onnicosmetics.com/og.jpg', width: 1200, height: 630 }],
+    type: 'website',
   },
 }
 
@@ -26,9 +29,13 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body className="antialiased">
-        <div className="cursor" id="cur"></div>
-        <div className="cursor-ring" id="curR"></div>
-        {children}
+        <CartProvider>
+          <div className="cursor" id="cur"></div>
+          <div className="cursor-ring" id="curR"></div>
+          {children}
+          <CartSidebar />
+          <WhatsAppWidget />
+        </CartProvider>
       </body>
     </html>
   )

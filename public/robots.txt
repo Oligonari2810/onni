@@ -1,0 +1,22 @@
+# Robots.txt para ONNI Cosmetics
+# https://www.onnicosmetics.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.onnicosmetics.com/sitemap.xml
+
+# Allow all crawlers
+Allow: /blog/
+Allow: /products/
+Allow: /cart/
+Allow: /terms/
+Allow: /privacy/
+Allow: /shipping/
+
+# Disallow admin areas
+Disallow: /admin/
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1

@@ -4,8 +4,14 @@ import { useState, useEffect } from 'react'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import ContactForm from '@/components/ContactForm'
+import ProductCard from '@/components/ProductCard'
+import ShippingModal from '@/components/shipping/ShippingModal'
+import FAQSection from '@/components/FAQSection'
+import Testimonials from '@/components/Testimonials'
+import { products } from '@/lib/products'
 export default function Home() {
   const [expandedPhase, setExpandedPhase] = useState<string | null>('phase-1')
+  const [shippingOpen, setShippingOpen] = useState(false)
 
   useEffect(() => {
     // Custom cursor
@@ -165,59 +171,31 @@ export default function Home() {
           <p className="catalogo-desc">Siete productos, cuatro necesidades clave del Caribe: protección solar, manchas, limpieza adaptada a humedad y tratamiento complementario.</p>
         </div>
         <div className="catalogo-grid">
-          <div className="catalogo-card reveal">
-            <span className="distro-circle" style={{ background: '#FBEBBB' }} />
-            <span className="catalogo-cat">Manchas</span>
-            <h3>Sérum Niacinamide + TXA</h3>
-            <p className="catalogo-benefit">Ayuda a mejorar hiperpigmentación y tono desigual.</p>
-            <p className="catalogo-micro">Para piel con marcas, PIH o manchas visibles.</p>
-          </div>
-          <div className="catalogo-card reveal">
-            <span className="distro-circle" style={{ background: '#E2F3DC' }} />
-            <span className="catalogo-cat">Limpieza</span>
-            <h3>Aceite limpiador Gentle Black</h3>
-            <p className="catalogo-benefit">Retira SPF, sebo y residuos sin dejar sensación pesada.</p>
-            <p className="catalogo-micro">Ideal para doble limpieza en piel grasa o mixta.</p>
-          </div>
-          <div className="catalogo-card reveal">
-            <span className="distro-circle" style={{ background: '#E2F3DC' }} />
-            <span className="catalogo-cat">Limpieza</span>
-            <h3>Espuma Heartleaf</h3>
-            <p className="catalogo-benefit">Limpia sin resecar y ayuda a mantener equilibrio en clima húmedo.</p>
-            <p className="catalogo-micro">Para uso diario en piel con sebo, poros o sensibilidad.</p>
-          </div>
-          <div className="catalogo-card reveal">
-            <span className="distro-circle" style={{ background: '#D8E5F3' }} />
-            <span className="catalogo-cat">Protección solar</span>
-            <h3>Protector solar SPF50+</h3>
-            <p className="catalogo-benefit">Protección alta con textura ligera y uso cómodo diario.</p>
-            <p className="catalogo-micro">Pensado para alta radiación UV y clima tropical.</p>
-          </div>
-          <div className="catalogo-card reveal">
-            <span className="distro-circle" style={{ background: '#D8E5F3' }} />
-            <span className="catalogo-cat">Hidratación</span>
-            <h3>Sérum Peach + Niacinamide</h3>
-            <p className="catalogo-benefit">Aporta luminosidad e hidratación con textura ligera.</p>
-            <p className="catalogo-micro">Para piel opaca o deshidratada en clima cálido.</p>
-          </div>
-          <div className="catalogo-card reveal">
-            <span className="distro-circle" style={{ background: '#D8E5F3' }} />
-            <span className="catalogo-cat">Tratamiento complementario</span>
-            <h3>Sheet Masks x10</h3>
-            <p className="catalogo-benefit">Aporte rápido de hidratación y confort.</p>
-            <p className="catalogo-micro">Útiles en cabina, regalo o activación de rutina.</p>
-          </div>
-          <div className="catalogo-card reveal">
-            <span className="distro-circle" style={{ background: '#C9B8E8' }} />
-            <span className="catalogo-cat">Antiedad</span>
-            <h3>Sérum Retinol + Bakuchiol</h3>
-            <p className="catalogo-benefit">Apoya renovación y firmeza con enfoque tolerable.</p>
-            <p className="catalogo-micro">Para rutina nocturna en piel que busca prevención o corrección.</p>
-          </div>
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
         <p className="catalogo-closing reveal">Cada producto cumple una función concreta. La línea completa se entiende mejor en protocolo.</p>
         <div className="catalogo-cta reveal">
           <a href="#b2b" className="btn-primary">Solicitar dossier B2B</a>
+        </div>
+      </section>
+
+      {/* B2C DIRECT PURCHASE */}
+      <section className="b2c-cta" id="catalogo">
+        <div className="b2c-cta-inner reveal">
+          <span className="section-label">Compra directa</span>
+          <h2 className="b2c-cta-title">ONNI para tu <em>rutina personal</em></h2>
+          <p className="b2c-cta-desc">¿No eres clínica o spa? No hay problema.<br/>Ahora puedes comprar los 7 productos ONNI directamente.</p>
+          <div className="b2c-cta-features">
+            <span className="b2c-cta-feat">Tarjeta — Internacional</span>
+            <span className="b2c-cta-feat">Transferencia / Nequi — RD</span>
+            <span className="b2c-cta-feat">Envío a todo el Caribe</span>
+          </div>
+          <div className="b2c-cta-actions">
+            <a href="#productos" className="b2c-btn-primary">Ver productos</a>
+            <button className="b2c-btn-outline" onClick={() => setShippingOpen(true)}>Opciones de envío</button>
+          </div>
         </div>
       </section>
 
@@ -269,6 +247,12 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <FAQSection />
+
+      {/* TESTIMONIALS */}
+      <Testimonials />
+
       {/* FOOTER */}
       <footer>
         <div className="footer-top">
@@ -314,6 +298,9 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Shipping Modal */}
+      <ShippingModal isOpen={shippingOpen} onClose={() => setShippingOpen(false)} />
     </>
   )
 }
