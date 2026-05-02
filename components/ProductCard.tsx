@@ -26,6 +26,7 @@ export default function ProductCard({ product, reveal = true }: { product: Produ
       name: product.name,
       price: product.price,
       category: product.category,
+      image: product.images[0],
     })
     setJustAdded(true)
     setTimeout(() => setJustAdded(false), 1500)
