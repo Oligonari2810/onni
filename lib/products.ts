@@ -26,7 +26,18 @@ export interface Product {
   volume: string
 }
 
-const img = (slug: string) => `/images/products/${slug}/main.svg`
+// Mapeo de extensiones de imagen por producto (descargadas de UMM)
+const IMG_EXTENSIONS: Record<string, string> = {
+  'beauty-of-joseon-revive-eye-serum-ginseng-retinal-30ml': 'png',
+  'vt-vt-reedle-shot-1300-8ml': 'webp',
+  'goodal-green-tangerine-vita-c-dark-spot-serum-40ml': 'jpg',
+  'dralthea-345-relief-cream-50ml': 'jpg',
+  'manyo-pure-cleansing-oil-200ml': 'png',
+  'im-from-rice-toner-150ml': 'webp',
+  'round-lab-1025-dokdo-toner-lotion-special-settoner-200ml-lot': 'webp',
+}
+
+const img = (slug: string) => `/images/products/${slug}/main.${IMG_EXTENSIONS[slug] || 'webp'}`
 
 // 🏆 TOP 7 BESTSELLERS K-BEAUTY
 // Precios calculados con fórmula: (UMM + $1.23 logística + 0.6% seguro) × 2

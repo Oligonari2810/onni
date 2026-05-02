@@ -45,7 +45,6 @@ export default function ProductCard({ product, reveal = true }: { product: Produ
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            backgroundColor: product.color
           }}
         >
         </div>
