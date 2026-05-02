@@ -1,13 +1,11 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { CartProvider } from '@/lib/useCart'
-import CartSidebar from '@/components/CartSidebar'
-import WhatsAppWidget from '@/components/WhatsAppWidget'
 
 export const metadata: Metadata = {
-  title: 'ONNI Cosmetics | K-Beauty Profesional para el Caribe y RD',
+  title: 'ONNI Cosmetics | K-Beauty para el Caribe',
   description: 'Cosmética coreana seleccionada para piel tropical. Texturas ligeras, control de grasa y protección UV para República Dominicana, Caribe y LATAM. Envíos rápidos.',
-  keywords: 'K-Beauty Caribe, cosmética tropical RD, SPF50 piel tropical, skincare clima húmedo, ONNI cosmetics República Dominicana, K-Beauty LATAM, Nequi RD, distribución cosmética Caribe, piel grasa trópico',
+  keywords: 'K-Beauty Caribe, cosmética tropical RD, SPF50 piel tropical, skincare clima húmedo, ONNI cosmetics República Dominicana, K-Beauty LATAM, Nequi RD, piel grasa trópico',
   openGraph: {
     title: 'ONNI - K-Beauty para el Caribe',
     description: 'Cosmética coreana para clima tropical',
@@ -31,8 +29,6 @@ export default function RootLayout({
       <body className="antialiased">
         <CartProvider>
           {children}
-          <CartSidebar />
-          <WhatsAppWidget />
         </CartProvider>
       </body>
     </html>

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONNI Cosmetics | K-Beauty para el Caribe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    /* ─── VARIABLES ─────────────────────────────── */
+    :root {
+      --rose:    #C4497A;
+      --blush:   #E8B4C8;
+      --deep:    #1A0A12;
+      --cream:   #FAF4F0;
+      --nude:    #F0E4DC;
+      --mist:    #EDE0E8;
+      --charcoal:#2C1A24;
+      --gray:    #8A7280;
+      --white:   #FFFFFF;
+      --line:    rgba(196,73,122,.12);
+    }
+
+    /* ─── RESET ─────────────────────────────────── */
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--deep); overflow-x:hidden; }
+
+    /* ─── NAV ────────────────────────────────────── */
+    nav { position:fixed; top:0; width:100%; z-index:100; padding:24px 48px; display:flex; align-items:center; justify-content:space-between; transition:all .4s; background:transparent; }
+    nav.scrolled { background:rgba(250,244,240,.95); backdrop-filter:blur(12px); padding:16px 48px; border-bottom:1px solid var(--line); }
+    .nav-logo { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; letter-spacing:.2em; color:var(--deep); text-decoration:none; }
+    nav.scrolled .nav-logo { color:var(--deep); }
+    .nav-logo em { font-style:italic; color:var(--rose); }
+    .nav-links { display:flex; gap:32px; list-style:none; }
+    .nav-links a { font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--charcoal); text-decoration:none; opacity:.7; transition:opacity .2s; }
+    .nav-links a:hover { opacity:1; color:var(--rose); }
+    nav.scrolled .nav-links a { color:var(--charcoal); }
+
+    /* ─── HERO ───────────────────────────────────── */
+    .hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; position:relative; overflow:hidden; }
+    .hero-left { background:var(--deep); display:flex; flex-direction:column; justify-content:center; padding:120px 80px 80px; position:relative; overflow:hidden; }
+    .hero-left::before { content:'언니'; font-family:'Noto Serif KR',serif; font-size:20rem; color:rgba(196,73,122,.06); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; white-space:nowrap; }
+    .hero-eyebrow { font-size:.68rem; letter-spacing:.3em; text-transform:uppercase; color:var(--blush); margin-bottom:24px; opacity:0; animation:fadeUp .8s .2s forwards; }
+    .hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(4rem,6vw,7rem); font-weight:300; line-height:.95; color:var(--white); margin-bottom:8px; opacity:0; animation:fadeUp .8s .4s forwards; }
+    .hero-title em { font-style:italic; color:var(--blush); }
+    .hero-title-kr { font-size:.42em; opacity:.5; letter-spacing:.3em; font-family:'Noto Serif KR',serif; }
+    .hero-korean { font-family:'Noto Serif KR',serif; font-size:.95rem; color:rgba(255,255,255,.25); margin-bottom:40px; letter-spacing:.2em; opacity:0; animation:fadeUp .8s .5s forwards; }
+    .hero-desc { font-size:1rem; line-height:1.7; color:rgba(255,255,255,.6); max-width:400px; margin-bottom:52px; opacity:0; animation:fadeUp .8s .6s forwards; }
+    .hero-desc strong { color:var(--blush); font-weight:400; }
+    .hero-actions { display:flex; gap:16px; opacity:0; animation:fadeUp .8s .8s forwards; }
+    .btn-primary { padding:16px 36px; background:var(--rose); color:var(--white); text-decoration:none; font-size:.78rem; letter-spacing:.15em; text-transform:uppercase; transition:all .3s; display:inline-block; border:none; cursor:pointer; }
+    .btn-primary:hover { background:#a3365e; }
+    .btn-ghost { padding:16px 36px; border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.7); text-decoration:none; font-size:.78rem; letter-spacing:.15em; text-transform:uppercase; transition:all .3s; background:transparent; cursor:pointer; }
+    .btn-ghost:hover { border-color:var(--blush); color:var(--blush); }
+    .hero-right { background:var(--nude); display:flex; flex-direction:column; justify-content:flex-end; position:relative; overflow:hidden; }
+    .hero-right::before { content:''; position:absolute; top:0; left:0; right:0; height:60%; background:linear-gradient(180deg,var(--mist) 0%,transparent 100%); }
+    .hero-visual { position:absolute; top:0; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; }
+    .hero-circles { position:relative; width:360px; height:360px; }
+    .circle-1,.circle-2,.circle-3 { position:absolute; border-radius:50%; }
+    .circle-1 { width:300px; height:300px; background:radial-gradient(135deg,var(--blush) 0%,var(--rose) 100%); top:50%; left:50%; transform:translate(-50%,-50%); opacity:.4; animation:pulse 4s ease-in-out infinite; }
+    .circle-2 { width:200px; height:200px; background:radial-gradient(135deg,#fff 0%,var(--blush) 100%); top:50%; left:50%; transform:translate(-50%,-50%); opacity:.7; animation:pulse 4s ease-in-out .5s infinite; }
+    .circle-3 { width:120px; height:120px; background:var(--white); top:50%; left:50%; transform:translate(-50%,-50%); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; color:var(--rose); letter-spacing:.1em; box-shadow:0 20px 60px rgba(196,73,122,.2); z-index:1; }
+
+    /* ─── MARQUEE ────────────────────────────────── */
+    .marquee { background:var(--rose); padding:14px 0; overflow:hidden; }
+    .marquee-track { display:flex; gap:48px; animation:marquee 22s linear infinite; white-space:nowrap; }
+    .marquee-item { font-size:.72rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(255,255,255,.8); display:flex; align-items:center; gap:48px; flex-shrink:0; }
+    .marquee-item::after { content:'✦'; color:rgba(255,255,255,.3); }
+
+    /* ─── SECCIÓN BASE ───────────────────────────── */
+    .section-label { font-size:.68rem; letter-spacing:.3em; text-transform:uppercase; color:var(--rose); display:block; margin-bottom:20px; }
+    .section-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2.5rem,4vw,4rem); font-weight:300; color:var(--deep); line-height:1.1; }
+    .section-title em { font-style:italic; color:var(--rose); }
+
+    /* ─── RUTINAS ────────────────────────────────── */
+    .rutinas { padding:120px 80px; background:var(--cream); }
+    .rutinas-header { text-align:center; margin-bottom:64px; max-width:700px; margin-left:auto; margin-right:auto; }
+    .rutinas-desc { font-size:.92rem; line-height:1.8; color:var(--gray); max-width:620px; margin:20px auto 0; }
+    .rutinas-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; max-width:1200px; margin:0 auto; }
+    .rutina-card { background:var(--nude); padding:44px 36px; position:relative; transition:all .4s; overflow:hidden; cursor:pointer; }
+    .rutina-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--rose); transform:scaleX(0); transition:transform .4s; transform-origin:left; }
+    .rutina-card:hover { background:var(--mist); }
+    .rutina-card:hover::before { transform:scaleX(1); }
+    .rutina-icon { font-size:2.5rem; margin-bottom:16px; display:block; }
+    .rutina-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:400; color:var(--deep); margin-bottom:12px; line-height:1.2; }
+    .rutina-card p { font-size:.88rem; line-height:1.7; color:var(--gray); margin-bottom:16px; }
+    .rutina-steps { font-size:.75rem; color:var(--charcoal); margin-bottom:20px; padding-top:16px; border-top:1px solid var(--line); }
+    .rutina-steps strong { color:var(--rose); }
+    .rutina-price { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+    .rutina-price-amount { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:400; color:var(--deep); }
+    .rutina-save { font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--rose); background:rgba(196,73,122,.1); padding:4px 10px; }
+    .rutina-btn { width:100%; padding:14px; background:var(--rose); color:var(--white); border:none; font-family:'DM Sans',sans-serif; font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; transition:background .3s; }
+    .rutina-btn:hover { background:#a3365e; }
+
+    /* ─── PRODUCTOS ──────────────────────────────── */
+    .catalogo { padding:120px 80px; background:var(--white); }
+    .catalogo-header { text-align:center; margin-bottom:64px; max-width:700px; margin-left:auto; margin-right:auto; }
+    .catalogo-desc { font-size:.92rem; line-height:1.8; color:var(--gray); max-width:600px; margin:20px auto 0; }
+    .catalogo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; max-width:1200px; margin:0 auto; }
+    .catalogo-card { background:var(--cream); padding:36px 32px; border:1px solid var(--line); transition:all .4s; position:relative; overflow:hidden; }
+    .catalogo-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--rose); transform:scaleX(0); transition:transform .4s; transform-origin:left; }
+    .catalogo-card:hover { background:var(--mist); }
+    .catalogo-card:hover::before { transform:scaleX(1); }
+    .catalogo-image-wrapper { width:100%; height:200px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden; border-radius:4px; background:var(--white); }
+    .catalogo-cat { font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--rose); display:block; margin-bottom:10px; }
+    .catalogo-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:400; color:var(--deep); margin-bottom:12px; line-height:1.2; }
+    .catalogo-benefit { font-size:.84rem; line-height:1.65; color:var(--gray); margin-bottom:8px; }
+    .catalogo-micro { font-size:.72rem; line-height:1.5; color:var(--gray); font-style:italic; }
+    .catalogo-closing { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:400; font-style:italic; color:var(--rose); text-align:center; margin-top:48px; max-width:700px; margin-left:auto; margin-right:auto; }
+
+    /* ─── CONFIANZA B2C ──────────────────────────── */
+    .b2c-cta { padding:100px 80px; background:var(--nude); }
+    .b2c-cta-inner { max-width:800px; margin:0 auto; text-align:center; }
+    .b2c-cta-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,3.5vw,3rem); font-weight:300; color:var(--deep); line-height:1.2; margin:16px 0; }
+    .b2c-cta-title em { font-style:italic; color:var(--rose); }
+    .b2c-cta-desc { font-size:1rem; line-height:1.8; color:var(--gray); margin-bottom:32px; }
+    .b2c-cta-features { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin-bottom:40px; }
+    .b2c-cta-feat { font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--charcoal); padding:8px 16px; background:var(--white); border:1px solid var(--line); }
+    .b2c-cta-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+    .b2c-btn-primary { padding:16px 36px; background:var(--rose); color:var(--white); text-decoration:none; font-size:.78rem; letter-spacing:.15em; text-transform:uppercase; transition:all .3s; display:inline-block; }
+    .b2c-btn-primary:hover { background:#a3365e; }
+    .b2c-btn-outline { padding:16px 36px; border:1px solid var(--rose); color:var(--rose); background:transparent; text-decoration:none; font-size:.78rem; letter-spacing:.15em; text-transform:uppercase; transition:all .3s; display:inline-block; cursor:pointer; }
+    .b2c-btn-outline:hover { background:var(--rose); color:var(--white); }
+
+    /* ─── CONTEXTO CARIBE ────────────────────────── */
+    .contexto { padding:120px 80px; background:var(--cream); }
+    .contexto-header { text-align:center; margin-bottom:64px; max-width:700px; margin-left:auto; margin-right:auto; }
+    .contexto-title { color:var(--deep); }
+    .contexto-desc { font-size:.92rem; line-height:1.8; color:var(--gray); max-width:620px; margin:20px auto 0; }
+    .contexto-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; max-width:1200px; margin:0 auto; }
+    .contexto-card { background:var(--nude); padding:44px 36px; position:relative; transition:all .4s; overflow:hidden; }
+    .contexto-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--rose); transform:scaleX(0); transition:transform .4s; transform-origin:left; }
+    .contexto-card:hover { background:var(--mist); }
+    .contexto-card:hover::before { transform:scaleX(1); }
+    .contexto-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:400; color:var(--deep); margin-bottom:12px; line-height:1.2; }
+    .contexto-card p { font-size:.84rem; line-height:1.7; color:var(--gray); }
+    .contexto-closing { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:400; font-style:italic; color:var(--rose); text-align:center; margin-top:48px; }
+    .contexto-cta { text-align:center; margin-top:32px; }
+
+    /* ─── MANIFIESTO ─────────────────────────────── */
+    .manifesto { padding:140px 80px; display:grid; grid-template-columns:1fr 1fr; gap:100px; align-items:center; max-width:1400px; margin:0 auto; background:var(--white); }
+    .manifesto-quote { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,3.5vw,3.2rem); font-weight:300; line-height:1.3; color:var(--deep); }
+    .manifesto-quote em { font-style:italic; color:var(--rose); }
+    .manifesto-right { display:flex; flex-direction:column; gap:36px; }
+    .manifesto-point { display:flex; gap:24px; align-items:flex-start; }
+    .manifesto-num { font-family:'Cormorant Garamond',serif; font-size:3rem; font-weight:300; color:rgba(196,73,122,.2); line-height:1; flex-shrink:0; }
+    .manifesto-text h4 { font-size:.82rem; letter-spacing:.1em; text-transform:uppercase; color:var(--deep); margin-bottom:8px; }
+    .manifesto-text p { font-size:.88rem; line-height:1.7; color:var(--gray); }
+
+    /* ─── TESTIMONIOS ────────────────────────────── */
+    .testimonios { padding:140px 80px; background:var(--cream); }
+    .testimonios-header { text-align:center; margin-bottom:72px; }
+    .testimonios-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,3vw,3rem); font-weight:300; color:var(--deep); }
+    .testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; max-width:1200px; margin:0 auto; }
+    .testi { background:var(--nude); padding:40px 32px; position:relative; }
+    .testi::before { content:'\201C'; font-family:'Cormorant Garamond',serif; font-size:5rem; color:rgba(196,73,122,.1); position:absolute; top:12px; left:24px; line-height:1; }
+    .testi-stars { color:var(--rose); font-size:.8rem; margin-bottom:16px; }
+    .testi-text { font-size:.9rem; line-height:1.7; color:var(--charcoal); margin-bottom:24px; padding-top:16px; position:relative; z-index:1; }
+    .testi-footer { display:flex; align-items:center; gap:12px; padding-top:18px; border-top:1px solid var(--line); }
+    .testi-avatar { width:36px; height:36px; border-radius:50%; background:var(--mist); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+    .testi-name { font-size:.82rem; font-weight:500; color:var(--deep); }
+    .testi-role { font-size:.7rem; color:var(--gray); }
+
+    /* ─── FAQ ────────────────────────────────────── */
+    .faq { padding:120px 80px; background:var(--white); }
+    .faq-header { text-align:center; margin-bottom:64px; }
+    .faq-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,3vw,3rem); font-weight:300; color:var(--deep); }
+    .faq-grid { display:grid; grid-template-columns:1fr; max-width:800px; margin:0 auto; gap:16px; }
+    .faq-item { border:1px solid var(--line); padding:24px; transition:all .3s; }
+    .faq-item:hover { border-color:var(--rose); }
+    .faq-question { font-size:.82rem; font-weight:500; color:var(--deep); margin-bottom:12px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; }
+    .faq-question::after { content:'+'; font-size:1.2rem; color:var(--rose); transition:transform .3s; }
+    .faq-item.active .faq-question::after { transform:rotate(45deg); }
+    .faq-answer { font-size:.9rem; line-height:1.7; color:var(--gray); max-height:0; overflow:hidden; transition:max-height .3s ease; }
+    .faq-item.active .faq-answer { max-height:200px; margin-top:12px; }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer { background:var(--charcoal); padding:72px 80px 40px; }
+    .footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:56px; margin-bottom:56px; padding-bottom:56px; border-bottom:1px solid rgba(255,255,255,.05); }
+    .footer-brand .logo { font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:300; color:var(--white); letter-spacing:.2em; display:block; margin-bottom:6px; }
+    .footer-brand .logo em { font-style:italic; color:var(--blush); }
+    .footer-brand p { font-size:.78rem; line-height:1.7; color:rgba(255,255,255,.25); max-width:260px; }
+    .footer-col h4 { font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:18px; }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .footer-col a { font-size:.78rem; color:rgba(255,255,255,.25); text-decoration:none; transition:color .2s; white-space:nowrap; }
+    .footer-col a:hover { color:var(--blush); }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; }
+    .footer-bottom p { font-size:.7rem; color:rgba(255,255,255,.18); }
+    .footer-social { display:flex; gap:20px; }
+    .footer-social a { font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.25); text-decoration:none; transition:color .2s; }
+    .footer-social a:hover { color:var(--blush); }
+
+    /* ─── WHATSAPP FLOAT ─────────────────────────── */
+    .whatsapp-float { position:fixed; bottom:32px; right:32px; width:60px; height:60px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(37,211,102,.3); z-index:1000; transition:transform .3s; cursor:pointer; }
+    .whatsapp-float:hover { transform:scale(1.1); }
+    .whatsapp-float svg { width:32px; height:32px; fill:white; }
+
+    /* ─── ANIMACIONES ────────────────────────────── */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px);} to{opacity:1;transform:translateY(0);} }
+    @keyframes pulse { 0%,100%{transform:translate(-50%,-50%) scale(1);} 50%{transform:translate(-50%,-50%) scale(1.05);} }
+    @keyframes marquee { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+    .reveal { opacity:0; transform:translateY(36px); transition:opacity .8s ease, transform .8s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns:1fr; }
+      .hero-right { display:none; }
+      .hero-left { padding:100px 40px 60px; }
+      .rutinas-grid, .contexto-grid, .testi-grid { grid-template-columns:1fr; }
+      .catalogo-grid { grid-template-columns:repeat(2,1fr); }
+      .manifesto { grid-template-columns:1fr; gap:60px; padding:100px 40px; }
+      nav { padding:20px 40px; }
+      .nav-links { gap:20px; }
+    }
+
+    @media (max-width: 768px) {
+      .catalogo-grid { grid-template-columns:1fr; }
+      .section-title { font-size:2rem; }
+      nav { padding:16px 24px; }
+      .nav-links { display:none; }
+      .hero-left { padding:80px 24px 40px; }
+      .rutinas, .contexto, .catalogo, .b2c-cta, .manifesto, .testimonios, .faq { padding:80px 24px; }
+      .footer-top { grid-template-columns:1fr; gap:32px; }
+      .whatsapp-float { bottom:20px; right:20px; width:50px; height:50px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo"><em>O</em>NNI</a>
+    <ul class="nav-links">
+      <li><a href="#rutinas">Rutinas</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <span class="hero-eyebrow">K-Beauty para piel tropical · 언니</span>
+      <h1 class="hero-title">K-Beauty seleccionado<br /><em>para tu piel</em> en el Caribe<span class="hero-title-kr">카리브해</span></h1>
+      <p class="hero-korean">언니는 당신의 피부가 필요로 하는 것을 알고 있습니다</p>
+      <p class="hero-desc">Rutinas coreanas seleccionadas para <strong>humedad, sol, manchas y piel sensible</strong>. Texturas ligeras que sí funcionan en clima tropical.</p>
+      <div class="hero-actions">
+        <a href="#productos" class="btn-primary">Comprar ahora</a>
+        <a href="#rutinas" class="btn-ghost">Ver rutinas</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-visual">
+        <div class="hero-circles">
+          <div class="circle-1"></div>
+          <div class="circle-2"></div>
+          <div class="circle-3">ONNI</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="marquee-item">Ciencia coreana</span>
+      <span class="marquee-item">Formulado para el Caribe</span>
+      <span class="marquee-item">Sin cast blanco</span>
+      <span class="marquee-item">Texturas ligeras</span>
+      <span class="marquee-item">Manchas · SPF · Humedad</span>
+      <span class="marquee-item">Tu hermana mayor</span>
+      <span class="marquee-item">언니 · Onni</span>
+      <span class="marquee-item">Ciencia coreana</span>
+      <span class="marquee-item">Formulado para el Caribe</span>
+      <span class="marquee-item">Sin cast blanco</span>
+      <span class="marquee-item">Texturas ligeras</span>
+      <span class="marquee-item">Manchas · SPF · Humedad</span>
+      <span class="marquee-item">Tu hermana mayor</span>
+      <span class="marquee-item">언니 · Onni</span>
+    </div>
+  </div>
+
+  <!-- RUTINAS -->
+  <section class="rutinas" id="rutinas">
+    <div class="rutinas-header reveal">
+      <span class="section-label">Tu rutina ideal</span>
+      <h2 class="section-title">Empieza por tu <em>rutina</em></h2>
+      <p class="rutinas-desc">K-Beauty adaptado al clima del Caribe. Rutinas completas con pasos esenciales para tu piel tropical.</p>
+    </div>
+    <div class="rutinas-grid">
+      <!-- Glow Caribeño -->
+      <div class="rutina-card reveal">
+        <span class="rutina-icon">✨</span>
+        <h3>Glow Caribeño</h3>
+        <p>Para piel luminosa en clima húmedo</p>
+        <div class="rutina-steps"><strong>Pasos:</strong> Limpiador · Vitamina C · SPF</div>
+        <div class="rutina-price">
+          <span class="rutina-price-amount">$58</span>
+          <span class="rutina-save">Ahorra 15%</span>
+        </div>
+        <button class="rutina-btn">Comprar rutina</button>
+      </div>
+      <!-- Piel Sensible -->
+      <div class="rutina-card reveal">
+        <span class="rutina-icon">🌿</span>
+        <h3>Piel Sensible</h3>
+        <p>Calma y repara piel reactiva</p>
+        <div class="rutina-steps"><strong>Pasos:</strong> Limpiador suave · Toner · Crema</div>
+        <div class="rutina-price">
+          <span class="rutina-price-amount">$52</span>
+        </div>
+        <button class="rutina-btn">Comprar rutina</button>
+      </div>
+      <!-- Acné Tropical -->
+      <div class="rutina-card reveal">
+        <span class="rutina-icon">🔥</span>
+        <h3>Acné Tropical</h3>
+        <p>Control de grasa y brotes</p>
+        <div class="rutina-steps"><strong>Pasos:</strong> Cleanser · Niacinamida · SPF oil-free</div>
+        <div class="rutina-price">
+          <span class="rutina-price-amount">$60</span>
+        </div>
+        <button class="rutina-btn">Comprar rutina</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS -->
+  <section class="catalogo" id="productos">
+    <div class="catalogo-header reveal">
+      <span class="section-label">Best sellers</span>
+      <h2 class="section-title">Best sellers para tu <em>rutina diaria</em></h2>
+      <p class="catalogo-desc">Seleccionados para manchas, humedad, SPF y piel sensible en el Caribe.</p>
+    </div>
+    <div class="catalogo-grid">
+      <!-- Producto 1 -->
+      <div class="catalogo-card reveal">
+        <div class="catalogo-image-wrapper">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="35" fill="#F0E4DC"/>
+            <circle cx="40" cy="40" r="25" fill="#E8B4C8" opacity=".5"/>
+          </svg>
+        </div>
+        <span class="catalogo-cat">Sérum</span>
+        <h3>Beauty of Joseon - Revive Eye Serum</h3>
+        <p class="catalogo-benefit">Reduce ojeras y patas de gallo</p>
+        <p class="catalogo-micro">Ideal para clima húmedo</p>
+      </div>
+      <!-- Producto 2 -->
+      <div class="catalogo-card reveal">
+        <div class="catalogo-image-wrapper">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="35" fill="#F0E4DC"/>
+            <circle cx="40" cy="40" r="25" fill="#E8B4C8" opacity=".5"/>
+          </svg>
+        </div>
+        <span class="catalogo-cat">Tratamiento</span>
+        <h3>VT - Reedle Shot 1300</h3>
+        <p class="catalogo-benefit">Renovación celular profunda</p>
+        <p class="catalogo-micro">Textura ligera</p>
+      </div>
+      <!-- Producto 3 -->
+      <div class="catalogo-card reveal">
+        <div class="catalogo-image-wrapper">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="35" fill="#F0E4DC"/>
+            <circle cx="40" cy="40" r="25" fill="#E8B4C8" opacity=".5"/>
+          </svg>
+        </div>
+        <span class="catalogo-cat">Sérum</span>
+        <h3>Goodal - Green Tangerine Vita C</h3>
+        <p class="catalogo-benefit">Ilumina y reduce manchas</p>
+        <p class="catalogo-micro">Reduce manchas solares</p>
+      </div>
+      <!-- Producto 4 -->
+      <div class="catalogo-card reveal">
+        <div class="catalogo-image-wrapper">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="35" fill="#F0E4DC"/>
+            <circle cx="40" cy="40" r="25" fill="#E8B4C8" opacity=".5"/>
+          </svg>
+        </div>
+        <span class="catalogo-cat">Crema</span>
+        <h3>Dr. Althea - 345 Relief Cream</h3>
+        <p class="catalogo-benefit">Calma piel irritada</p>
+        <p class="catalogo-micro">Para piel sensible</p>
+      </div>
+      <!-- Producto 5 -->
+      <div class="catalogo-card reveal">
+        <div class="catalogo-image-wrapper">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="35" fill="#F0E4DC"/>
+            <circle cx="40" cy="40" r="25" fill="#E8B4C8" opacity=".5"/>
+          </svg>
+        </div>
+        <span class="catalogo-cat">Limpiador</span>
+        <h3>Manyo - Pure Cleansing Oil</h3>
+        <p class="catalogo-benefit">Limpieza profunda sin residuos</p>
+        <p class="catalogo-micro">Sin residuo blanco</p>
+      </div>
+      <!-- Producto 6 -->
+      <div class="catalogo-card reveal">
+        <div class="catalogo-image-wrapper">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="35" fill="#F0E4DC"/>
+            <circle cx="40" cy="40" r="25" fill="#E8B4C8" opacity=".5"/>
+          </svg>
+        </div>
+        <span class="catalogo-cat">Toner</span>
+        <h3>I'M FROM - Rice Toner</h3>
+        <p class="catalogo-benefit">Hidratación y luminosidad</p>
+        <p class="catalogo-micro">Ideal para clima húmedo</p>
+      </div>
+    </div>
+    <p class="catalogo-closing reveal">Cada producto cumple una función concreta. La línea completa se entiende mejor en protocolo.</p>
+  </section>
+
+  <!-- CONFIANZA B2C -->
+  <section class="b2c-cta">
+    <div class="b2c-cta-inner reveal">
+      <span class="section-label">Compra directa</span>
+      <h2 class="b2c-cta-title">ONNI para tu <em>rutina personal</em></h2>
+      <p class="b2c-cta-desc">Productos originales, pagos seguros y envíos a República Dominicana y el Caribe.</p>
+      <div class="b2c-cta-features">
+        <span class="b2c-cta-feat">Tarjeta internacional</span>
+        <span class="b2c-cta-feat">Transferencia / Nequi RD</span>
+        <span class="b2c-cta-feat">Envío Caribe</span>
+        <span class="b2c-cta-feat">Importado de Corea</span>
+      </div>
+      <div class="b2c-cta-actions">
+        <a href="#productos" class="b2c-btn-primary">Comprar ahora</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTEXTO CARIBE -->
+  <section class="contexto">
+    <div class="contexto-header reveal">
+      <span class="section-label">El Caribe</span>
+      <h2 class="contexto-title">El Caribe necesita otra<br /><em>selección cosmética</em></h2>
+      <p class="contexto-desc">Alta radiación UV, humedad constante y tendencia a la hiperpigmentación exigen fórmulas, texturas y activos distintos.</p>
+    </div>
+    <div class="contexto-grid">
+      <div class="contexto-card reveal">
+        <h3>Radiación UV constante</h3>
+        <p>Requiere protectores que realmente se usen a diario, sin residuo ni incomodidad.</p>
+      </div>
+      <div class="contexto-card reveal">
+        <h3>Humedad que satura la piel</h3>
+        <p>En clima tropical, las texturas densas saturan la piel y provocan brotes. Las fórmulas ligeras evitan ese problema.</p>
+      </div>
+      <div class="contexto-card reveal">
+        <h3>Manchas y PIH recurrentes</h3>
+        <p>Requiere activos bien elegidos y buena tolerancia cutánea en uso diario.</p>
+      </div>
+    </div>
+    <div class="contexto-cta reveal">
+      <a href="#productos" class="btn-primary">Ver productos recomendados</a>
+    </div>
+  </section>
+
+  <!-- MANIFIESTO -->
+  <section class="manifesto" id="nosotros">
+    <div class="reveal">
+      <span class="section-label">Nuestro manifiesto</span>
+      <blockquote class="manifesto-quote">
+        &ldquo;Que el Caribe tenga por primera vez productos diseñados para <em>su clima real</em> y su realidad.&rdquo;
+      </blockquote>
+    </div>
+    <div class="manifesto-right">
+      <div class="manifesto-point reveal">
+        <span class="manifesto-num">01</span>
+        <div class="manifesto-text">
+          <h4>La hermana mayor</h4>
+          <p>En coreano, Onni (언니) significa hermana mayor. La que ya pasó por lo que tú estás viviendo. La que fue a Corea, investigó, probó — y trajo lo que realmente funciona aquí.</p>
+        </div>
+      </div>
+      <div class="manifesto-point reveal">
+        <span class="manifesto-num">02</span>
+        <div class="manifesto-text">
+          <h4>Curaduría, no fabricación</h4>
+          <p>No fabricamos. Seleccionamos. Entre miles de productos K-beauty escogemos los que tienen la ciencia, la textura y los ingredientes correctos para el clima del Caribe.</p>
+        </div>
+      </div>
+      <div class="manifesto-point reveal">
+        <span class="manifesto-num">03</span>
+        <div class="manifesto-text">
+          <h4>El Caribe como protagonista</h4>
+          <p>Sin estándares asiáticos ni europeos. Sin claim de blanqueamiento. El Caribe como referencia, no como mercado secundario.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="testimonios" id="reviews">
+    <div class="testimonios-header reveal">
+      <span class="section-label">Reviews</span>
+      <h2 class="testimonios-title">Lo que dicen nuestras clientas</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Por fin productos que funcionan en el clima de Santo Domingo. La textura ligera del cleanser es perfecta para mi piel grasa.</p>
+        <div class="testi-footer">
+          <div class="testi-avatar">👩🏽</div>
+          <div>
+            <div class="testi-name">María José</div>
+            <div class="testi-role">Santo Domingo, RD</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Pedí la rutina Glow y llegó súper rápido. El Vitamina C ya me está quitando las manchas del sol.</p>
+        <div class="testi-footer">
+          <div class="testi-avatar">👩🏻</div>
+          <div>
+            <div class="testi-name">Carolina</div>
+            <div class="testi-role">San Juan, PR</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Llevo un año usando los productos y mi piel nunca ha estado mejor. El Reedle Shot es mi favorito.</p>
+        <div class="testi-footer">
+          <div class="testi-avatar">👩🏼</div>
+          <div>
+            <div class="testi-name">Ana Paula</div>
+            <div class="testi-role">Punta Cana, RD</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="faq-header reveal">
+      <span class="section-label">Ayuda</span>
+      <h2 class="faq-title">Preguntas frecuentes</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item reveal">
+        <div class="faq-question">¿Son originales los productos?</div>
+        <div class="faq-answer">Sí, todos nuestros productos son 100% originales e importados directamente de Corea del Sur. Trabajamos con proveedores certificados.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">¿Hacen envíos a República Dominicana y el Caribe?</div>
+        <div class="faq-answer">Sí, enviamos a todo República Dominicana y al Caribe (Puerto Rico, Trinidad, Jamaica, Bahamas, Barbados, Curazao, Turks & Caicos).</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">¿Qué métodos de pago aceptan?</div>
+        <div class="faq-answer">Aceptamos tarjetas internacionales (Visa, Mastercard, Amex), transferencias bancarias y Nequi para República Dominicana.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">¿Son aptos para clima tropical?</div>
+        <div class="faq-answer">Sí, todos nuestros productos están seleccionados específicamente para piel en clima tropical: texturas ligeras, sin residuo blanco y efectivos contra humedad, UV y manchas.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">¿Cuánto tarda la confirmación del pedido?</div>
+        <div class="faq-answer">Confirmamos tu pedido por email en 24-48 horas hábiles. Te enviaremos número de tracking cuando esté en camino.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">¿Puedo devolver un producto?</div>
+        <div class="faq-answer">Sí, aceptamos devoluciones dentro de los 15 días posteriores a la entrega si el producto está sin usar y en su empaque original.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo"><em>O</em>NNI</span>
+        <p>K-Beauty seleccionado para el Caribe.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Productos</h4>
+        <ul>
+          <li><a href="#productos">Sérums</a></li>
+          <li><a href="#productos">Limpiadores</a></li>
+          <li><a href="#productos">Protección solar</a></li>
+          <li><a href="#productos">Rutinas</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#productos">Productos</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Ayuda</h4>
+        <ul>
+          <li><a href="#faq">Preguntas frecuentes</a></li>
+          <li><a href="#">Envíos</a></li>
+          <li><a href="#">Devoluciones</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Onni Cosmetics · Arias Group Caribe SRL</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/onni_cosmetics_rd/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://wa.me/18494754442" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/18494754442" target="_blank" rel="noopener noreferrer" class="whatsapp-float">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </a>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.08 });
+
+    reveals.forEach((el) => observer.observe(el));
+
+    // FAQ toggle
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>

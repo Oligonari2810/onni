@@ -2,19 +2,34 @@
 
 import { useState, useEffect } from 'react'
 import Navbar from '@/components/Navbar'
-import Hero from '@/components/Hero'
-import ContactForm from '@/components/ContactForm'
-import ProductCard from '@/components/ProductCard'
+import ProductCard from '@/components/product/ProductCard'
 import ShippingModal from '@/components/shipping/ShippingModal'
-import FAQSection from '@/components/FAQSection'
-import Testimonials from '@/components/Testimonials'
 import { products } from '@/lib/products'
+import SkinQuiz from '@/components/SkinQuiz'
+import EmailPopup from '@/components/EmailPopup'
+import ExitPopup from '@/components/ExitPopup'
+import ChatWidget from '@/components/ChatWidget'
+
 export default function Home() {
-  const [expandedPhase, setExpandedPhase] = useState<string | null>('phase-1')
   const [shippingOpen, setShippingOpen] = useState(false)
 
+  // MEJORA 8: Marquee pause cuando no está visible (performance)
   useEffect(() => {
-    // Reveal on scroll
+    const marquee = document.querySelector('.marquee')
+    if (!marquee) return
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        entry.target.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused'
+      })
+    }, { threshold: 0 })
+    
+    observer.observe(marquee)
+    
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
     const reveals = document.querySelectorAll('.reveal')
     const obs = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => {
@@ -25,16 +40,38 @@ export default function Home() {
       })
     }, { threshold: 0.08 })
     reveals.forEach((el) => obs.observe(el))
-
-    return () => {
-      reveals.forEach((el) => obs.unobserve(el))
-    }
+    return () => reveals.forEach((el) => obs.unobserve(el))
   }, [])
 
   return (
     <>
+      {/* MEJORA 5: Skip link para accesibilidad */}
+      <a href="#main-content" className="skip-link">Saltar al contenido</a>
+
       <Navbar />
-      <Hero />
+
+      {/* HERO - CON IMAGEN EAGER LOADING */}
+      <section className="hero" id="hero">
+        <div className="hero-content">
+          <span className="hero-eyebrow">K-Beauty para piel tropical · 언니</span>
+          <h1 className="hero-title">K-Beauty seleccionado<br /><em>para tu piel</em> en el Caribe</h1>
+          <p className="hero-desc">Rutinas coreanas seleccionadas para <strong>humedad, sol, manchas y piel sensible</strong>. Texturas ligeras que sí funcionan en clima tropical.</p>
+          <div className="hero-actions">
+            <a href="#productos" className="btn-primary">Comprar ahora</a>
+            <a href="#rutinas" className="btn-ghost">Ver rutinas</a>
+          </div>
+        </div>
+        <div className="hero-image-container">
+          {/* MEJORA 7: Loading eager en hero image para LCP */}
+          <img 
+            src="/WhatsApp Image 2026-05-02 at 12.47.30.jpeg" 
+            alt="Tu hermana mayor del Caribe" 
+            className="hero-image"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </div>
+      </section>
 
       {/* MARQUEE */}
       <div className="marquee">
@@ -42,199 +79,257 @@ export default function Home() {
           <span className="marquee-item">Ciencia coreana</span>
           <span className="marquee-item">Formulado para el Caribe</span>
           <span className="marquee-item">Sin cast blanco</span>
-          <span className="marquee-item">Seleccionado con criterio</span>
-          <span className="marquee-item">K-beauty · Caribe</span>
+          <span className="marquee-item">Texturas ligeras</span>
+          <span className="marquee-item">Manchas · SPF · Humedad</span>
           <span className="marquee-item">Tu hermana mayor</span>
           <span className="marquee-item">언니 · Onni</span>
           <span className="marquee-item">Ciencia coreana</span>
           <span className="marquee-item">Formulado para el Caribe</span>
           <span className="marquee-item">Sin cast blanco</span>
-          <span className="marquee-item">Seleccionado con criterio</span>
-          <span className="marquee-item">K-beauty · Caribe</span>
+          <span className="marquee-item">Texturas ligeras</span>
+          <span className="marquee-item">Manchas · SPF · Humedad</span>
           <span className="marquee-item">Tu hermana mayor</span>
           <span className="marquee-item">언니 · Onni</span>
         </div>
       </div>
 
-      {/* DISTRIBUCIÓN */}
-      <section className="distro" id="distribucion">
-        <div className="distro-header reveal">
-          <span className="section-label distro-label">Modelo de distribución</span>
-          <h2 className="section-title distro-title">Distribución selectiva<br /><em>ONNI</em></h2>
-          <p className="distro-desc">Trabajamos con clínicas estéticas, spas y profesionales que buscan una línea K-Beauty seleccionada para el clima del Caribe y con potencial real de rotación en cabina y retail. ONNI desarrolla puntos selectivos por zona, con catálogo validado, soporte comercial y enfoque de prescripción.</p>
-        </div>
-        <div className="distro-grid">
-          <div className="distro-card reveal">
-            <span className="distro-circle" style={{ background: '#FBD0DF' }} />
-            <h3>Un punto ONNI por zona</h3>
-            <p>Cada zona se trabaja con exclusividad para proteger posicionamiento, margen y diferenciación.</p>
-          </div>
-          <div className="distro-card reveal">
-            <span className="distro-circle" style={{ background: '#D8E5F3' }} />
-            <h3>Catálogo corto y validado</h3>
-            <p>Selección enfocada en rotación y uso real en clima tropical.</p>
-          </div>
-          <div className="distro-card reveal">
-            <span className="distro-circle" style={{ background: '#E2F3DC' }} />
-            <h3>Soporte comercial y formación</h3>
-            <p>Te ayudamos a integrar y vender la línea dentro de tu servicio.</p>
-          </div>
-        </div>
-        <div className="distro-cta reveal">
-          <a href="#b2b" className="btn-primary">Solicitar punto ONNI en tu zona</a>
-          <p className="distro-micro">Seleccionamos un número limitado de puntos por zona.</p>
-        </div>
-      </section>
+      {/* Main content anchor para skip link */}
+      <div id="main-content" />
 
       {/* MANIFIESTO */}
       <section className="manifesto" id="nosotras">
-        <div className="reveal">
-          <span className="section-label">Nuestro manifiesto</span>
-          <blockquote className="manifesto-quote">
-            &ldquo;Que el Caribe tenga por primera vez productos diseñados para <em>su clima real</em> y su realidad.&rdquo;
-          </blockquote>
-        </div>
-        <div className="manifesto-right">
-          <div className="manifesto-point reveal">
-            <span className="manifesto-num">01</span>
-            <div className="manifesto-text">
-              <h4>La hermana mayor</h4>
-              <p>En coreano, Onni (언니) significa hermana mayor. La que ya pasó por lo que tú estás viviendo. La que fue a Corea, investigó, probó — y trajo lo que realmente funciona aquí.</p>
+        <div className="manifesto-content">
+          <div className="manifesto-text">
+            <span className="section-label">Nuestro manifiesto</span>
+            <blockquote className="manifesto-quote">
+              &ldquo;Que el Caribe tenga por primera vez productos diseñados para <em>su clima real</em>&nbsp;y su realidad.&rdquo;
+            </blockquote>
+            <div className="manifesto-points">
+              <div className="manifesto-point">
+                <span className="manifesto-num">01</span>
+                <div>
+                  <h4>La hermana mayor</h4>
+                  <p>En coreano, Onni (언니) significa hermana mayor. La que ya pasó por lo que tú estás viviendo.</p>
+                </div>
+              </div>
+              <div className="manifesto-point">
+                <span className="manifesto-num">02</span>
+                <div>
+                  <h4>Curaduría, no fabricación</h4>
+                  <p>No fabricamos. Seleccionamos. Entre miles de productos K-beauty escogemos los que funcionan aquí.</p>
+                </div>
+              </div>
+              <div className="manifesto-point">
+                <span className="manifesto-num">03</span>
+                <div>
+                  <h4>El Caribe como protagonista</h4>
+                  <p>Sin estándares asiáticos ni europeos. El Caribe como referencia, no como mercado secundario.</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="manifesto-point reveal">
-            <span className="manifesto-num">02</span>
-            <div className="manifesto-text">
-              <h4>Curaduría, no fabricación</h4>
-              <p>No fabricamos. Seleccionamos. Entre miles de productos K-beauty escogemos los que tienen la ciencia, la textura y los ingredientes correctos para el clima del Caribe.</p>
-            </div>
-          </div>
-          <div className="manifesto-point reveal">
-            <span className="manifesto-num">03</span>
-            <div className="manifesto-text">
-              <h4>El Caribe como protagonista</h4>
-              <p>Sin estándares asiáticos ni europeos. Sin claim de blanqueamiento. El Caribe como referencia, no como mercado secundario.</p>
-            </div>
+          <div className="manifesto-image-wrapper">
+            <img src="/WhatsApp Image 2026-05-02 at 12.47.30 (1).jpeg" alt="ONNI Cosmetics" className="manifesto-image" />
           </div>
         </div>
-      </section>
-
-      {/* CONTEXTO CARIBE */}
-      <section className="contexto">
-        <div className="contexto-header reveal">
-          <span className="section-label">El contexto del Caribe</span>
-          <h2 className="section-title contexto-title">El Caribe necesita otra<br /><em>selección cosmética</em></h2>
-          <p className="contexto-desc">Alta radiación UV, humedad constante y tendencia a la hiperpigmentación exigen fórmulas, texturas y activos distintos. ONNI selecciona K-Beauty con mejor adaptación a estas condiciones.</p>
-        </div>
-        <div className="contexto-grid">
-          <div className="contexto-card reveal">
-            <span className="distro-circle" style={{ background: '#D8E5F3' }} />
-            <h3>Radiación UV constante</h3>
-            <p>Requiere protectores que realmente se usen a diario, sin residuo ni incomodidad.</p>
-          </div>
-          <div className="contexto-card reveal">
-            <span className="distro-circle" style={{ background: '#FBEBBB' }} />
-            <h3>Humedad que satura la piel</h3>
-            <p>En clima tropical, las texturas densas saturan la piel y provocan brotes. Las fórmulas ligeras evitan ese problema.</p>
-          </div>
-          <div className="contexto-card reveal">
-            <span className="distro-circle" style={{ background: '#E2F3DC' }} />
-            <h3>Manchas y PIH recurrentes</h3>
-            <p>Requiere activos bien elegidos y buena tolerancia cutánea en uso diario.</p>
-          </div>
-        </div>
-        <p className="contexto-closing reveal">Por eso ONNI no importa por catálogo. Selecciona lo que funciona aquí.</p>
       </section>
 
       {/* PRODUCTOS */}
       <section className="catalogo" id="productos">
-        <div className="catalogo-header reveal">
-          <span className="section-label">Selección ONNI</span>
-          <h2 className="section-title">Una línea pensada para prescripción<br /><em>en clima tropical</em></h2>
-          <p className="catalogo-desc">Siete productos, cuatro necesidades clave del Caribe: protección solar, manchas, limpieza adaptada a humedad y tratamiento complementario.</p>
+        <div className="catalogo-header">
+          <span className="section-label">Best sellers</span>
+          <h2 className="section-title">Best sellers para tu <em>rutina diaria</em></h2>
+          <p className="catalogo-desc">Seleccionados para manchas, humedad, SPF y piel sensible en el Caribe.</p>
         </div>
         <div className="catalogo-grid">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
-        <p className="catalogo-closing reveal">Cada producto cumple una función concreta. La línea completa se entiende mejor en protocolo.</p>
-        <div className="catalogo-cta reveal">
-          <a href="#b2b" className="btn-primary">Solicitar dossier B2B</a>
+        <p className="catalogo-closing">Cada producto cumple una función concreta. La línea completa se entiende mejor en protocolo.</p>
+      </section>
+
+      {/* RUTINAS - CON IMÁGENES */}
+      <section className="rutinas" id="rutinas">
+        <div className="rutinas-header">
+          <span className="section-label">Tus Rutinas</span>
+          <h2 className="section-title">Empieza por tu <em>rutina</em></h2>
+          <p className="rutinas-desc">K-Beauty adaptado al clima del Caribe. Rutinas completas con pasos esenciales.</p>
+        </div>
+        <div className="rutinas-grid">
+          <div className="rutina-card">
+            <div className="rutina-image" style={{ background: 'linear-gradient(135deg, #FBD0DF 0%, #E8B4C8 100%)' }}>
+              <span className="rutina-icon">✨</span>
+            </div>
+            <div className="rutina-body">
+              <h3>Glow Caribeño</h3>
+              <p>Para piel luminosa en clima húmedo</p>
+              <div className="rutina-steps"><strong>Pasos:</strong> Limpiador · Vitamina C · SPF</div>
+              <div className="rutina-price">
+                <span className="rutina-price-amount">$58</span>
+                <span className="rutina-save">Ahorra 15%</span>
+              </div>
+              <button className="rutina-btn">Comprar rutina</button>
+            </div>
+          </div>
+          <div className="rutina-card">
+            <div className="rutina-image" style={{ background: 'linear-gradient(135deg, #D8E5F3 0%, #B8D4E8 100%)' }}>
+              <span className="rutina-icon">🌿</span>
+            </div>
+            <div className="rutina-body">
+              <h3>Piel Sensible</h3>
+              <p>Calma y repara piel reactiva</p>
+              <div className="rutina-steps"><strong>Pasos:</strong> Limpiador suave · Toner · Crema</div>
+              <div className="rutina-price">
+                <span className="rutina-price-amount">$52</span>
+              </div>
+              <button className="rutina-btn">Comprar rutina</button>
+            </div>
+          </div>
+          <div className="rutina-card">
+            <div className="rutina-image" style={{ background: 'linear-gradient(135deg, #FBEBBB 0%, #E8D4A8 100%)' }}>
+              <span className="rutina-icon">🔥</span>
+            </div>
+            <div className="rutina-body">
+              <h3>Acné Tropical</h3>
+              <p>Control de grasa y brotes</p>
+              <div className="rutina-steps"><strong>Pasos:</strong> Cleanser · Niacinamida · SPF oil-free</div>
+              <div className="rutina-price">
+                <span className="rutina-price-amount">$60</span>
+              </div>
+              <button className="rutina-btn">Comprar rutina</button>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* B2C DIRECT PURCHASE */}
-      <section className="b2c-cta" id="catalogo">
-        <div className="b2c-cta-inner reveal">
+      {/* CONFIANZA B2C - LIMPIO */}
+      <section className="b2c-cta">
+        <div className="b2c-cta-inner">
           <span className="section-label">Compra directa</span>
           <h2 className="b2c-cta-title">ONNI para tu <em>rutina personal</em></h2>
-          <p className="b2c-cta-desc">¿No eres clínica o spa? No hay problema.<br/>Ahora puedes comprar los 7 productos ONNI directamente.</p>
+          <p className="b2c-cta-desc">Productos originales, pagos seguros y envíos a República Dominicana y el Caribe.</p>
           <div className="b2c-cta-features">
-            <span className="b2c-cta-feat">Tarjeta — Internacional</span>
-            <span className="b2c-cta-feat">Transferencia / Nequi — RD</span>
-            <span className="b2c-cta-feat">Envío a todo el Caribe</span>
+            <span className="b2c-cta-feat">🚚 Envío Caribe</span>
+            <span className="b2c-cta-feat">💳 Tarjeta internacional</span>
+            <span className="b2c-cta-feat">📱 Nequi / Transferencia RD</span>
+            <span className="b2c-cta-feat">🇰🇷 Importado de Corea</span>
           </div>
           <div className="b2c-cta-actions">
-            <a href="#productos" className="b2c-btn-primary">Ver productos</a>
+            <a href="#productos" className="b2c-btn-primary">Comprar ahora</a>
             <button className="b2c-btn-outline" onClick={() => setShippingOpen(true)}>Opciones de envío</button>
           </div>
         </div>
       </section>
 
-      {/* B2B */}
-      <section className="b2b-v3" id="b2b">
-        <div className="b2b-v3-header reveal">
-          <span className="section-label">Solicitud B2B</span>
-          <h2 className="section-title b2b-v3-title">Solicita información para<br /><em>tu punto ONNI</em></h2>
-          <p className="b2b-v3-desc">Si tu clínica, spa o espacio profesional encaja con el modelo ONNI, te enviaremos dossier de producto, condiciones de distribución y siguiente paso comercial.</p>
-          <p className="b2b-v3-filter">Trabajamos de forma selectiva y revisamos cada solicitud personalmente.</p>
+      {/* CONTEXTO CARIBE */}
+      <section className="contexto">
+        <div className="contexto-header">
+          <span className="section-label">El Caribe</span>
+          <h2 className="contexto-title">El Caribe necesita otra<br /><em>selección cosmética</em></h2>
+          <p className="contexto-desc">Alta radiación UV, humedad constante y tendencia a la hiperpigmentación exigen fórmulas, texturas y activos distintos.</p>
         </div>
-        <div className="b2b-v3-form reveal">
-          <ContactForm />
+        <div className="contexto-grid">
+          <div className="contexto-card">
+            <span className="contexto-icon">☀️</span>
+            <h3>Radiación UV constante</h3>
+            <p>Requiere protectores que realmente se usen a diario, sin residuo ni incomodidad.</p>
+          </div>
+          <div className="contexto-card">
+            <span className="contexto-icon">💧</span>
+            <h3>Humedad que satura la piel</h3>
+            <p>En clima tropical, las texturas densas saturan la piel y provocan brotes. Las fórmulas ligeras evitan ese problema.</p>
+          </div>
+          <div className="contexto-card">
+            <span className="contexto-icon">🔴</span>
+            <h3>Manchas y PIH recurrentes</h3>
+            <p>Requiere activos bien elegidos y buena tolerancia cutánea en uso diario.</p>
+          </div>
+        </div>
+        <div className="contexto-cta">
+          <a href="#productos" className="btn-primary">Ver productos recomendados</a>
         </div>
       </section>
 
-      {/* EXPANSIÓN */}
-      <section className="expansion" id="expansion">
-        <div className="expansion-header reveal">
-          <span className="section-label">Expansión regional</span>
-          <h2 className="section-title">Onni llega<br />a todo el <em>Caribe</em></h2>
-          <p>Mismo clima. Misma necesidad. Una sola marca que entiende el Caribe entero.</p>
+      {/* SKIN QUIZ */}
+      <SkinQuiz />
+
+      {/* TESTIMONIOS - MEJORADO */}
+      <section className="testimonios" id="reviews">
+        <div className="testimonios-header">
+          <span className="section-label">Reviews</span>
+          <h2 className="testimonios-title">Lo que dicen nuestras clientas</h2>
         </div>
-        <div className="expansion-accordion reveal">
-          {[
-            { id: 'phase-1', label: 'Activo · 2026', status: 's-activo', title: 'República Dominicana', text: 'Base de operaciones · Santo Domingo + Punta Cana' },
-            { id: 'phase-2', label: 'Próximamente · 2026', status: 's-pronto', title: 'Turks & Caicos', text: 'Providenciales · Mercado premium anglófono' },
-            { id: 'phase-3', label: '2026', status: 's-pronto', title: 'Puerto Rico · Trinidad & Tobago', text: 'Puerta al mercado hispano EE.UU. · Mayor PIB del Caribe' },
-            { id: 'phase-4', label: '2027', status: 's-futuro', title: 'Jamaica · Barbados · Curazao · Aruba', text: 'Caribe anglófono y holandés' },
-            { id: 'phase-5', label: '2028', status: 's-futuro', title: 'Martinica · Guadalupe · Islas Vírgenes US', text: 'Caribe francófono y americano' },
-            { id: 'phase-6', label: '2029+', status: 's-futuro', title: 'Surinam · Belice · Haití', text: 'Con socios locales' },
-          ].map((phase) => (
-            <div key={phase.id} className={`accordion-phase${phase.id === 'phase-1' ? ' accordion-phase-active' : ''}`}>
-              <button
-                className={`accordion-trigger${expandedPhase === phase.id ? ' open' : ''}`}
-                onClick={() => setExpandedPhase(expandedPhase === phase.id ? null : phase.id)}
-              >
-                <span className={`country-status ${phase.status}`}>{phase.label}</span>
-                <span className="accordion-title">{phase.title}</span>
-                <span className="accordion-arrow">{expandedPhase === phase.id ? '−' : '+'}</span>
-              </button>
-              {expandedPhase === phase.id && (
-                <div className="accordion-content">
-                  <p className="accordion-text">{phase.text}</p>
-                </div>
-              )}
+        <div className="testi-grid">
+          <div className="testi">
+            <div className="testi-stars">★★★★★</div>
+            <p className="testi-text">"Por fin productos que funcionan en el clima de Santo Domingo. La textura ligera del cleanser es perfecta para mi piel grasa."</p>
+            <div className="testi-footer">
+              <div className="testi-avatar">👩</div>
+              <div>
+                <div className="testi-name">María José</div>
+                <div className="testi-role">Santo Domingo, RD</div>
+              </div>
             </div>
-          ))}
+          </div>
+          <div className="testi">
+            <div className="testi-stars">★★★★★</div>
+            <p className="testi-text">"Pedí la rutina Glow y llegó súper rápido. El Vitamina C ya me está quitando las manchas del sol."</p>
+            <div className="testi-footer">
+              <div className="testi-avatar">👩</div>
+              <div>
+                <div className="testi-name">Carolina</div>
+                <div className="testi-role">San Juan, PR</div>
+              </div>
+            </div>
+          </div>
+          <div className="testi">
+            <div className="testi-stars">★★★★★</div>
+            <p className="testi-text">"Llevo un año usando los productos y mi piel nunca ha estado mejor. El Reedle Shot es mi favorito."</p>
+            <div className="testi-footer">
+              <div className="testi-avatar">👩🏼</div>
+              <div>
+                <div className="testi-name">Ana Paula</div>
+                <div className="testi-role">Punta Cana, RD</div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <FAQSection />
-
-      {/* TESTIMONIALS */}
-      <Testimonials />
+      <section className="faq" id="faq">
+        <div className="faq-header">
+          <span className="section-label">Ayuda</span>
+          <h2 className="faq-title">Preguntas frecuentes</h2>
+        </div>
+        <div className="faq-list">
+          <div className="faq-item">
+            <button className="faq-question">¿Son originales los productos?</button>
+            <div className="faq-answer"><p>Todos nuestros productos son 100% originales, importados directamente de laboratorios coreanos autorizados. Cada lote cuenta con registro sanitario y trazabilidad completa.</p></div>
+          </div>
+          <div className="faq-item">
+            <button className="faq-question">¿Hacen envíos a República Dominicana y el Caribe?</button>
+            <div className="faq-answer"><p>República Dominicana: entrega en 1-3 días hábiles en Santo Domingo, 3-5 días en el interior. Caribe internacional: 5-14 días según el país. Costo de envío RD: RD$250 (~$5 USD). Gratis en compras mayores a $75 USD.</p></div>
+          </div>
+          <div className="faq-item">
+            <button className="faq-question">¿Qué métodos de pago aceptan?</button>
+            <div className="faq-answer"><p>Tarjeta de crédito o débito internacional (Visa, Mastercard, AmEx) vía Stripe. Para República Dominicana: Nequi y transferencia bancaria al Banco Popular. Pago 100% anticipado en todos los casos.</p></div>
+          </div>
+          <div className="faq-item">
+            <button className="faq-question">¿Son aptos para clima tropical?</button>
+            <div className="faq-answer"><p>Sí. Seleccionamos exclusivamente productos con texturas ligeras, control de grasa y protección SPF50+ diseñados para resistir alta humedad y radiación UV. Cada producto pasa por un filtro de adaptación al clima caribeño.</p></div>
+          </div>
+          <div className="faq-item">
+            <button className="faq-question">¿Cuánto tarda la confirmación del pedido?</button>
+            <div className="faq-answer"><p>Los pedidos con tarjeta se confirman de forma automática. Los pagos por Nequi o transferencia se confirman en menos de 15 minutos en horario laboral (Lun-Sab 9am-6pm AST).</p></div>
+          </div>
+          <div className="faq-item">
+            <button className="faq-question">¿Puedo devolver un producto?</button>
+            <div className="faq-answer"><p>Aceptamos devoluciones si el producto llega dañado o no corresponde con tu pedido. Contáctanos por WhatsApp dentro de las 48 horas siguientes a la entrega con fotos del producto y tu comprobante.</p></div>
+          </div>
+        </div>
+      </section>
 
       {/* FOOTER */}
       <footer>
@@ -249,27 +344,24 @@ export default function Home() {
               <li><a href="#productos">Sérums</a></li>
               <li><a href="#productos">Limpiadores</a></li>
               <li><a href="#productos">Protección solar</a></li>
-              <li><a href="#productos">Mascarillas</a></li>
+              <li><a href="#rutinas">Rutinas</a></li>
             </ul>
           </div>
           <div className="footer-col">
             <h4>Empresa</h4>
             <ul>
-              <li><a href="#nosotras">Nosotros</a></li>
+              <li><a href="#nosotras">Nosotras</a></li>
               <li><a href="#productos">Productos</a></li>
-              <li><a href="#expansion">Expansión</a></li>
-              <li><a href="#">Onni Academy</a></li>
+              <li><a href="#reviews">Reviews</a></li>
             </ul>
           </div>
           <div className="footer-col">
-            <h4>B2B</h4>
+            <h4>Ayuda</h4>
             <ul>
-              <li><a href="#b2b">Clínicas estéticas</a></li>
-              <li><a href="#b2b">Spas &amp; wellness</a></li>
-              <li><a href="#b2b">Dermatólogos</a></li>
-              <li><a href="#b2b">Esteticistas</a></li>
-              <li><a href="#b2b" className="footer-link-sm">Profesionales independientes</a></li>
-              <li><a href="#b2b">Contacto</a></li>
+              <li><a href="#faq">Preguntas frecuentes</a></li>
+              <li><a href="#">Envíos</a></li>
+              <li><a href="#">Devoluciones</a></li>
+              <li><a href="#">Contacto</a></li>
             </ul>
           </div>
         </div>
@@ -284,6 +376,11 @@ export default function Home() {
 
       {/* Shipping Modal */}
       <ShippingModal isOpen={shippingOpen} onClose={() => setShippingOpen(false)} />
+
+      {/* Enterprise Features */}
+      <EmailPopup />
+      <ExitPopup />
+      <ChatWidget />
     </>
   )
 }
