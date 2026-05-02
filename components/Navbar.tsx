@@ -1,11 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useCart } from '@/lib/useCart'
 
 export default function Navbar() {
+  const { setIsOpen: setCartOpen, items } = useCart()
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [nosotrosOpen, setNosotrosOpen] = useState(false)
+
+  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60)
@@ -47,6 +51,20 @@ export default function Navbar() {
         </ul>
 
         <div className="nav-right">
+          <button
+            className="cart-button"
+            onClick={() => setCartOpen(true)}
+            aria-label="Carrito de compras"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            {cartCount > 0 && (
+              <span className="cart-count">{cartCount}</span>
+            )}
+          </button>
           <button
             className="hamburger"
             onClick={() => setMobileOpen(true)}

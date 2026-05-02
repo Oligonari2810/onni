@@ -16,7 +16,6 @@ const SKIN_TYPE_LABELS: Record<string, string> = {
 export default function ProductCard({ product, reveal = true }: { product: Product; reveal?: boolean }) {
   const { addToCart } = useCart()
   const [justAdded, setJustAdded] = useState(false)
-  const [imgError, setImgError] = useState(false)
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -35,29 +34,20 @@ export default function ProductCard({ product, reveal = true }: { product: Produ
   const isLowStock = product.stock <= 15
   const mainImage = product.images[0]
 
-  // Debug: log image errors
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    console.error(`Image failed to load: ${mainImage}`, e)
-    setImgError(true)
-  }
-
   return (
     <Link href={`/products/${product.slug}`} className={`catalogo-link ${reveal ? 'reveal' : ''}`}>
       <div className="catalogo-card">
         {/* Product image */}
-        <div className="catalogo-image-wrapper">
-          {mainImage && !imgError ? (
-            <img
-              src={mainImage}
-              alt={product.name}
-              className="catalogo-image"
-              onError={handleImageError}
-            />
-          ) : (
-            <div className="catalogo-image-fallback" style={{ background: product.color }}>
-              <span>{product.name.charAt(0)}</span>
-            </div>
-          )}
+        <div 
+          className="catalogo-image-wrapper"
+          style={{ 
+            backgroundImage: `url(${mainImage})`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: product.color
+          }}
+        >
         </div>
 
         {/* Badges row */}
