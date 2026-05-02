@@ -30,8 +30,6 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <CartProvider>
-          <div className="cursor" id="cur"></div>
-          <div className="cursor-ring" id="curR"></div>
           {children}
           <CartSidebar />
           <WhatsAppWidget />

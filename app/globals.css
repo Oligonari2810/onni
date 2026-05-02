@@ -21,9 +21,8 @@ html { scroll-behavior:smooth; }
 body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--deep); overflow-x:hidden; }
 
 /* ─── CURSOR ─────────────────────────────────── */
-* { cursor:none; }
-.cursor { width:8px; height:8px; background:var(--rose); border-radius:50%; position:fixed; top:0; left:0; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:multiply; transition:.1s; }
-.cursor-ring { width:32px; height:32px; border:1px solid var(--rose); border-radius:50%; position:fixed; top:0; left:0; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); opacity:.5; transition:.3s; }
+/* Cursor personalizado desactivado para mejor UX */
+/* .cursor, .cursor-ring { display: none; } */
 
 /* ─── NAV ────────────────────────────────────── */
 nav { position:fixed; top:0; width:100%; z-index:100; padding:24px 48px; display:flex; align-items:center; justify-content:space-between; transition:all .4s; }

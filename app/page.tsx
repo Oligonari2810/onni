@@ -14,22 +14,6 @@ export default function Home() {
   const [shippingOpen, setShippingOpen] = useState(false)
 
   useEffect(() => {
-    // Custom cursor
-    const cur = document.getElementById('cur')
-    const curR = document.getElementById('curR')
-    let mx = 0, my = 0, rx = 0, ry = 0
-
-    const handleMouseMove = (e: MouseEvent) => { mx = e.clientX; my = e.clientY }
-    document.addEventListener('mousemove', handleMouseMove)
-
-    const animateCursor = () => {
-      if (cur) { cur.style.left = mx + 'px'; cur.style.top = my + 'px' }
-      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12
-      if (curR) { curR.style.left = rx + 'px'; curR.style.top = ry + 'px' }
-      requestAnimationFrame(animateCursor)
-    }
-    animateCursor()
-
     // Reveal on scroll
     const reveals = document.querySelectorAll('.reveal')
     const obs = new IntersectionObserver((entries) => {
@@ -43,7 +27,6 @@ export default function Home() {
     reveals.forEach((el) => obs.observe(el))
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
       reveals.forEach((el) => obs.unobserve(el))
     }
   }, [])
