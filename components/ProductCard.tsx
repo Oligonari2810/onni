@@ -35,6 +35,12 @@ export default function ProductCard({ product, reveal = true }: { product: Produ
   const isLowStock = product.stock <= 15
   const mainImage = product.images[0]
 
+  // Debug: log image errors
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    console.error(`Image failed to load: ${mainImage}`, e)
+    setImgError(true)
+  }
+
   return (
     <Link href={`/products/${product.slug}`} className={`catalogo-link ${reveal ? 'reveal' : ''}`}>
       <div className="catalogo-card">
@@ -45,7 +51,7 @@ export default function ProductCard({ product, reveal = true }: { product: Produ
               src={mainImage}
               alt={product.name}
               className="catalogo-image"
-              onError={() => setImgError(true)}
+              onError={handleImageError}
             />
           ) : (
             <div className="catalogo-image-fallback" style={{ background: product.color }}>

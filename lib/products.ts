@@ -26,7 +26,7 @@ export interface Product {
   volume: string
 }
 
-const img = (slug: string) => `/images/products/${slug}/main.webp`
+const img = (slug: string) => `/images/products/${slug}/main.webp?v=1`
 
 // 🏆 TOP 7 BESTSELLERS K-BEAUTY
 // Precios calculados con fórmula: (UMM + $1.23 logística + 0.6% seguro) × 2
