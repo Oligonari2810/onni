@@ -22,7 +22,7 @@ export default function ProductDetailView({ product }: { product: Product }) {
   const handleAddToCart = () => {
     for (let i = 0; i < qty; i++) {
       addToCart({
-        productId: product.id,
+        id: product.id,
         name: product.name,
         price: product.price,
         category: product.category,

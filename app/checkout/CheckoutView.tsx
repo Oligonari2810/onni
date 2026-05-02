@@ -191,7 +191,7 @@ ${transferForm.notes ? `📝 *Notas:* ${transferForm.notes}\n\n` : ''}
           payment_method: 'local_transfer',
           payment_deadline: paymentDeadline,
           items: items.map((item) => ({
-            productId: item.productId,
+            productId: item.id,
             name: item.name,
             price: item.price,
             quantity: item.quantity,
@@ -272,7 +272,7 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
           </h2>
           <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '16px', padding: 0, margin: 0 }}>
             {items.map((item) => (
-              <li key={item.productId} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '16px', borderBottom: '1px solid var(--line)' }}>
+              <li key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '16px', borderBottom: '1px solid var(--line)' }}>
                 <div>
                   <p style={{ fontWeight: 500, fontSize: '.92rem' }}>{item.name}</p>
                   <p style={{ fontSize: '.78rem', color: 'var(--gray)' }}>Cantidad: {item.quantity}</p>

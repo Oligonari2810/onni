@@ -4,35 +4,35 @@ import { useCart } from '@/lib/useCart'
 import { useRouter } from 'next/navigation'
 
 export default function CartSidebar() {
-  const { items, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, total, clearCart } = useCart()
+  const { items, isOpen, setIsOpen, removeFromCart, updateQuantity, total, clearCart } = useCart()
   const router = useRouter()
 
   const handleCheckout = () => {
-    setIsCartOpen(false)
+    setIsOpen(false)
     router.push('/checkout')
   }
 
   return (
     <>
       {/* Overlay */}
-      {isCartOpen && (
+      {isOpen && (
         <div
           className="fixed inset-0 bg-black/40 z-50 transition-opacity"
-          onClick={() => setIsCartOpen(false)}
+          onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <div
         className={`fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 flex flex-col transition-transform duration-300 ${
-          isCartOpen ? 'translate-x-0' : 'translate-x-full'
+          isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b">
           <h2 className="text-lg font-semibold">Carrito de compras</h2>
           <button
-            onClick={() => setIsCartOpen(false)}
+            onClick={() => setIsOpen(false)}
             className="text-gray-500 hover:text-gray-800 transition-colors text-2xl leading-none"
             aria-label="Cerrar carrito"
           >
@@ -50,7 +50,7 @@ export default function CartSidebar() {
           ) : (
             <ul className="space-y-4">
               {items.map((item) => (
-                <li key={item.productId} className="flex gap-4 border-b pb-4">
+                <li key={item.id} className="flex gap-4 border-b pb-4">
                   {/* Product image placeholder */}
                   <div className="w-16 h-16 rounded-lg bg-gray-100 flex-shrink-0 flex items-center justify-center text-xs text-gray-400">
                     {item.image ? (
@@ -71,7 +71,7 @@ export default function CartSidebar() {
                   <div className="flex flex-col items-center gap-1">
                     <div className="flex items-center gap-2">
                       <button
-                        onClick={() => updateQuantity(item.productId, item.quantity - 1)}
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
                         className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-sm hover:bg-gray-100 transition-colors"
                         aria-label="Reducir cantidad"
                       >
@@ -79,7 +79,7 @@ export default function CartSidebar() {
                       </button>
                       <span className="text-sm w-6 text-center font-medium">{item.quantity}</span>
                       <button
-                        onClick={() => updateQuantity(item.productId, item.quantity + 1)}
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
                         className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-sm hover:bg-gray-100 transition-colors"
                         aria-label="Aumentar cantidad"
                       >
@@ -87,7 +87,7 @@ export default function CartSidebar() {
                       </button>
                     </div>
                     <button
-                      onClick={() => removeFromCart(item.productId)}
+                      onClick={() => removeFromCart(item.id)}
                       className="text-xs text-red-500 hover:text-red-700 transition-colors"
                     >
                       Eliminar

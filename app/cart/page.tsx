@@ -44,7 +44,7 @@ export default function CartPage() {
               <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '20px' }}>Productos</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {items.map((item) => (
-                  <div key={item.productId} style={{ display: 'flex', gap: '16px', paddingBottom: '16px', borderBottom: '1px solid #f3f4f6' }}>
+                  <div key={item.id} style={{ display: 'flex', gap: '16px', paddingBottom: '16px', borderBottom: '1px solid #f3f4f6' }}>
                     <div style={{ width: '100px', height: '100px', borderRadius: '8px', backgroundColor: '#f3f4f6', flexShrink: 0, overflow: 'hidden' }}>
                       {item.image ? (
                         <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -56,25 +56,25 @@ export default function CartPage() {
                     </div>
                     <div style={{ flex: 1 }}>
                       <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#111827' }}>{item.name}</h3>
-                      <p style={{ fontSize: '14px', color: '#6b7280', marginTop: '4px' }}>{item.category}</p>
+                      <p style={{ fontSize: '14px', color: '#6b7280', marginTop: '4px' }}>{item.slug}</p>
                       <p style={{ fontSize: '16px', fontWeight: '600', color: '#111827', marginTop: '8px' }}>${item.price.toFixed(2)}</p>
-                      
+
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '12px' }}>
                         <button
-                          onClick={() => updateQuantity(item.productId, item.quantity - 1)}
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           style={{ width: '32px', height: '32px', borderRadius: '6px', border: '1px solid #e5e7eb', background: 'white', cursor: 'pointer', fontSize: '18px' }}
                         >
                           −
                         </button>
                         <span style={{ fontSize: '16px', fontWeight: '500', minWidth: '32px', textAlign: 'center' }}>{item.quantity}</span>
                         <button
-                          onClick={() => updateQuantity(item.productId, item.quantity + 1)}
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           style={{ width: '32px', height: '32px', borderRadius: '6px', border: '1px solid #e5e7eb', background: 'white', cursor: 'pointer', fontSize: '18px' }}
                         >
                           +
                         </button>
                         <button
-                          onClick={() => removeFromCart(item.productId)}
+                          onClick={() => removeFromCart(item.id)}
                           style={{ marginLeft: 'auto', fontSize: '14px', color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer' }}
                         >
                           Eliminar
