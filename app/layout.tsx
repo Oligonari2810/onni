@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 import { CartProvider } from '@/lib/useCart'
 import AnalyticsProvider from '@/components/analytics/AnalyticsProvider'
 import CartSidebar from '@/components/CartSidebar'
+import PageViewTracker from '@/components/analytics/PageViewTracker'
 
 // Force dynamic rendering to avoid useSearchParams errors in production
 export const dynamic = 'force-dynamic'
@@ -35,33 +37,36 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
+      {/* 🔵 GOOGLE ANALYTICS 4 - Official Google Tag */}
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        
-        {/* 🔵 GOOGLE ANALYTICS - Official Google Tag (gtag.js) */}
-        <script
-          async
+        <Script
+          id="gtag-script"
           src="https://www.googletagmanager.com/gtag/js?id=G-9H9HCNYVPV"
+          strategy="afterInteractive"
         />
-        <script
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-9H9HCNYVPV');
+              gtag('config', 'G-9H9HCNYVPV', {
+                page_path: window.location.pathname,
+              });
             `,
           }}
         />
       </head>
+      
       <body className="antialiased">
-        {/* 👈 Analytics (GA4 + Meta Pixel) */}
-        <AnalyticsProvider />
-        
         <CartProvider>
           {children}
-          {/* 👈 Cart Sidebar (visible en todas las páginas) */}
+          {/* 👈 Cart Sidebar */}
           <CartSidebar />
+          {/* 👈 Page View Tracker for SPA navigation */}
+          <PageViewTracker />
         </CartProvider>
       </body>
     </html>
