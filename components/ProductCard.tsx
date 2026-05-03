@@ -25,22 +25,22 @@ export default function ProductCard({ product, reveal = true }: { product: Produ
       name: product.name,
       price: product.price,
       category: product.category,
-      image: product.images[0],
+      image: product.image,
     })
     setJustAdded(true)
     setTimeout(() => setJustAdded(false), 1500)
   }
 
-  const isLowStock = product.stock <= 15
-  const mainImage = product.images[0]
+  const isLowStock = product.stock <= 5
+  const mainImage = product.image
 
   return (
     <Link href={`/products/${product.slug}`} className={`catalogo-link ${reveal ? 'reveal' : ''}`}>
       <div className="catalogo-card">
         {/* Product image */}
-        <div 
+        <div
           className="catalogo-image-wrapper"
-          style={{ 
+          style={{
             backgroundImage: `url(${mainImage})`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
@@ -51,19 +51,17 @@ export default function ProductCard({ product, reveal = true }: { product: Produ
 
         {/* Badges row */}
         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '12px', marginBottom: '8px' }}>
-          {product.bestSeller && (
-            <span className="badge badge-bestseller">Bestseller</span>
-          )}
-          {product.vegan && (
-            <span className="badge badge-caribbean">Vegano</span>
-          )}
-          <span className="badge badge-skin">{SKIN_TYPE_LABELS[product.skinType]}</span>
+          {product.badges.map((badge, i) => (
+            <span key={i} className="badge badge-bestseller">{badge}</span>
+          ))}
         </div>
 
-        <span className="catalogo-cat">{product.category}</span>
+        <span className="catalogo-cat">{product.brand}</span>
         <h3>{product.name}</h3>
-        <p className="catalogo-benefit">{product.benefit}</p>
-        <p className="catalogo-micro">{product.micro}</p>
+        <p className="catalogo-benefit">{product.benefits}</p>
+        <p className="catalogo-micro" style={{ fontSize: '.75rem', color: 'var(--gray)', marginTop: '8px' }}>
+          {product.description.substring(0, 60)}...
+        </p>
 
         {/* Price */}
         <p className="catalogo-price" style={{
