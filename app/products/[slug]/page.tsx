@@ -190,7 +190,7 @@ export default function ProductPage() {
                   >
                     <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '16px', transition: 'transform 0.3s', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                       <div style={{ width: '100%', aspectRatio: '4/5', backgroundColor: '#f3f4f6', borderRadius: '8px', marginBottom: '12px', overflow: 'hidden' }}>
-                        <img src={p.images[0]} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        <img src={p.image} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       </div>
                       <p style={{ fontSize: '12px', color: '#6b7280', marginBottom: '4px' }}>{p.category}</p>
                       <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px', color: '#111827' }}>{p.name}</h3>
