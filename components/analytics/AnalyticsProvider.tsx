@@ -18,33 +18,47 @@ export default function AnalyticsProvider() {
   const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '123456789012345';
 
   useEffect(() => {
-    // 🔹 GA4
+    // 🔹 GA4 - Initialize dataLayer
     if (!window.dataLayer) {
       window.dataLayer = [];
+    }
+
+    // 🔹 GA4 - Define gtag function
+    window.gtag = window.gtag || function () {
+      window.dataLayer.push(arguments);
+    };
+
+    // 🔹 GA4 - Load script (only once)
+    const existingScript = document.querySelector(`script[src*="gtag/js?id=${GA_ID}"]`);
+    if (!existingScript) {
       const gtagScript = document.createElement('script');
       gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
       gtagScript.async = true;
       document.head.appendChild(gtagScript);
-
-      window.gtag = function () { window.dataLayer.push(arguments); };
-      window.gtag('js', new Date());
     }
+
+    // 🔹 GA4 - Initialize
+    window.gtag('js', new Date());
     window.gtag('config', GA_ID, {
       page_path: pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '')
     });
 
-    // 🔹 Meta Pixel
-    const fbScript = document.createElement('script');
-    fbScript.src = 'https://connect.facebook.net/en_US/fbevents.js';
-    fbScript.async = true;
-    fbScript.onload = () => {
-      window.fbq('init', PIXEL_ID);
-      window.fbq('track', 'PageView');
-    };
-    document.head.appendChild(fbScript);
+    // 🔹 Meta Pixel - Load script
+    const existingPixel = document.querySelector(`script[src*="fbevents.js"]`);
+    if (!existingPixel) {
+      const fbScript = document.createElement('script');
+      fbScript.src = 'https://connect.facebook.net/en_US/fbevents.js';
+      fbScript.async = true;
+      fbScript.onload = () => {
+        window.fbq('init', PIXEL_ID);
+        window.fbq('track', 'PageView');
+      };
+      document.head.appendChild(fbScript);
+    }
 
+    // 🔹 Meta Pixel - Define fbq function
     if (!window.fbq) {
-      // @ts-ignore - fbq.queue es añadido por el script de Facebook
+      // @ts-ignore
       window.fbq = function () {
         // @ts-ignore
         window.fbq.callMethod ? window.fbq.callMethod.apply(window.fbq, arguments) : window.fbq.queue.push(arguments);
