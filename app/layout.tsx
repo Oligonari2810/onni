@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { CartProvider } from '@/lib/useCart'
 import AnalyticsProvider from '@/components/analytics/AnalyticsProvider'
+import CartSidebar from '@/components/CartSidebar'
 
 // Force dynamic rendering to avoid useSearchParams errors in production
 export const dynamic = 'force-dynamic'
@@ -43,6 +44,8 @@ export default function RootLayout({
         
         <CartProvider>
           {children}
+          {/* 👈 Cart Sidebar (visible en todas las páginas) */}
+          <CartSidebar />
         </CartProvider>
       </body>
     </html>
