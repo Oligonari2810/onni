@@ -18,6 +18,7 @@ export interface Product {
   description: string;
   benefits: string;
   skinTypes: string[];
+  fullIngredients?: string;  // Lista completa de ingredientes (INCI) - opcional
 }
 
 export const products: Product[] = [

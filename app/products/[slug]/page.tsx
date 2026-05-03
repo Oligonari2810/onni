@@ -165,13 +165,15 @@ export default function ProductPage() {
             </div>
           </div>
 
-          {/* Full Ingredients */}
-          <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '32px', marginBottom: '64px' }}>
-            <h2 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '16px' }}>Ingredientes Completos</h2>
-            <p style={{ fontSize: '14px', color: '#4b5563', lineHeight: '1.8' }}>
-              {product.fullIngredients}
-            </p>
-          </div>
+          {/* Full Ingredients - Solo si existe */}
+          {product.fullIngredients && (
+            <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '32px', marginBottom: '64px' }}>
+              <h2 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '16px' }}>Ingredientes Completos</h2>
+              <p style={{ fontSize: '14px', color: '#4b5563', lineHeight: '1.8' }}>
+                {product.fullIngredients}
+              </p>
+            </div>
+          )}
 
           {/* Related Products */}
           {relatedProducts.length > 0 && (
