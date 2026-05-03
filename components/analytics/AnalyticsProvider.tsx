@@ -44,10 +44,12 @@ export default function AnalyticsProvider() {
     document.head.appendChild(fbScript);
 
     if (!window.fbq) {
+      // @ts-ignore - fbq.queue es añadido por el script de Facebook
       window.fbq = function () {
         // @ts-ignore
         window.fbq.callMethod ? window.fbq.callMethod.apply(window.fbq, arguments) : window.fbq.queue.push(arguments);
       };
+      // @ts-ignore
       window.fbq.queue = [];
     }
 
