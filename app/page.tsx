@@ -15,12 +15,13 @@ export default function Home() {
 
   // MEJORA 8: Marquee pause cuando no está visible (performance)
   useEffect(() => {
-    const marquee = document.querySelector('.marquee')
+    const marquee = document.querySelector('.marquee') as HTMLElement | null
     if (!marquee) return
     
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        entry.target.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused'
+        const target = entry.target as HTMLElement
+        target.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused'
       })
     }, { threshold: 0 })
     
