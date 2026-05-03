@@ -4,6 +4,7 @@ import Stripe from 'stripe'
 
 function getStripeClient() {
   const secretKey = process.env.STRIPE_SECRET_KEY
+
   if (!secretKey) {
     throw new Error('Missing STRIPE_SECRET_KEY')
   }
@@ -77,12 +78,50 @@ export async function POST(request: NextRequest) {
                 from: process.env.RESEND_FROM || 'ONNI <noreply@onnicosmetics.com>',
                 to: customerEmail,
                 subject: '¡Gracias por tu compra en ONNI! 🎉',
-                html: `<div><h1>¡Gracias por tu compra!</h1><p>ID: ${session.id}</p></div>`,
+                html: `
+                  <div style="font-family: system-ui, -apple-system, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h1 style="color: #111827; font-size: 24px; margin-bottom: 16px;">¡Gracias por tu compra!</h1>
+                    <p style="color: #6b7280; font-size: 16px; line-height: 1.6;">Hola,</p>
+                    <p style="color: #6b7280; font-size: 16px; line-height: 1.6;">Tu pedido ha sido confirmado y estamos preparándolo para envío.</p>
+                    <div style="background-color: #f9fafb; padding: 24px; border-radius: 8px; margin: 24px 0;">
+                      <h2 style="color: #111827; font-size: 18px; margin-bottom: 12px;">Detalles del pedido</h2>
+                      <p style="color: #6b7280; font-size: 14px; margin: 8px 0;"><strong>ID del pedido:</strong> ${session.id}</p>
+                      <p style="color: #6b7280; font-size: 14px; margin: 8px 0;"><strong>Total:</strong> ${currency?.toUpperCase()} ${(amountTotal || 0) / 100}</p>
+                    </div>
+                    <p style="color: #6b7280; font-size: 16px; line-height: 1.6;">Te enviaremos otro email cuando tu pedido sea despachado.</p>
+                    <p style="color: #6b7280; font-size: 16px; line-height: 1.6;">Gracias por confiar en ONNI.</p>
+                    <p style="color: #9ca3af; font-size: 14px; margin-top: 32px;">ONNI Caribe · K-Beauty para el Caribe</p>
+                  </div>
+                `,
               }),
             })
           } catch (emailError) {
             console.error('Error sending confirmation email:', emailError)
           }
+        }
+
+        try {
+          await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              from: process.env.RESEND_FROM || 'ONNI <noreply@onnicosmetics.com>',
+              to: ['amperez@ariasgroupcaribe.com', 'olivergonzalezarias@gmail.com'],
+              subject: `🛍️ Nuevo pedido - ${currency?.toUpperCase()} ${(amountTotal || 0) / 100}`,
+              text: `
+Nuevo pedido completado:
+- ID: ${session.id}
+- Email: ${customerEmail}
+- Total: ${currency?.toUpperCase()} ${(amountTotal || 0) / 100}
+- Payment Intent: ${paymentIntent}
+              `,
+            }),
+          })
+        } catch (adminEmailError) {
+          console.error('Error sending admin notification:', adminEmailError)
         }
 
         break
