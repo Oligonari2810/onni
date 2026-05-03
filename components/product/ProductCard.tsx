@@ -8,17 +8,18 @@ import { Check } from 'lucide-react'
 interface Product {
   id: string
   slug: string
+  brand: string
   name: string
   category: string
-  benefit: string
-  micro: string
+  benefits: string
+  description: string
   price: number
-  images: string[]
-  vegan?: boolean
-  crueltyFree?: boolean
-  skinType?: string
-  climateTags?: string[]
-  bestSeller?: boolean
+  cost?: number
+  msrp?: number
+  stock: number
+  image: string
+  badges: string[]
+  skinTypes: string[]
 }
 
 interface ProductCardProps {
@@ -35,7 +36,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       slug: product.slug,
       name: product.name,
       price: product.price,
-      image: product.images[0],
+      image: product.image,
       category: product.category,
     })
     setAdded(true)
@@ -45,28 +46,36 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <a href={`/products/${product.slug}`} className="catalogo-link reveal">
       <div className="catalogo-card">
-        <div 
+        <div
           className="catalogo-image-wrapper"
           style={{
-            backgroundImage: `url(${product.images[0]})`,
+            backgroundImage: `url(${product.image})`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         />
-        
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '12px', marginBottom: '8px' }}>
-          {product.bestSeller && <span className="badge badge-bestseller">Bestseller</span>}
-          {product.vegan && <span className="badge badge-caribbean">Vegano</span>}
-          {product.skinType && <span className="badge badge-skin">{product.skinType}</span>}
+
+        {/* Badges */}
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', position: 'absolute', top: '12px', left: '12px', zIndex: 2 }}>
+          {product.badges.map((badge, i) => (
+            <span key={i} className="badge badge-bestseller">{badge}</span>
+          ))}
         </div>
         
-        <span className="catalogo-cat">{product.category}</span>
+        {/* Stock urgency */}
+        {product.stock <= 5 && product.stock > 0 && (
+          <span style={{ position: 'absolute', top: '12px', right: '12px', background: 'var(--rose)', color: 'white', padding: '4px 8px', borderRadius: '4px', fontSize: '0.65rem', fontWeight: 600 }}>
+            🔥 Solo {product.stock}
+          </span>
+        )}
+
+        <span className="catalogo-cat">{product.brand}</span>
         <h3>{product.name}</h3>
-        <p className="catalogo-benefit">{product.benefit}</p>
-        <p className="catalogo-micro">{product.micro}</p>
-        
-        <p 
+        <p className="catalogo-benefit">{product.benefits}</p>
+        <p className="catalogo-micro" style={{ fontSize: '0.75rem', color: 'var(--gray)', marginTop: '8px' }}>{product.description.substring(0, 80)}...</p>
+
+        <p
           className="catalogo-price"
           style={{
             fontFamily: "'Cormorant Garamond', serif",
