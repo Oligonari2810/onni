@@ -13,7 +13,7 @@ export default function ProductsPage() {
     return (
       p.name.toLowerCase().includes(q) ||
       p.category.toLowerCase().includes(q) ||
-      p.benefit.toLowerCase().includes(q)
+      p.benefits.toLowerCase().includes(q)
     )
   })
 
