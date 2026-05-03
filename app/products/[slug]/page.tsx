@@ -77,32 +77,11 @@ export default function ProductPage() {
               <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '24px', marginBottom: '16px' }}>
                 <div style={{ width: '100%', aspectRatio: '4/5', backgroundColor: '#f3f4f6', borderRadius: '8px', overflow: 'hidden', marginBottom: '16px' }}>
                   <img
-                    src={product.images[selectedImage] || product.images[0]}
+                    src={product.image}
                     alt={product.name}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 </div>
-                {product.images.length > 1 && (
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    {product.images.map((img, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setSelectedImage(idx)}
-                        style={{
-                          width: '80px',
-                          height: '80px',
-                          borderRadius: '6px',
-                          border: selectedImage === idx ? '2px solid #111827' : '2px solid transparent',
-                          overflow: 'hidden',
-                          cursor: 'pointer',
-                          backgroundColor: '#f3f4f6',
-                        }}
-                      >
-                        <img src={img} alt={`${product.name} ${idx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      </button>
-                    ))}
-                  </div>
-                )}
               </div>
             </div>
 
@@ -134,48 +113,13 @@ export default function ProductPage() {
                 {product.description}
               </p>
 
-              {/* Key Ingredients */}
-              <div style={{ backgroundColor: '#f9fafb', padding: '20px', borderRadius: '8px', marginBottom: '24px' }}>
-                <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px' }}>Ingredientes Clave</h3>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  {product.keyIngredients.map((ingredient, idx) => (
-                    <li key={idx} style={{ display: 'flex', gap: '8px', marginBottom: '8px', fontSize: '14px', color: '#4b5563' }}>
-                      <span style={{ color: '#059669' }}>✓</span>
-                      <span><strong>{ingredient.name}</strong> — {ingredient.benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* How to Use */}
-              <div style={{ backgroundColor: '#f9fafb', padding: '20px', borderRadius: '8px', marginBottom: '24px' }}>
-                <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px' }}>Modo de Uso</h3>
-                <ol style={{ padding: 0, margin: 0, paddingLeft: '20px' }}>
-                  {product.howToUse.map((step, idx) => (
-                    <li key={idx} style={{ marginBottom: '8px', fontSize: '14px', color: '#4b5563', lineHeight: '1.6' }}>
-                      {step}
-                    </li>
-                  ))}
-                </ol>
-              </div>
-
               {/* Badges */}
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                {product.vegan && (
-                  <span style={{ padding: '6px 12px', backgroundColor: '#d1fae5', color: '#065f46', borderRadius: '9999px', fontSize: '12px', fontWeight: '500' }}>
-                    🌱 Vegano
+                {product.badges.map((badge, i) => (
+                  <span key={i} style={{ padding: '6px 12px', backgroundColor: '#d1fae5', color: '#065f46', borderRadius: '9999px', fontSize: '12px', fontWeight: '500' }}>
+                    {badge}
                   </span>
-                )}
-                {product.crueltyFree && (
-                  <span style={{ padding: '6px 12px', backgroundColor: '#fce7f3', color: '#9d174d', borderRadius: '9999px', fontSize: '12px', fontWeight: '500' }}>
-                    🐰 Cruelty Free
-                  </span>
-                )}
-                {product.bestSeller && (
-                  <span style={{ padding: '6px 12px', backgroundColor: '#fef3c7', color: '#92400e', borderRadius: '9999px', fontSize: '12px', fontWeight: '500' }}>
-                    ⭐ Bestseller
-                  </span>
-                )}
+                ))}
               </div>
 
               {/* Add to Cart */}
