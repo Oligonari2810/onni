@@ -43,7 +43,7 @@ export default function ProductDetailView({ product }: { product: Product }) {
 
           {/* LEFT: Gallery */}
           <div>
-            <ProductGallery images={product.images} productName={product.name} />
+            <ProductGallery images={[product.image]} productName={product.name} />
           </div>
 
           {/* RIGHT: Product info */}
