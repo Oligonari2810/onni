@@ -37,6 +37,22 @@ export default function RootLayout({
     <html lang="es">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        {/* 🔵 GOOGLE ANALYTICS - Official Google Tag (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-9H9HCNYVPV"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-9H9HCNYVPV');
+            `,
+          }}
+        />
       </head>
       <body className="antialiased">
         {/* 👈 Analytics (GA4 + Meta Pixel) */}
