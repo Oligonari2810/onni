@@ -32,8 +32,8 @@ export default function ProductDetailView({ product }: { product: Product }) {
     setTimeout(() => setJustAdded(false), 1500)
   }
 
-  const isLowStock = product.stock <= 15
-  const isPopular = product.popularity > 30
+  const isLowStock = product.stock <= 5
+  const isPopular = product.badges.includes('Bestseller') || product.badges.includes('Trending')
   const inStock = product.stock > 0
 
   return (
@@ -50,10 +50,9 @@ export default function ProductDetailView({ product }: { product: Product }) {
           <div>
             {/* Badges */}
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
-              {product.bestSeller && <span className="badge badge-bestseller">Bestseller</span>}
-              {product.vegan && <span className="badge badge-caribbean">Vegano</span>}
-              {product.crueltyFree && <span className="badge badge-skin">Cruelty-free</span>}
-              <span className="badge badge-caribbean">Caribbean</span>
+              {product.badges.map((badge, i) => (
+                <span key={i} className="badge badge-bestseller">{badge}</span>
+              ))}
             </div>
 
             {/* Category */}
