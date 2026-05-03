@@ -53,7 +53,7 @@ export default function ProductPage() {
         stock: product.stock || 10,
         rating: '4.8',
         reviews: '124',
-        description: product.benefit
+        description: product.benefits
       }} />
 
       <Navbar />
