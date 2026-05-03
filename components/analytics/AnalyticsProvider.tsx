@@ -14,7 +14,9 @@ declare global {
 export default function AnalyticsProvider() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-XXXXXXXXXX';
+  
+  // TEMPORAL: Hardcodea tu ID real hasta que Vercel funcione
+  const GA_ID = 'G-9H9HCNYVPV';  // TU ID REAL AQUÍ
   const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '123456789012345';
 
   useEffect(() => {
