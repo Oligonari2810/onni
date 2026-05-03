@@ -72,11 +72,6 @@ export default function ProductDetailView({ product }: { product: Product }) {
               {product.name}
             </h1>
 
-            {/* Volume */}
-            <p style={{ fontSize: '.82rem', color: 'var(--gray)', marginBottom: '16px' }}>
-              {product.volume}
-            </p>
-
             {/* Description */}
             <p style={{ fontSize: '.92rem', lineHeight: 1.75, color: 'var(--charcoal)', marginBottom: '24px' }}>
               {product.description}
