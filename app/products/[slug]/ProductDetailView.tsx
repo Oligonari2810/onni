@@ -153,7 +153,7 @@ export default function ProductDetailView({ product }: { product: Product }) {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '32px' }}>
               <div style={{ padding: '12px', background: 'var(--white)', borderRadius: '8px', border: '1px solid var(--line)' }}>
                 <p style={{ fontSize: '.65rem', letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--gray)', marginBottom: '4px' }}>Tipo de piel</p>
-                <p style={{ fontSize: '.88rem', color: 'var(--charcoal)' }}>{SKIN_TYPE_LABELS[product.skinType]}</p>
+                <p style={{ fontSize: '.88rem', color: 'var(--charcoal)' }}>{product.skinTypes.map(t => SKIN_TYPE_LABELS[t]).join(', ')}</p>
               </div>
               <div style={{ padding: '12px', background: 'var(--white)', borderRadius: '8px', border: '1px solid var(--line)' }}>
                 <p style={{ fontSize: '.65rem', letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--gray)', marginBottom: '4px' }}>Ideal para</p>
