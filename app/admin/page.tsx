@@ -3,6 +3,9 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 
+// Force dynamic rendering to avoid useSearchParams errors
+export const dynamic = 'force-dynamic'
+
 interface Inquiry {
   id: number
   name: string
