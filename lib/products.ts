@@ -32,7 +32,7 @@ export const products: Product[] = [
     msrp: 47.17,
     price: 48.00,      // Margen ~111% sobre costo
     stock: 5,
-    image: "/images/products/vt-reedle-shot-1300.webp",
+    image: "/images/products/vt-vt-reedle-shot-1300-8ml/main.webp",
     badges: ["Trending", "Bestseller"],
     description: "Microagujas de espículas que penetran en la piel para renovar desde dentro. El tratamiento #1 en Asia.",
     benefits: "Renovación celular profunda y efecto lifting inmediato",
@@ -48,7 +48,7 @@ export const products: Product[] = [
     msrp: 11.79,
     price: 15.50,      // Margen ~134% sobre costo
     stock: 5,
-    image: "/images/products/beauty-of-joseon-revive-eye-serum.webp",
+    image: "/images/products/beauty-of-joseon-revive-eye-serum-ginseng-retinal-30ml/main.png",
     badges: ["Bestseller", "Vegano", "Ideal Caribe"],
     description: "El eye serum más viral de Corea. Reduce ojeras y líneas de expresión con Ginseng y Retinal suave.",
     benefits: "Reduce ojeras y patas de gallo",
@@ -64,7 +64,7 @@ export const products: Product[] = [
     msrp: 21.50,
     price: 24.00,      // Margen ~122% sobre costo
     stock: 5,
-    image: "/images/products/goodal-green-tangerine-vita-c.webp",
+    image: "/images/products/goodal-green-tangerine-vita-c-dark-spot-serum-40ml/main.jpg",
     badges: ["Bestseller", "Vegano"],
     description: "Vitamina C pura extraída de mandarina verde. Unifica el tono y atenúa manchas solares sin irritar.",
     benefits: "Ilumina y reduce manchas solares",
@@ -80,7 +80,7 @@ export const products: Product[] = [
     msrp: 20.12,
     price: 22.50,      // Margen ~123% sobre costo
     stock: 5,
-    image: "/images/products/dr-althea-345-relief-cream.webp",
+    image: "/images/products/dralthea-345-relief-cream-50ml/main.jpg",
     badges: ["Bestseller", "Ideal Caribe"],
     description: "Crema calmante con ceramidas y pantenol. Repara la barrera cutánea en piel sensible.",
     benefits: "Calma piel irritada y fortalece la barrera",
@@ -96,7 +96,7 @@ export const products: Product[] = [
     msrp: 20.12,
     price: 22.00,      // Margen ~127% sobre costo
     stock: 5,
-    image: "/images/products/manyo-pure-cleansing-oil.webp",
+    image: "/images/products/manyo-pure-cleansing-oil-200ml/main.png",
     badges: ["Bestseller", "Vegano"],
     description: "Aceite limpiador que disuelve maquillaje, SPF y exceso de sebo sin dejar residuo grasoso.",
     benefits: "Limpieza profunda sin residuos",
@@ -112,7 +112,7 @@ export const products: Product[] = [
     msrp: 23.31,
     price: 18.50,      // Margen ~128% sobre costo
     stock: 5,
-    image: "/images/products/im-from-rice-toner.webp",
+    image: "/images/products/im-from-rice-toner-150ml/main.webp",
     badges: ["Bestseller", "Vegano", "Ideal Caribe"],
     description: "Tónico hidratante con extracto de arroz fermentado. Aporta luminosidad natural y suavidad.",
     benefits: "Hidratación y luminosidad",
@@ -128,7 +128,7 @@ export const products: Product[] = [
     msrp: 15.26,
     price: 15.00,      // Margen ~114% sobre costo
     stock: 20,
-    image: "/images/products/tocobo-cotton-soft-sun-stick.webp",
+    image: "/images/products/tocobo-cotton-soft-sun-stick-spf50-pa-19g/main.webp",
     badges: ["Nuevo", "Ideal Caribe", "Vegano"],
     description: "Protector solar en barra con acabado mate. Se reaplica sobre maquillaje sin dejar cast blanco.",
     benefits: "SPF50+ sin residuo blanco, ideal para clima húmedo",
@@ -144,7 +144,7 @@ export const products: Product[] = [
     msrp: 20.81,
     price: 21.00,      // Margen ~140% sobre costo
     stock: 15,
-    image: "/images/products/numbuzin-no5-glutathione-cream.webp",
+    image: "/images/products/numbuzin-no5-vitamin-glutathione-dark-spot-laser-cream-50ml/main.webp",
     badges: ["Trending", "Bestseller", "Vegano"],
     description: "Crema con Glutatión y Vitamina para aclarar manchas oscuras y unificar el tono de la piel.",
     benefits: "Aclara manchas y da efecto 'Glass Skin'",
