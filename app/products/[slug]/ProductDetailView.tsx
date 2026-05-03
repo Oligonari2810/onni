@@ -186,39 +186,23 @@ export default function ProductDetailView({ product }: { product: Product }) {
               </div>
 
               {activeTab === 'how-to-use' && (
-                <ol style={{ paddingLeft: '20px', margin: 0 }}>
-                  {product.howToUse.map((step, i) => (
-                    <li key={i} style={{ fontSize: '.88rem', color: 'var(--charcoal)', lineHeight: 1.7, marginBottom: '8px' }}>
-                      {step}
-                    </li>
-                  ))}
-                </ol>
+                <div style={{ fontSize: '.88rem', color: 'var(--charcoal)', lineHeight: 1.7 }}>
+                  <p>Aplica sobre el rostro limpio por la mañana y/o por la noche.</p>
+                  <p style={{ marginTop: '8px' }}>Masajea suavemente hasta que se absorba completamente.</p>
+                  <p style={{ marginTop: '8px' }}>Para mejores resultados, usa consistentemente como parte de tu rutina diaria.</p>
+                </div>
               )}
 
               {activeTab === 'ingredients' && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {product.keyIngredients.map((ing) => (
-                    <div key={ing.name} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                      <span style={{
-                        width: '8px', height: '8px', borderRadius: '50%',
-                        background: 'var(--rose)', flexShrink: 0, marginTop: '6px',
-                      }} />
-                      <div>
-                        <p style={{ fontSize: '.88rem', fontWeight: 500, color: 'var(--deep)', marginBottom: '2px' }}>
-                          {ing.name}
-                        </p>
-                        <p style={{ fontSize: '.82rem', color: 'var(--gray)', lineHeight: 1.5 }}>
-                          {ing.benefit}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
+                <div style={{ fontSize: '.88rem', color: 'var(--charcoal)', lineHeight: 1.7 }}>
+                  <p><strong>Beneficio principal:</strong> {product.benefits}</p>
+                  <p style={{ marginTop: '12px' }}><strong>Descripción:</strong> {product.description}</p>
                 </div>
               )}
 
               {activeTab === 'inci' && (
-                <p style={{ fontSize: '.82rem', color: 'var(--charcoal)', lineHeight: 1.7, fontFamily: 'monospace', background: 'var(--white)', padding: '16px', borderRadius: '8px' }}>
-                  {product.fullIngredients}
+                <p style={{ fontSize: '.82rem', color: 'var(--charcoal)', lineHeight: 1.7 }}>
+                  Consulta la etiqueta del producto para la lista completa de ingredientes.
                 </p>
               )}
             </div>
