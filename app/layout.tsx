@@ -3,6 +3,9 @@ import './globals.css'
 import { CartProvider } from '@/lib/useCart'
 import AnalyticsProvider from '@/components/analytics/AnalyticsProvider'
 
+// Force dynamic rendering to avoid useSearchParams errors in production
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: {
     default: 'ONNI Cosmetics | K-Beauty para el Caribe',
