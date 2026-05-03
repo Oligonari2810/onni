@@ -1,35 +1,43 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-04-22.dahlia',
-})
+function getStripeClient() {
+  const secretKey = process.env.STRIPE_SECRET_KEY
+
+  if (!secretKey) {
+    throw new Error('Missing STRIPE_SECRET_KEY')
+  }
+
+  return new Stripe(secretKey, {
+    apiVersion: '2026-04-22.dahlia',
+  })
+}
 
 export async function POST(request: NextRequest) {
   try {
+    const stripe = getStripeClient()
     const body = await request.json()
     const { items, email, shipping } = body
 
     if (!items || items.length === 0) {
-      return NextResponse.json(
-        { error: 'No items in cart' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'No items in cart' }, { status: 400 })
     }
 
-    // Calculate totals
     const subtotal = items.reduce((sum: number, item: any) => {
-      return sum + (item.price * item.quantity)
+      return sum + item.price * item.quantity
     }, 0)
 
-    const shippingCost = shipping?.country === 'DO' ? 5.99 : 
-                         shipping?.country === 'PR' ? 6.99 :
-                         shipping?.country === 'PA' || shipping?.country === 'CR' ? 8.99 :
-                         shipping?.country === 'CO' ? 12.99 : 14.99
+    const shippingCost =
+      shipping?.country === 'DO'
+        ? 5.99
+        : shipping?.country === 'PR'
+          ? 6.99
+          : shipping?.country === 'PA' || shipping?.country === 'CR'
+            ? 8.99
+            : shipping?.country === 'CO'
+              ? 12.99
+              : 14.99
 
-    const total = subtotal + shippingCost
-
-    // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: items.map((item: any) => ({
@@ -76,9 +84,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ sessionId: session.id })
   } catch (error) {
     console.error('Checkout error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+
+    if (error instanceof Error && error.message === 'Missing STRIPE_SECRET_KEY') {
+      return NextResponse.json({ error: 'Checkout is not configured' }, { status: 500 })
+    }
+
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
