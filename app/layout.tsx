@@ -1,20 +1,28 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { CartProvider } from '@/lib/useCart'
+import AnalyticsProvider from '@/components/analytics/AnalyticsProvider'
 
 export const metadata: Metadata = {
-  title: 'ONNI Cosmetics | K-Beauty para el Caribe',
-  description: 'Cosmética coreana seleccionada para piel tropical. Texturas ligeras, control de grasa y protección UV para República Dominicana, Caribe y LATAM. Envíos rápidos.',
-  keywords: 'K-Beauty Caribe, cosmética tropical RD, SPF50 piel tropical, skincare clima húmedo, ONNI cosmetics República Dominicana, K-Beauty LATAM, Nequi RD, piel grasa trópico',
+  title: {
+    default: 'ONNI Cosmetics | K-Beauty para el Caribe',
+    template: '%s | ONNI Cosmetics',
+  },
+  description: 'Cosmética coreana seleccionada para piel tropical. Texturas ligeras, SPF y control de grasa. Envíos a República Dominicana y el Caribe.',
+  keywords: ['K-Beauty Caribe', 'Cosmética RD', 'SPF Piel Grasa', 'VT Reedle Shot', 'Beauty of Joseon', 'ONNI Cosmetics', 'Nequi RD', 'piel grasa trópico'],
+  metadataBase: new URL('https://www.onnicosmetics.com'),
   openGraph: {
-    title: 'ONNI - K-Beauty para el Caribe',
-    description: 'Cosmética coreana para clima tropical',
+    type: 'website',
+    locale: 'es_DO',
     url: 'https://onnicosmetics.com',
     siteName: 'ONNI Cosmetics',
-    locale: 'es_DO',
-    type: 'website',
+    images: ['/og-image.svg'],
   },
-}
+  twitter: {
+    card: 'summary_large_image',
+    site: '@onnicosmetics',
+  },
+};
 
 export default function RootLayout({
   children,
@@ -27,6 +35,9 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body className="antialiased">
+        {/* 👈 Analytics (GA4 + Meta Pixel) */}
+        <AnalyticsProvider />
+        
         <CartProvider>
           {children}
         </CartProvider>

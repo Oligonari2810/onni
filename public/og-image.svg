@@ -1,0 +1,9 @@
+<!-- Placeholder for og-image.jpg -->
+<!-- Reemplazar con imagen real de 1200x630px -->
+<!-- Mientras tanto, Next.js usará esta como fallback -->
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#C4497A"/>
+  <text x="600" y="280" font-family="Cormorant Garamond, serif" font-size="72" font-weight="300" fill="white" text-anchor="middle">ONNI</text>
+  <text x="600" y="340" font-family="DM Sans, sans-serif" font-size="32" fill="white" text-anchor="middle">K-Beauty para el Caribe</text>
+  <text x="600" y="400" font-family="DM Sans, sans-serif" font-size="24" fill="#E8B4C8" text-anchor="middle">www.onnicosmetics.com</text>
+</svg>

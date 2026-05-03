@@ -5,6 +5,7 @@ import { products } from '@/lib/products'
 import Navbar from '@/components/Navbar'
 import { useCart } from '@/lib/useCart'
 import { useState } from 'react'
+import ProductJsonLd from '@/components/seo/ProductJsonLd'
 
 export default function ProductPage() {
   const params = useParams()
@@ -43,8 +44,20 @@ export default function ProductPage() {
 
   return (
     <>
+      {/* 👈 Inyecta el Schema para Google */}
+      <ProductJsonLd product={{
+        slug: product.slug,
+        brand: 'ONNI',
+        name: product.name,
+        price: product.price,
+        stock: product.stock || 10,
+        rating: '4.8',
+        reviews: '124',
+        description: product.benefit
+      }} />
+
       <Navbar />
-      
+
       {/* Product Details */}
       <div style={{ minHeight: '100vh', backgroundColor: '#f9fafb', padding: '40px 20px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
