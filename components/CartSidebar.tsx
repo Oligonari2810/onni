@@ -54,7 +54,7 @@ export default function CartSidebar() {
                   {/* Product image placeholder */}
                   <div className="w-20 h-20 rounded-lg bg-gray-100 flex-shrink-0 overflow-hidden">
                     {item.image ? (
-                      <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                      <img src={item.image} alt={item.name} className="w-full h-full object-cover" onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/images/products/goodal-green-tangerine-vita-c-dark-spot-serum-40ml/main.svg" }} />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-xs text-gray-400">
                         ONNI
