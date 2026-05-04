@@ -259,6 +259,14 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
           Pago 100% anticipado · Envío tras confirmar pago
         </p>
 
+
+
+        <div style={{ background: 'var(--white)', border: '1px solid var(--line)', borderRadius: '10px', padding: '14px 16px', marginBottom: '18px' }}>
+          <p style={{ fontSize: '.76rem', color: 'var(--gray)', lineHeight: 1.6, margin: 0 }}>
+            🔒 Pago seguro · 🚚 Envío estimado RD 2-4 días / Internacional 5-10 días · ✅ Soporte por WhatsApp
+          </p>
+        </div>
+
         {canceled && (
           <div style={{ padding: '16px', background: '#FFF3E0', borderRadius: '8px', marginBottom: '24px', fontSize: '.88rem', color: '#E65100' }}>
             El pago fue cancelado. Tu carrito sigue disponible.
@@ -300,7 +308,7 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
           Método de pago
         </h2>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '32px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginBottom: '32px' }}>
           {/* Stripe */}
           <button
             onClick={() => setPaymentMethod('stripe')}
@@ -342,6 +350,10 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
           </button>
         </div>
 
+        <p style={{ fontSize: '.74rem', color: 'var(--gray)', marginTop: '-18px', marginBottom: '20px' }}>
+          Si no ves el botón de tarjeta, selecciona la opción <strong>Tarjeta</strong> arriba y desplázate un poco hacia abajo.
+        </p>
+
         {/* ── Stripe flow ── */}
         {paymentMethod === 'stripe' && (
           <div>
@@ -354,7 +366,7 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
               {loading ? 'Procesando...' : 'Ir a Stripe Checkout'}
             </button>
             <p style={{ fontSize: '.72rem', color: 'var(--gray)', textAlign: 'center', marginTop: '12px', lineHeight: 1.6 }}>
-              Pago seguro con Stripe · Visa/Mastercard/AmEx
+              Pago seguro con Stripe · Visa/Mastercard/AmEx · Entrega estimada 5-10 días
             </p>
           </div>
         )}
@@ -423,7 +435,7 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
                 {formErrors.address && <span style={errorStyle}>{formErrors.address}</span>}
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <label style={labelStyle}>Ciudad *</label>
                   <input type="text" value={transferForm.city} onChange={(e) => setTransferForm({ ...transferForm, city: e.target.value })} placeholder="Santo Domingo" style={inputStyle(formErrors.city)} />
