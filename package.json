@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "npm run typecheck",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:assets": "node scripts/validate-assets.mjs"
   },
   "repository": {
     "type": "git",

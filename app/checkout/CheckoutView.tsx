@@ -34,7 +34,8 @@ export default function CheckoutPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [loading, setLoading] = useState(false)
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(null)
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('stripe')
+  const [checkoutError, setCheckoutError] = useState<string | null>(null)
   const [isRD, setIsRD] = useState(false)
   const canceled = searchParams.get('canceled')
   const [transferForm, setTransferForm] = useState<TransferForm>({
@@ -54,12 +55,9 @@ export default function CheckoutPage() {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
       if (tz.includes('Santo_Domingo') || tz.includes('America/Santo')) {
         setIsRD(true)
-        setPaymentMethod('transfer')
-      } else {
-        setPaymentMethod('stripe')
       }
     } catch {
-      setPaymentMethod('stripe')
+      // Keep Stripe as the explicit default payment option.
     }
   }, [])
 
@@ -103,6 +101,7 @@ export default function CheckoutPage() {
 
   const handleStripePayment = async () => {
     setLoading(true)
+    setCheckoutError(null)
     try {
       const res = await fetch('/api/checkout/sessions', {
         method: 'POST',
@@ -110,18 +109,20 @@ export default function CheckoutPage() {
         body: JSON.stringify({ items, shipping }),
       })
 
+      const payload = await res.json().catch(() => ({}))
+
       if (!res.ok) {
-        throw new Error('Error al crear la sesión de pago')
+        throw new Error(payload?.error || 'Error al crear la sesión de pago')
       }
 
-      const { url } = await res.json()
-      if (url) {
-        clearCart()
-        window.location.href = url
+      if (!payload?.url) {
+        throw new Error('Stripe no devolvió un enlace de pago. Revisa la configuración.')
       }
+
+      window.location.href = payload.url
     } catch (err) {
       console.error('Checkout error:', err)
-      alert('Hubo un error al procesar el pago. Intenta de nuevo.')
+      setCheckoutError(err instanceof Error ? err.message : 'Hubo un error al procesar el pago. Intenta de nuevo.')
     } finally {
       setLoading(false)
     }
@@ -178,6 +179,7 @@ ${transferForm.notes ? `📝 *Notas:* ${transferForm.notes}\n\n` : ''}
     if (!validateForm()) return
 
     setLoading(true)
+    setCheckoutError(null)
     try {
       const paymentDeadline = new Date(Date.now() + 30 * 60 * 1000).toISOString()
 
@@ -250,7 +252,7 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
   const labelStyle = { fontSize: '.78rem', fontWeight: 500, color: 'var(--charcoal)' }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--cream)', paddingTop: '120px', paddingBottom: '80px' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--cream)', paddingTop: '120px', paddingBottom: '150px' }}>
       <div style={{ maxWidth: '640px', margin: '0 auto', padding: '0 24px' }}>
         <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 'clamp(2rem,4vw,3rem)', fontWeight: 300, color: 'var(--deep)', marginBottom: '8px' }}>
           Checkout
@@ -354,6 +356,12 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
           Si no ves el botón de tarjeta, selecciona la opción <strong>Tarjeta</strong> arriba y desplázate un poco hacia abajo.
         </p>
 
+        {checkoutError && (
+          <div style={{ padding: '14px 16px', background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '8px', color: '#991B1B', fontSize: '.82rem', lineHeight: 1.6, marginBottom: '20px' }}>
+            {checkoutError}
+          </div>
+        )}
+
         {/* ── Stripe flow ── */}
         {paymentMethod === 'stripe' && (
           <div>
@@ -373,7 +381,7 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
 
         {/* ── Transfer/Nequi flow ── */}
         {paymentMethod === 'transfer' && (
-          <div style={{ background: 'var(--white)', borderRadius: '12px', padding: '32px', boxShadow: '0 2px 12px rgba(0,0,0,.04)' }}>
+          <div id="transfer-form-anchor" style={{ background: 'var(--white)', borderRadius: '12px', padding: '32px', boxShadow: '0 2px 12px rgba(0,0,0,.04)' }}>
 
             {/* Payment info box */}
             <div style={{ background: '#F0FDF4', borderRadius: '10px', padding: '20px', marginBottom: '28px', border: '1px solid #BBF7D0' }}>
@@ -484,6 +492,71 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
             </p>
           </div>
         )}
+
+
+
+        {/* Mobile sticky action bar */}
+        <div
+          style={{
+            position: 'fixed',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            padding: '10px 14px calc(10px + env(safe-area-inset-bottom))',
+            background: 'rgba(255,255,255,.98)',
+            borderTop: '1px solid var(--line)',
+            backdropFilter: 'blur(6px)',
+            zIndex: 60,
+          }}
+        >
+          <div style={{ maxWidth: '640px', margin: '0 auto', display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <div style={{ minWidth: '96px' }}>
+              <p style={{ margin: 0, fontSize: '.68rem', color: 'var(--gray)' }}>Total</p>
+              <p style={{ margin: 0, fontWeight: 700, color: 'var(--deep)' }}>${orderTotal.toFixed(2)}</p>
+            </div>
+            {paymentMethod === 'stripe' ? (
+              <button
+                onClick={handleStripePayment}
+                disabled={loading}
+                style={{
+                  flex: 1,
+                  padding: '12px 14px',
+                  background: loading ? 'var(--gray)' : 'var(--deep)',
+                  color: 'var(--white)',
+                  border: 'none',
+                  borderRadius: '10px',
+                  fontSize: '.78rem',
+                  letterSpacing: '.08em',
+                  textTransform: 'uppercase',
+                  fontFamily: "'DM Sans',sans-serif",
+                }}
+              >
+                {loading ? 'Procesando...' : 'Pagar con tarjeta'}
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  const el = document.querySelector('#transfer-form-anchor')
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }}
+                style={{
+                  flex: 1,
+                  padding: '12px 14px',
+                  background: '#25D366',
+                  color: 'var(--white)',
+                  border: 'none',
+                  borderRadius: '10px',
+                  fontSize: '.78rem',
+                  letterSpacing: '.08em',
+                  textTransform: 'uppercase',
+                  fontFamily: "'DM Sans',sans-serif",
+                }}
+              >
+                Completar datos de transferencia
+              </button>
+            )}
+          </div>
+        </div>
 
         <button onClick={() => router.push('/#productos')} style={{
           width: '100%', padding: '14px', background: 'transparent', color: 'var(--rose)',
