@@ -84,7 +84,7 @@ export default function SkinQuiz() {
       id: `rutina-${result.name.toLowerCase().replace(/\s+/g, '-')}`,
       name: `Rutina ${result.name}`,
       price: result.price,
-      image: '/images/products/rutina-glow.webp',
+      image: '/images/products/goodal-green-tangerine-vita-c-dark-spot-serum-40ml/main.svg',
       category: 'Rutina',
     });
   };
