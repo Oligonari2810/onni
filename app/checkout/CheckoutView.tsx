@@ -259,6 +259,14 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
           Pago 100% anticipado · Envío tras confirmar pago
         </p>
 
+
+
+        <div style={{ background: 'var(--white)', border: '1px solid var(--line)', borderRadius: '10px', padding: '14px 16px', marginBottom: '18px' }}>
+          <p style={{ fontSize: '.76rem', color: 'var(--gray)', lineHeight: 1.6, margin: 0 }}>
+            🔒 Pago seguro · 🚚 Envío estimado RD 2-4 días / Internacional 5-10 días · ✅ Soporte por WhatsApp
+          </p>
+        </div>
+
         {canceled && (
           <div style={{ padding: '16px', background: '#FFF3E0', borderRadius: '8px', marginBottom: '24px', fontSize: '.88rem', color: '#E65100' }}>
             El pago fue cancelado. Tu carrito sigue disponible.
@@ -354,7 +362,7 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
               {loading ? 'Procesando...' : 'Ir a Stripe Checkout'}
             </button>
             <p style={{ fontSize: '.72rem', color: 'var(--gray)', textAlign: 'center', marginTop: '12px', lineHeight: 1.6 }}>
-              Pago seguro con Stripe · Visa/Mastercard/AmEx
+              Pago seguro con Stripe · Visa/Mastercard/AmEx · Entrega estimada 5-10 días
             </p>
           </div>
         )}
