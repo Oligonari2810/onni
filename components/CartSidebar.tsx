@@ -27,6 +27,7 @@ export default function CartSidebar() {
         className={`fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 flex flex-col transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
+        style={{ maxHeight: '100dvh' }}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b">
@@ -41,7 +42,7 @@ export default function CartSidebar() {
         </div>
 
         {/* Items */}
-        <div className="flex-1 overflow-y-auto px-6 py-4">
+        <div className="flex-1 overflow-y-auto px-6 py-4" style={{ minHeight: 0 }}>
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center text-gray-500">
               <p className="text-lg mb-2">Tu carrito está vacío</p>
@@ -103,20 +104,38 @@ export default function CartSidebar() {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="border-t px-6 py-4 space-y-4 bg-white sticky bottom-0">
-            <div className="flex items-center justify-between">
+          <div className="border-t px-6 py-4 bg-white" style={{ flexShrink: 0, paddingBottom: "calc(16px + env(safe-area-inset-bottom))" }}>
+            <div className="flex items-center justify-between" style={{ marginBottom: "14px" }}>
               <span className="text-lg font-semibold">Total</span>
               <span className="text-lg font-bold">${total.toFixed(2)}</span>
             </div>
             <button
               onClick={handleCheckout}
-              className="w-full py-3 bg-[#C4497A] text-white rounded-lg font-semibold hover:bg-[#a93b67] transition-colors shadow-md"
+              className="w-full"
+              style={{
+                display: 'block',
+                width: '100%',
+                padding: '14px 16px',
+                marginBottom: '10px',
+                background: '#C4497A',
+                color: '#FFFFFF',
+                border: 'none',
+                borderRadius: '12px',
+                fontSize: '.82rem',
+                fontWeight: 700,
+                letterSpacing: '.08em',
+                textTransform: 'uppercase',
+                fontFamily: "'DM Sans', sans-serif",
+                cursor: 'pointer',
+                boxShadow: '0 10px 24px rgba(196, 73, 122, .24)',
+              }}
             >
               Finalizar compra segura
             </button>
             <button
               onClick={clearCart}
               className="w-full py-2 text-sm text-gray-500 hover:text-gray-800 transition-colors"
+              style={{ display: 'block' }}
             >
               Vaciar carrito
             </button>
