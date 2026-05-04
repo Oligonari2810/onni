@@ -38,3 +38,7 @@ dist
 
 # TypeScript
 tsconfig.tsbuildinfo
+
+# Playwright
+playwright-report
+test-results
