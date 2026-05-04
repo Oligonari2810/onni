@@ -1,11 +1,18 @@
-import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: (process.env.STRIPE_API_VERSION as any) || '2025-02-24.acacia',
-})
-
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
+function getStripeClient() {
+  const secretKey = process.env.STRIPE_SECRET_KEY
+
+  if (!secretKey) {
+    throw new Error('Missing STRIPE_SECRET_KEY')
+  }
+
+  return new Stripe(secretKey, {
+    apiVersion: (process.env.STRIPE_API_VERSION as any) || '2025-02-24.acacia',
+  })
+}
 
 export interface CheckoutItem {
   productId: string
@@ -17,6 +24,8 @@ export interface CheckoutItem {
 }
 
 export async function createCheckoutSession(items: CheckoutItem[], shippingCost: number = 0) {
+  const stripe = getStripeClient()
+
   const lineItems = [
     ...items.map((item) => ({
       price_data: {
@@ -28,21 +37,24 @@ export async function createCheckoutSession(items: CheckoutItem[], shippingCost:
             category: item.category,
           },
         },
-        unit_amount: Math.round(item.price * 100), // cents
+        unit_amount: Math.round(item.price * 100),
       },
       quantity: item.quantity,
     })),
-    // Shipping line item
-    ...(shippingCost > 0 ? [{
-      price_data: {
-        currency: 'usd' as const,
-        product_data: {
-          name: 'Envío',
-        },
-        unit_amount: Math.round(shippingCost * 100),
-      },
-      quantity: 1,
-    }] : []),
+    ...(shippingCost > 0
+      ? [
+          {
+            price_data: {
+              currency: 'usd' as const,
+              product_data: {
+                name: 'Envío',
+              },
+              unit_amount: Math.round(shippingCost * 100),
+            },
+            quantity: 1,
+          },
+        ]
+      : []),
   ]
 
   const session = await stripe.checkout.sessions.create({
@@ -57,7 +69,7 @@ export async function createCheckoutSession(items: CheckoutItem[], shippingCost:
           name: i.name,
           price: i.price,
           quantity: i.quantity,
-        }))
+        })),
       ),
       shipping_cost: shippingCost.toString(),
     },
