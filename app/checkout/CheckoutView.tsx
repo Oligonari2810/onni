@@ -308,7 +308,7 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
           Método de pago
         </h2>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '32px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginBottom: '32px' }}>
           {/* Stripe */}
           <button
             onClick={() => setPaymentMethod('stripe')}
@@ -349,6 +349,10 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
             </p>
           </button>
         </div>
+
+        <p style={{ fontSize: '.74rem', color: 'var(--gray)', marginTop: '-18px', marginBottom: '20px' }}>
+          Si no ves el botón de tarjeta, selecciona la opción <strong>Tarjeta</strong> arriba y desplázate un poco hacia abajo.
+        </p>
 
         {/* ── Stripe flow ── */}
         {paymentMethod === 'stripe' && (
@@ -431,7 +435,7 @@ RNC: ${PAYMENT_INFO.bank.rnc}`
                 {formErrors.address && <span style={errorStyle}>{formErrors.address}</span>}
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <label style={labelStyle}>Ciudad *</label>
                   <input type="text" value={transferForm.city} onChange={(e) => setTransferForm({ ...transferForm, city: e.target.value })} placeholder="Santo Domingo" style={inputStyle(formErrors.city)} />

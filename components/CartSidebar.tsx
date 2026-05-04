@@ -41,7 +41,7 @@ export default function CartSidebar() {
         </div>
 
         {/* Items */}
-        <div className="flex-1 overflow-y-auto px-6 py-4" style={{ maxHeight: 'calc(100vh - 200px)' }}>
+        <div className="flex-1 overflow-y-auto px-6 py-4">
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center text-gray-500">
               <p className="text-lg mb-2">Tu carrito está vacío</p>
@@ -103,7 +103,7 @@ export default function CartSidebar() {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="border-t px-6 py-4 space-y-4">
+          <div className="border-t px-6 py-4 space-y-4 bg-white sticky bottom-0">
             <div className="flex items-center justify-between">
               <span className="text-lg font-semibold">Total</span>
               <span className="text-lg font-bold">${total.toFixed(2)}</span>
