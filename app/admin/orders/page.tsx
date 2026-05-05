@@ -35,17 +35,23 @@ const STATUS_LABELS: Record<string, string> = {
   paid: 'Pagado',
   awaiting_payment_confirmation: 'Esperando comprobante',
   pending_whatsapp_payment: 'Pendiente WhatsApp',
+  shipped: 'Enviado',
+  canceled: 'Cancelado',
 }
 
 const STATUS_COLORS: Record<string, string> = {
   paid: '#2E7D4F',
   awaiting_payment_confirmation: '#D97706',
   pending_whatsapp_payment: '#2563EB',
+  shipped: '#7C3AED',
+  canceled: '#DC2626',
 }
 
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([])
   const [filter, setFilter] = useState<string>('awaiting_payment_confirmation')
+  const [search, setSearch] = useState('')
+  const [updatingStatus, setUpdatingStatus] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
   const [confirming, setConfirming] = useState<number | null>(null)
   const [authChecked, setAuthChecked] = useState(false)
@@ -88,22 +94,28 @@ export default function AdminOrdersPage() {
     setLoading(false)
   }
 
-  const confirmPayment = async (orderId: number) => {
-    setConfirming(orderId)
+  const updateOrderStatus = async (orderId: number, status: string) => {
+    setUpdatingStatus(orderId)
+    const payload: Record<string, string> = { status }
+    if (status === 'paid') payload.payment_confirmed_at = new Date().toISOString()
+
     const { error } = await supabase
       .from('orders')
-      .update({
-        status: 'paid',
-        payment_confirmed_at: new Date().toISOString(),
-      })
+      .update(payload)
       .eq('id', orderId)
 
     if (error) {
-      console.error('Error confirming payment:', error)
-      alert('Error al confirmar pago')
+      console.error('Error updating order:', error)
+      alert('Error al actualizar pedido')
     } else {
       fetchOrders()
     }
+    setUpdatingStatus(null)
+  }
+
+  const confirmPayment = async (orderId: number) => {
+    setConfirming(orderId)
+    await updateOrderStatus(orderId, 'paid')
     setConfirming(null)
   }
 
@@ -114,9 +126,33 @@ export default function AdminOrdersPage() {
     })
   }
 
-  const filteredOrders = filter === 'all'
+  const filteredOrders = (filter === 'all'
     ? orders
-    : orders.filter((o) => o.status === filter)
+    : orders.filter((o) => o.status === filter))
+    .filter((order) => {
+      const query = search.trim().toLowerCase()
+      if (!query) return true
+      const fields = [
+        order.id?.toString(),
+        order.stripe_session_id,
+        order.customer_email,
+        order.customer_name,
+        order.customer_phone,
+        order.customer_city,
+        order.status,
+        order.payment_method,
+      ]
+      return fields.some((field) => field?.toLowerCase().includes(query))
+    })
+
+  const orderStats = {
+    total: orders.length,
+    awaiting: orders.filter((order) => order.status === 'awaiting_payment_confirmation').length,
+    paid: orders.filter((order) => order.status === 'paid').length,
+    revenue: orders
+      .filter((order) => order.status === 'paid')
+      .reduce((sum, order) => sum + (order.total_usd || 0), 0),
+  }
 
   if (!authChecked) {
     return (
@@ -154,6 +190,31 @@ export default function AdminOrdersPage() {
           </div>
         </div>
 
+        {/* Stats */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', marginBottom: '20px' }}>
+          {[
+            { label: 'Pedidos', value: orderStats.total },
+            { label: 'Esperando pago', value: orderStats.awaiting },
+            { label: 'Pagados', value: orderStats.paid },
+            { label: 'Ingresos pagados', value: formatCurrency(orderStats.revenue) },
+          ].map((stat) => (
+            <div key={stat.label} style={{ background: 'var(--white)', border: '1px solid var(--line)', borderRadius: '12px', padding: '16px' }}>
+              <p style={{ margin: 0, fontSize: '.68rem', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--gray)' }}>{stat.label}</p>
+              <p style={{ margin: '6px 0 0', fontSize: '1.35rem', color: 'var(--deep)', fontWeight: 700 }}>{stat.value}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Search */}
+        <div style={{ marginBottom: '16px' }}>
+          <input
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Buscar por pedido, email, teléfono, ciudad o estado"
+            style={{ width: '100%', padding: '12px 14px', borderRadius: '10px', border: '1px solid var(--line)', background: 'var(--white)', fontSize: '.88rem', fontFamily: "'DM Sans',sans-serif" }}
+          />
+        </div>
+
         {/* Filters */}
         <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
           {[
@@ -161,6 +222,8 @@ export default function AdminOrdersPage() {
             { value: 'awaiting_payment_confirmation', label: 'Esperando comprobante' },
             { value: 'pending_whatsapp_payment', label: 'Pendiente WhatsApp' },
             { value: 'paid', label: 'Pagados' },
+            { value: 'shipped', label: 'Enviados' },
+            { value: 'canceled', label: 'Cancelados' },
           ].map((f) => (
             <button
               key={f.value}
@@ -203,8 +266,8 @@ export default function AdminOrdersPage() {
                       <span style={{
                         padding: '4px 10px', borderRadius: '4px', fontSize: '.68rem',
                         fontWeight: 600, letterSpacing: '.05em', textTransform: 'uppercase',
-                        background: STATUS_COLORS[order.status] + '15',
-                        color: STATUS_COLORS[order.status],
+                        background: (STATUS_COLORS[order.status] || '#6B7280') + '15',
+                        color: STATUS_COLORS[order.status] || '#6B7280',
                       }}>
                         {STATUS_LABELS[order.status] || order.status}
                       </span>
@@ -237,6 +300,13 @@ export default function AdminOrdersPage() {
                     <div><strong>Teléfono:</strong> {order.customer_phone || '—'}</div>
                     <div><strong>Ciudad:</strong> {order.customer_city || '—'}</div>
                     <div><strong>Dirección:</strong> {order.customer_address || '—'}</div>
+                  </div>
+                )}
+
+                {(order.customer_email || order.customer_notes) && (
+                  <div style={{ padding: '12px', background: '#FAFAFA', borderRadius: '8px', marginBottom: '12px', fontSize: '.78rem' }}>
+                    {order.customer_email && <div><strong>Email:</strong> {order.customer_email}</div>}
+                    {order.customer_notes && <div style={{ marginTop: '4px' }}><strong>Notas:</strong> {order.customer_notes}</div>}
                   </div>
                 )}
 
@@ -294,13 +364,43 @@ export default function AdminOrdersPage() {
                     >
                       WhatsApp
                     </a>
+                    <button
+                      onClick={() => updateOrderStatus(order.id, 'canceled')}
+                      disabled={updatingStatus === order.id}
+                      style={{
+                        padding: '10px 16px', background: '#FEF2F2', color: '#B91C1C',
+                        border: '1px solid #FECACA', borderRadius: '6px', fontSize: '.75rem',
+                        cursor: updatingStatus === order.id ? 'not-allowed' : 'pointer',
+                        fontFamily: "'DM Sans',sans-serif", fontWeight: 600,
+                      }}
+                    >
+                      Cancelar
+                    </button>
                     <span style={{ fontSize: '.68rem', color: 'var(--gray)' }}>
                       Verificar comprobante en WhatsApp antes de confirmar
                     </span>
                   </div>
                 )}
 
-                {order.status === 'pending_whatsapp_payment' && (
+                {order.status === 'paid' && (
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                    <button
+                      onClick={() => updateOrderStatus(order.id, 'shipped')}
+                      disabled={updatingStatus === order.id}
+                      style={{
+                        padding: '10px 20px', background: '#7C3AED', color: '#fff',
+                        border: 'none', borderRadius: '6px', fontSize: '.75rem',
+                        cursor: updatingStatus === order.id ? 'not-allowed' : 'pointer',
+                        fontFamily: "'DM Sans',sans-serif", fontWeight: 600,
+                      }}
+                    >
+                      Marcar enviado
+                    </button>
+                    <span style={{ fontSize: '.68rem', color: 'var(--gray)' }}>Preparar despacho y notificar al cliente.</span>
+                  </div>
+                )}
+
+                                {order.status === 'pending_whatsapp_payment' && (
                   <a
                     href={`https://wa.me/${WHATSAPP_NUMBER}`}
                     target="_blank"

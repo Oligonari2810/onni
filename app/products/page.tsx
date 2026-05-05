@@ -7,6 +7,7 @@ import { products } from '@/lib/products'
 
 export default function ProductsPage() {
   const [search, setSearch] = useState('')
+  const [sortBy, setSortBy] = useState<'bestsellers' | 'price-asc' | 'price-desc'>('bestsellers')
 
   const filtered = products.filter((p) => {
     const q = search.toLowerCase()
@@ -15,6 +16,16 @@ export default function ProductsPage() {
       p.category.toLowerCase().includes(q) ||
       p.benefits.toLowerCase().includes(q)
     )
+  })
+
+  const sorted = [...filtered].sort((a, b) => {
+    if (sortBy === "price-asc") return a.price - b.price
+    if (sortBy === "price-desc") return b.price - a.price
+
+    const aScore = a.badges.some((x) => x.toLowerCase().includes("best")) ? 1 : 0
+    const bScore = b.badges.some((x) => x.toLowerCase().includes("best")) ? 1 : 0
+    if (aScore !== bScore) return bScore - aScore
+    return a.name.localeCompare(b.name)
   })
 
   return (
@@ -38,7 +49,7 @@ export default function ProductsPage() {
           </p>
         </div>
 
-        {/* Search bar */}
+        {/* Search + Sort */}
         <div style={{ maxWidth: '480px', margin: '0 auto 48px' }}>
           <div style={{ position: 'relative' }}>
             <input
@@ -85,6 +96,19 @@ export default function ProductsPage() {
           </div>
         </div>
 
+        <div style={{ maxWidth: '480px', margin: '-28px auto 32px' }}>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as any)}
+            style={{ width: '100%', padding: '12px 14px', border: '1px solid var(--line)', borderRadius: '6px', background: 'var(--white)', fontSize: '.88rem' }}
+            aria-label="Ordenar productos"
+          >
+            <option value="bestsellers">Ordenar: Más vendidos</option>
+            <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
+          </select>
+        </div>
+
         {/* Results */}
         {filtered.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '60px 20px' }}>
@@ -106,7 +130,7 @@ export default function ProductsPage() {
           </div>
         ) : (
           <div className="catalogo-grid" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            {filtered.map((product) => (
+            {sorted.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

@@ -128,7 +128,7 @@ export const products: Product[] = [
     msrp: 15.26,
     price: 15.00,      // Margen ~114% sobre costo
     stock: 20,
-    image: "/images/products/tocobo-cotton-soft-sun-stick-spf50-pa-19g/main.webp",
+    image: "/images/products/tocobo-cotton-soft-sun-stick-spf50-pa-19g/main.svg",
     badges: ["Nuevo", "Ideal Caribe", "Vegano"],
     description: "Protector solar en barra con acabado mate. Se reaplica sobre maquillaje sin dejar cast blanco.",
     benefits: "SPF50+ sin residuo blanco, ideal para clima húmedo",
@@ -144,7 +144,7 @@ export const products: Product[] = [
     msrp: 20.81,
     price: 21.00,      // Margen ~140% sobre costo
     stock: 15,
-    image: "/images/products/numbuzin-no5-vitamin-glutathione-dark-spot-laser-cream-50ml/main.webp",
+    image: "/images/products/numbuzin-no5-vitamin-glutathione-dark-spot-lase-cream-50ml/main.svg",
     badges: ["Trending", "Bestseller", "Vegano"],
     description: "Crema con Glutatión y Vitamina para aclarar manchas oscuras y unificar el tono de la piel.",
     benefits: "Aclara manchas y da efecto 'Glass Skin'",

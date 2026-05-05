@@ -1,49 +1,103 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
+import { z } from 'zod'
+import { products } from '@/lib/products'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-04-22.dahlia',
+const checkoutItemSchema = z.object({
+  id: z.string().min(1),
+  quantity: z.number().int().min(1).max(20),
 })
+
+const checkoutSchema = z.object({
+  items: z.array(checkoutItemSchema).min(1),
+  email: z.string().email().optional(),
+  shipping: z.union([
+    z.number().min(0).max(100),
+    z.object({ country: z.string().min(2).max(2).optional() }),
+  ]).optional(),
+})
+
+function getStripeClient() {
+  const secretKey = process.env.STRIPE_SECRET_KEY
+
+  if (!secretKey) {
+    throw new Error('Missing STRIPE_SECRET_KEY')
+  }
+
+  return new Stripe(secretKey, {
+    apiVersion: '2026-04-22.dahlia',
+  })
+}
+
+function getSiteUrl() {
+  return process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+}
+
+function getShippingCost(shipping: z.infer<typeof checkoutSchema>['shipping']) {
+  if (typeof shipping === 'number') return shipping
+
+  const country = shipping?.country
+  if (country === 'DO') return 5.99
+  if (country === 'PR') return 6.99
+  if (country === 'PA' || country === 'CR') return 8.99
+  if (country === 'CO') return 12.99
+  return 14.99
+}
+
+function getAbsoluteImageUrl(image?: string) {
+  if (!image) return undefined
+  if (image.startsWith('http://') || image.startsWith('https://')) return image
+  return `${getSiteUrl()}${image}`
+}
 
 export async function POST(request: NextRequest) {
   try {
+    const stripe = getStripeClient()
     const body = await request.json()
-    const { items, email, shipping } = body
+    const parsed = checkoutSchema.safeParse(body)
 
-    if (!items || items.length === 0) {
+    if (!parsed.success) {
       return NextResponse.json(
-        { error: 'No items in cart' },
-        { status: 400 }
+        { error: 'Invalid checkout payload', details: parsed.error.flatten() },
+        { status: 400 },
       )
     }
 
-    // Calculate totals
-    const subtotal = items.reduce((sum: number, item: any) => {
-      return sum + (item.price * item.quantity)
-    }, 0)
+    const checkoutItems = parsed.data.items.map((item) => {
+      const product = products.find((p) => p.id === item.id)
+      return product ? { product, quantity: item.quantity } : null
+    })
 
-    const shippingCost = shipping?.country === 'DO' ? 5.99 : 
-                         shipping?.country === 'PR' ? 6.99 :
-                         shipping?.country === 'PA' || shipping?.country === 'CR' ? 8.99 :
-                         shipping?.country === 'CO' ? 12.99 : 14.99
+    const missingItems = parsed.data.items.filter((item) => !products.some((p) => p.id === item.id))
+    if (missingItems.length > 0 || checkoutItems.some((item) => item === null)) {
+      return NextResponse.json({ error: 'Some cart items are no longer available' }, { status: 400 })
+    }
 
-    const total = subtotal + shippingCost
-
-    // Create Stripe Checkout Session
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: items.map((item: any) => ({
+    const shippingCost = getShippingCost(parsed.data.shipping)
+    const lineItems = checkoutItems.map((item) => {
+      const { product, quantity } = item!
+      return {
         price_data: {
           currency: 'usd',
           product_data: {
-            name: item.name,
-            description: item.category,
-            images: item.image ? [item.image] : undefined,
+            name: product.name,
+            description: product.category,
+            images: product.image ? [getAbsoluteImageUrl(product.image)!] : undefined,
+            metadata: {
+              productId: product.id,
+              slug: product.slug,
+              category: product.category,
+            },
           },
-          unit_amount: Math.round(item.price * 100),
+          unit_amount: Math.round(product.price * 100),
         },
-        quantity: item.quantity,
-      })),
+        quantity,
+      }
+    })
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: lineItems,
       shipping_address_collection: {
         allowed_countries: ['DO', 'PR', 'PA', 'CR', 'CO', 'MX', 'CL', 'PE', 'AR', 'BR'],
       },
@@ -64,21 +118,34 @@ export async function POST(request: NextRequest) {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/canceled`,
-      customer_email: email,
+      success_url: `${getSiteUrl()}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${getSiteUrl()}/checkout?canceled=true`,
+      customer_email: parsed.data.email,
       metadata: {
         shipping_cost: shippingCost.toString(),
-        items: JSON.stringify(items),
+        items: JSON.stringify(
+          checkoutItems.map((item) => {
+            const { product, quantity } = item!
+            return {
+              productId: product.id,
+              slug: product.slug,
+              name: product.name,
+              price: product.price,
+              quantity,
+            }
+          }),
+        ),
       },
     })
 
-    return NextResponse.json({ sessionId: session.id })
+    return NextResponse.json({ sessionId: session.id, url: session.url })
   } catch (error) {
     console.error('Checkout error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+
+    if (error instanceof Error && error.message === 'Missing STRIPE_SECRET_KEY') {
+      return NextResponse.json({ error: 'Checkout is not configured' }, { status: 500 })
+    }
+
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
