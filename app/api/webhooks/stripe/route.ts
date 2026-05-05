@@ -64,10 +64,7 @@ export async function POST(request: NextRequest) {
           },
         ])
 
-        if (orderError) {
-          console.error('Error creating order:', orderError)
-          throw orderError
-        }
+        if (orderError) throw orderError
 
         if (customerEmail) {
           try {
