@@ -17,4 +17,5 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run check:assets
+      - run: npm run check:catalog
       - run: npm run build

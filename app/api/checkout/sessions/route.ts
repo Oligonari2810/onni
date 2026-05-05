@@ -63,14 +63,26 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const checkoutItems = parsed.data.items.map((item) => {
-      const product = products.find((p) => p.id === item.id)
-      return product ? { product, quantity: item.quantity } : null
+    const requestedQuantities = new Map<string, number>()
+    for (const item of parsed.data.items) {
+      requestedQuantities.set(item.id, (requestedQuantities.get(item.id) || 0) + item.quantity)
+    }
+
+    const checkoutItems = [...requestedQuantities.entries()].map(([id, quantity]) => {
+      const product = products.find((p) => p.id === id)
+      return product ? { product, quantity } : null
     })
 
-    const missingItems = parsed.data.items.filter((item) => !products.some((p) => p.id === item.id))
-    if (missingItems.length > 0 || checkoutItems.some((item) => item === null)) {
-      return NextResponse.json({ error: 'Some cart items are no longer available' }, { status: 400 })
+    const unavailableItems = checkoutItems.filter((item) => {
+      if (!item) return true
+      return item.product.stock <= 0 || item.quantity > item.product.stock
+    })
+
+    if (unavailableItems.length > 0) {
+      return NextResponse.json(
+        { error: 'Some cart items are unavailable or exceed current stock' },
+        { status: 400 },
+      )
     }
 
     const shippingCost = getShippingCost(parsed.data.shipping)
