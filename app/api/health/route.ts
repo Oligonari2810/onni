@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 const REQUIRED_ENV = [
   'NEXT_PUBLIC_SITE_URL',
@@ -8,19 +8,40 @@ const REQUIRED_ENV = [
   'STRIPE_WEBHOOK_SECRET',
 ] as const
 
-export async function GET() {
-  const env = Object.fromEntries(
-    REQUIRED_ENV.map((key) => [key, Boolean(process.env[key])]),
-  )
-  const missing = REQUIRED_ENV.filter((key) => !process.env[key])
+const OPTIONAL_ENV = [
+  'RESEND_API_KEY',
+  'RESEND_FROM',
+  'NEXT_PUBLIC_WHATSAPP_NUMBER',
+  'NEXT_PUBLIC_NEQUI_NUMBER',
+  'NEXT_PUBLIC_BANK_NAME',
+  'NEXT_PUBLIC_BANK_ACCOUNT',
+  'NEXT_PUBLIC_BUSINESS_NAME',
+  'NEXT_PUBLIC_RNC',
+] as const
 
-  return NextResponse.json({
-    ok: missing.length === 0,
-    service: 'onni',
-    checkedAt: new Date().toISOString(),
-    env,
-    missing,
-  }, {
-    status: missing.length === 0 ? 200 : 503,
-  })
+function envPresence(keys: readonly string[]) {
+  return Object.fromEntries(keys.map((key) => [key, Boolean(process.env[key])]))
+}
+
+export async function GET(request: NextRequest) {
+  const missingRequired = REQUIRED_ENV.filter((key) => !process.env[key])
+  const missingOptional = OPTIONAL_ENV.filter((key) => !process.env[key])
+  const strict = request.nextUrl.searchParams.get('strict') === '1'
+  const ready = missingRequired.length === 0
+
+  return NextResponse.json(
+    {
+      ok: strict ? ready : true,
+      ready,
+      service: 'onni',
+      checkedAt: new Date().toISOString(),
+      requiredEnv: envPresence(REQUIRED_ENV),
+      optionalEnv: envPresence(OPTIONAL_ENV),
+      missingRequired,
+      missingOptional,
+    },
+    {
+      status: strict && !ready ? 503 : 200,
+    },
+  )
 }

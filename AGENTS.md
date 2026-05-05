@@ -25,10 +25,11 @@ npm run start
 ```
 
 ### Calidad de código
-Actualmente existe script `lint`, pero requiere ajuste para funcionar correctamente con la configuración presente.
+Actualmente el script `lint` está mapeado a `npm run typecheck`; pasa como verificación de tipos, pero todavía falta configurar ESLint real para reglas de estilo, hooks y accesibilidad.
 
 ### Caveats / observaciones actuales
-- `npm run build` puede fallar si faltan variables/credenciales requeridas por integraciones externas (ej. checkout/pagos) durante evaluación de rutas API.
-- Next.js 16 advierte que `middleware.ts` está deprecado a favor de `proxy`.
+- `npm run build` se validó sin secretos reales gracias a inicialización runtime de integraciones externas.
+- `npm run test:e2e` requiere que Playwright esté instalado en el entorno; si no está presente, `npx` intentará descargarlo del registry.
+- Next.js 16 muestra la ruta de proxy como `ƒ Proxy (Middleware)` durante el build.
 
 A medida que el proyecto evolucione, mantener esta sección sincronizada con el estado real (dependencias, comandos, y troubleshooting).
