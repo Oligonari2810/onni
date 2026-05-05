@@ -22,6 +22,7 @@ export default function ProductCard({ product, reveal = true }: { product: Produ
     e.stopPropagation()
     addToCart({
       id: product.id,
+      slug: product.slug,
       name: product.name,
       price: product.price,
       category: product.category,
