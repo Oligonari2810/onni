@@ -75,6 +75,15 @@ La base técnica ya está en mejor posición que al inicio del último PR:
     - Email/WhatsApp de confirmación, preparación, envío y educación de uso.
     - Recordatorios de recompra por producto.
 
+## Plan resumido de PRs
+
+- **Estamos en:** PR 1 de 7 — base técnica + diagnóstico operativo.
+- **Quedan:** 6 PRs recomendados.
+- **Críticos antes de ventas reales:** PR 2 Supabase/RLS/admin seguro, PR 3 Stripe real/idempotencia y PR 4 QA real con ESLint + Playwright en CI.
+- **Después del lanzamiento inicial:** PR 5 observabilidad/emails, PR 6 tracking de conversión y PR 7 mejoras storefront/post-compra.
+
+Ver detalle en `PLAN_DE_PRS_ONNI.md`.
+
 ## Veredicto
 
 No falta una sola cosa: faltan principalmente **secretos reales, validación Stripe/Supabase en ambiente real, hardening del admin y lint real**. La app ya compila y tiene base de CI, pero todavía necesita cerrar esos puntos antes de tratarla como producción estable.
