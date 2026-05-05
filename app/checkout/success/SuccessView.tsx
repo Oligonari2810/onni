@@ -1,19 +1,27 @@
 'use client'
 
 import { useSearchParams, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useCart } from '@/lib/useCart'
 
 export default function CheckoutSuccessPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const sessionId = searchParams.get('session_id')
   const [verified, setVerified] = useState(false)
+  const { clearCart } = useCart()
+  const clearedCartRef = useRef(false)
 
   useEffect(() => {
     if (sessionId) {
       setVerified(true)
+
+      if (!clearedCartRef.current) {
+        clearCart()
+        clearedCartRef.current = true
+      }
     }
-  }, [sessionId])
+  }, [sessionId, clearCart])
 
   return (
     <div style={{
