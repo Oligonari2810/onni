@@ -26,6 +26,14 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
+function normalizeImagePath(image?: string) {
+  if (!image) return image
+  return image
+    .replace('/images/products/tocobo-cotton-soft-sun-stick-spf50-pa-19g/main.webp', '/images/products/tocobo-cotton-soft-sun-stick-spf50-pa-19g/main.svg')
+    .replace('/images/products/numbuzin-no5-vitamin-glutathione-dark-spot-laser-cream-50ml/main.webp', '/images/products/numbuzin-no5-vitamin-glutathione-dark-spot-lase-cream-50ml/main.svg')
+    .replace('/images/products/rutina-glow.webp', '/images/products/goodal-green-tangerine-vita-c-dark-spot-serum-40ml/main.svg')
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
   const [isOpen, setIsOpen] = useState(false)
@@ -36,7 +44,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const savedCart = localStorage.getItem('onni-cart')
     if (savedCart) {
       try {
-        setItems(JSON.parse(savedCart))
+        setItems((JSON.parse(savedCart) as CartItem[]).map((item) => ({ ...item, image: normalizeImagePath(item.image) })))
       } catch (error) {
         console.error('Error loading cart:', error)
       }
@@ -59,7 +67,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
         )
       }
-      return [...prev, { ...item, quantity: 1 }]
+      return [...prev, { ...item, image: normalizeImagePath(item.image), quantity: 1 }]
     })
     setIsOpen(true)
   }

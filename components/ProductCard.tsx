@@ -22,6 +22,7 @@ export default function ProductCard({ product, reveal = true }: { product: Produ
     e.stopPropagation()
     addToCart({
       id: product.id,
+      slug: product.slug,
       name: product.name,
       price: product.price,
       category: product.category,
@@ -33,6 +34,10 @@ export default function ProductCard({ product, reveal = true }: { product: Produ
 
   const isLowStock = product.stock <= 5
   const mainImage = product.image
+  const compareAt = product.msrp || product.cost
+  const hasDiscount = Boolean(compareAt && compareAt > product.price)
+  const savingsPercent = hasDiscount ? Math.round(((compareAt! - product.price) / compareAt!) * 100) : 0
+  const quickBenefits = product.benefits.split(/[·,]/).map((b) => b.trim()).filter(Boolean).slice(0, 2)
 
   return (
     <Link href={`/products/${product.slug}`} className={`catalogo-link ${reveal ? 'reveal' : ''}`}>
@@ -54,11 +59,15 @@ export default function ProductCard({ product, reveal = true }: { product: Produ
           {product.badges.map((badge, i) => (
             <span key={i} className="badge badge-bestseller">{badge}</span>
           ))}
+          {hasDiscount && <span className="badge" style={{ background: "#166534", color: "#fff" }}>Ahorra {savingsPercent}%</span>}
         </div>
 
         <span className="catalogo-cat">{product.brand}</span>
         <h3>{product.name}</h3>
         <p className="catalogo-benefit">{product.benefits}</p>
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '6px' }}>
+          {quickBenefits.map((b) => <span key={b} className="badge" style={{ background: 'rgba(196,73,122,.08)' }}>{b}</span>)}
+        </div>
         <p className="catalogo-micro" style={{ fontSize: '.75rem', color: 'var(--gray)', marginTop: '8px' }}>
           {product.description.substring(0, 60)}...
         </p>
@@ -74,6 +83,11 @@ export default function ProductCard({ product, reveal = true }: { product: Produ
         }}>
           ${product.price.toFixed(2)}
         </p>
+        {hasDiscount && (
+          <p style={{ fontSize: '.78rem', color: 'var(--gray)', marginBottom: '4px' }}>
+            Antes <span style={{ textDecoration: 'line-through' }}>${compareAt?.toFixed(2)}</span>
+          </p>
+        )}
 
         {/* Stock indicator */}
         {isLowStock && product.stock > 0 && (

@@ -2,14 +2,34 @@
 
 ## Cursor Cloud specific instructions
 
-This is a newly initialized repository ("onni") with no application code, dependencies, or services yet. The repo currently contains only a `README.md`.
+Este repositorio (`onni`) **ya no está vacío**: actualmente es una aplicación **Next.js 16 + React 19 + TypeScript** con rutas web y APIs.
 
-- **No build system, package manager, or language runtime** is required at this time.
-- **No services** need to be started.
-- **No tests or lint** checks are configured.
+### Requisitos
+- Node.js (recomendado: versión LTS moderna)
+- npm
 
-As the project evolves, update this section with:
-- How to install dependencies
-- How to run the dev server(s)
-- How to run tests and lint
-- Any non-obvious caveats discovered during development
+### Instalación
+```bash
+npm install
+```
+
+### Desarrollo local
+```bash
+npm run dev
+```
+
+### Build de producción
+```bash
+npm run build
+npm run start
+```
+
+### Calidad de código
+Actualmente el script `lint` está mapeado a `npm run typecheck`; pasa como verificación de tipos, pero todavía falta configurar ESLint real para reglas de estilo, hooks y accesibilidad.
+
+### Caveats / observaciones actuales
+- `npm run build` se validó sin secretos reales gracias a inicialización runtime de integraciones externas.
+- `npm run test:e2e` requiere que Playwright esté instalado en el entorno; si no está presente, `npx` intentará descargarlo del registry.
+- Next.js 16 muestra la ruta de proxy como `ƒ Proxy (Middleware)` durante el build.
+
+A medida que el proyecto evolucione, mantener esta sección sincronizada con el estado real (dependencias, comandos, y troubleshooting).
