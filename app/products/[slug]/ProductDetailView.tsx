@@ -26,6 +26,8 @@ export default function ProductDetailView({ product }: { product: Product }) {
         name: product.name,
         price: product.price,
         category: product.category,
+        image: product.image,
+        slug: product.slug,
       })
     }
     setJustAdded(true)
@@ -35,10 +37,12 @@ export default function ProductDetailView({ product }: { product: Product }) {
   const isLowStock = product.stock <= 5
   const isPopular = product.badges.includes('Bestseller') || product.badges.includes('Trending')
   const inStock = product.stock > 0
+  const compareAt = product.msrp > product.price ? product.msrp : null
+  const savingsPercent = compareAt ? Math.round(((compareAt - product.price) / compareAt) * 100) : 0
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--cream)', paddingTop: '100px' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 24px 80px' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 24px 150px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px' }} className="product-detail-grid">
 
           {/* LEFT: Gallery */}
@@ -73,9 +77,14 @@ export default function ProductDetailView({ product }: { product: Product }) {
             </h1>
 
             {/* Description */}
-            <p style={{ fontSize: '.92rem', lineHeight: 1.75, color: 'var(--charcoal)', marginBottom: '24px' }}>
+            <p style={{ fontSize: '.92rem', lineHeight: 1.75, color: 'var(--charcoal)', marginBottom: '16px' }}>
               {product.description}
             </p>
+
+            <div style={{ padding: '14px 16px', background: 'var(--white)', border: '1px solid var(--line)', borderRadius: '10px', marginBottom: '20px' }}>
+              <p style={{ fontSize: '.72rem', letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--gray)', marginBottom: '6px' }}>Beneficio ONNI</p>
+              <p style={{ fontSize: '.92rem', color: 'var(--deep)', lineHeight: 1.6, margin: 0 }}>{product.benefits}</p>
+            </div>
 
             {/* Price */}
             <p style={{
@@ -87,6 +96,11 @@ export default function ProductDetailView({ product }: { product: Product }) {
             }}>
               ${product.price.toFixed(2)} <span style={{ fontSize: '.88rem', color: 'var(--gray)', fontWeight: 300 }}>USD</span>
             </p>
+            {compareAt && (
+              <p style={{ fontSize: '.78rem', color: 'var(--gray)', marginBottom: '8px' }}>
+                Antes <span style={{ textDecoration: 'line-through' }}>${compareAt.toFixed(2)}</span> · Ahorra {savingsPercent}%
+              </p>
+            )}
 
             {/* Urgency / stock */}
             <div style={{ marginBottom: '24px' }}>
@@ -190,6 +204,7 @@ export default function ProductDetailView({ product }: { product: Product }) {
                   <p>Aplica sobre el rostro limpio por la mañana y/o por la noche.</p>
                   <p style={{ marginTop: '8px' }}>Masajea suavemente hasta que se absorba completamente.</p>
                   <p style={{ marginTop: '8px' }}>Para mejores resultados, usa consistentemente como parte de tu rutina diaria.</p>
+                  <p style={{ marginTop: '8px' }}><strong>Tip Caribe:</strong> en la mañana termina siempre con protector solar y reaplica si sudas o estás al aire libre.</p>
                 </div>
               )}
 
@@ -197,6 +212,8 @@ export default function ProductDetailView({ product }: { product: Product }) {
                 <div style={{ fontSize: '.88rem', color: 'var(--charcoal)', lineHeight: 1.7 }}>
                   <p><strong>Beneficio principal:</strong> {product.benefits}</p>
                   <p style={{ marginTop: '12px' }}><strong>Descripción:</strong> {product.description}</p>
+                  <p style={{ marginTop: '12px' }}><strong>Combina bien con:</strong> limpieza suave, hidratación ligera y SPF diario.</p>
+                  <p style={{ marginTop: '12px' }}><strong>Evita mezclar:</strong> introduce activos fuertes poco a poco si tu piel está sensible.</p>
                 </div>
               )}
 
@@ -207,6 +224,12 @@ export default function ProductDetailView({ product }: { product: Product }) {
               )}
             </div>
 
+            {/* Tropical routine guidance */}
+            <div style={{ marginTop: '28px', padding: '18px', background: 'rgba(196,73,122,.06)', borderRadius: '12px', border: '1px solid rgba(196,73,122,.12)' }}>
+              <p style={{ fontSize: '.7rem', letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--rose)', marginBottom: '8px' }}>Guía rápida</p>
+              <p style={{ fontSize: '.86rem', color: 'var(--charcoal)', lineHeight: 1.65, margin: 0 }}>Ideal para una rutina tropical: textura ligera, uso constante y protección solar como último paso de la mañana.</p>
+            </div>
+
             {/* Payment icons */}
             <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid var(--line)', display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
               <span style={{ fontSize: '.72rem', color: 'var(--gray)', letterSpacing: '.08em', textTransform: 'uppercase' }}>Pago:</span>
@@ -215,6 +238,22 @@ export default function ProductDetailView({ product }: { product: Product }) {
               <span className="payment-icon">Nequi</span>
               <span className="payment-icon">Transfer</span>
             </div>
+          </div>
+        </div>
+
+        <div style={{ position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 55, background: 'rgba(255,255,255,.98)', borderTop: '1px solid var(--line)', padding: '10px 16px calc(10px + env(safe-area-inset-bottom))', backdropFilter: 'blur(6px)' }}>
+          <div style={{ maxWidth: '720px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ minWidth: '92px' }}>
+              <p style={{ margin: 0, fontSize: '.68rem', color: 'var(--gray)' }}>Total</p>
+              <p style={{ margin: 0, fontWeight: 700, color: 'var(--deep)' }}>${product.price.toFixed(2)}</p>
+            </div>
+            <button
+              onClick={handleAddToCart}
+              disabled={!inStock}
+              style={{ flex: 1, padding: '13px 14px', background: justAdded ? '#2E7D4F' : inStock ? 'var(--rose)' : 'var(--gray)', color: 'var(--white)', border: 'none', borderRadius: '10px', fontSize: '.78rem', letterSpacing: '.08em', textTransform: 'uppercase', fontFamily: "'DM Sans',sans-serif", fontWeight: 700 }}
+            >
+              {justAdded ? 'Agregado' : inStock ? 'Agregar al carrito' : 'Agotado'}
+            </button>
           </div>
         </div>
       </div>

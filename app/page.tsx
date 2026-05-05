@@ -9,6 +9,7 @@ import SkinQuiz from '@/components/SkinQuiz'
 import EmailPopup from '@/components/EmailPopup'
 import ExitPopup from '@/components/ExitPopup'
 import ChatWidget from '@/components/ChatWidget'
+import BundlesSection from '@/components/BundlesSection'
 
 export default function Home() {
   const [shippingOpen, setShippingOpen] = useState(false)
@@ -150,59 +151,8 @@ export default function Home() {
         <p className="catalogo-closing">Cada producto cumple una función concreta. La línea completa se entiende mejor en protocolo.</p>
       </section>
 
-      {/* RUTINAS - CON IMÁGENES */}
-      <section className="rutinas" id="rutinas">
-        <div className="rutinas-header">
-          <span className="section-label">Tus Rutinas</span>
-          <h2 className="section-title">Empieza por tu <em>rutina</em></h2>
-          <p className="rutinas-desc">K-Beauty adaptado al clima del Caribe. Rutinas completas con pasos esenciales.</p>
-        </div>
-        <div className="rutinas-grid">
-          <div className="rutina-card">
-            <div className="rutina-image" style={{ background: 'linear-gradient(135deg, #FBD0DF 0%, #E8B4C8 100%)' }}>
-              <span className="rutina-icon">✨</span>
-            </div>
-            <div className="rutina-body">
-              <h3>Glow Caribeño</h3>
-              <p>Para piel luminosa en clima húmedo</p>
-              <div className="rutina-steps"><strong>Pasos:</strong> Limpiador · Vitamina C · SPF</div>
-              <div className="rutina-price">
-                <span className="rutina-price-amount">$58</span>
-                <span className="rutina-save">Ahorra 15%</span>
-              </div>
-              <button className="rutina-btn">Comprar rutina</button>
-            </div>
-          </div>
-          <div className="rutina-card">
-            <div className="rutina-image" style={{ background: 'linear-gradient(135deg, #D8E5F3 0%, #B8D4E8 100%)' }}>
-              <span className="rutina-icon">🌿</span>
-            </div>
-            <div className="rutina-body">
-              <h3>Piel Sensible</h3>
-              <p>Calma y repara piel reactiva</p>
-              <div className="rutina-steps"><strong>Pasos:</strong> Limpiador suave · Toner · Crema</div>
-              <div className="rutina-price">
-                <span className="rutina-price-amount">$52</span>
-              </div>
-              <button className="rutina-btn">Comprar rutina</button>
-            </div>
-          </div>
-          <div className="rutina-card">
-            <div className="rutina-image" style={{ background: 'linear-gradient(135deg, #FBEBBB 0%, #E8D4A8 100%)' }}>
-              <span className="rutina-icon">🔥</span>
-            </div>
-            <div className="rutina-body">
-              <h3>Acné Tropical</h3>
-              <p>Control de grasa y brotes</p>
-              <div className="rutina-steps"><strong>Pasos:</strong> Cleanser · Niacinamida · SPF oil-free</div>
-              <div className="rutina-price">
-                <span className="rutina-price-amount">$60</span>
-              </div>
-              <button className="rutina-btn">Comprar rutina</button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* RUTINAS */}
+      <BundlesSection />
 
       {/* CONFIANZA B2C - LIMPIO */}
       <section className="b2c-cta">
