@@ -13,7 +13,8 @@
     "test:e2e": "npx playwright test",
     "test:e2e:headed": "npx playwright test --headed",
     "test:e2e:report": "npx playwright show-report",
-    "check:catalog": "node scripts/validate-catalog.mjs"
+    "check:catalog": "node scripts/validate-catalog.mjs",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs"
   },
   "repository": {
     "type": "git",

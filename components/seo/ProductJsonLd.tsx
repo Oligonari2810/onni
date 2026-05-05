@@ -1,49 +1,46 @@
-interface ProductJsonLdProps {
-  product: {
-    slug: string;
-    brand: string;
-    name: string;
-    price: number;
-    stock: number;
-    rating?: string;
-    reviews?: string;
-    description?: string;
-  };
-}
+import type { Product } from '@/lib/products'
 
-export default function ProductJsonLd({ product }: ProductJsonLdProps) {
+const SITE_URL = 'https://www.onnicosmetics.com'
+
+export default function ProductJsonLd({ product }: { product: Product }) {
+  const productUrl = `${SITE_URL}/products/${product.slug}`
+  const imageUrl = product.image.startsWith('http') ? product.image : `${SITE_URL}${product.image}`
+
   const structuredData = {
     '@context': 'https://schema.org/',
     '@type': 'Product',
-    name: `${product.brand} - ${product.name}`,
-    description: product.description || `Cosmética coreana original: ${product.name}. Envíos rápidos a RD y el Caribe.`,
+    name: product.name,
+    image: [imageUrl],
+    description: product.description,
+    sku: product.id,
+    category: product.category,
     brand: {
       '@type': 'Brand',
-      name: product.brand
+      name: product.brand,
     },
     offers: {
       '@type': 'Offer',
-      url: `https://onnicosmetics.com/products/${product.slug}`,
+      url: productUrl,
       priceCurrency: 'USD',
-      price: product.price,
+      price: product.price.toFixed(2),
       availability: product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       itemCondition: 'https://schema.org/NewCondition',
       seller: {
         '@type': 'Organization',
-        name: 'ONNI Cosmetics'
-      }
+        name: 'ONNI Cosmetics',
+      },
     },
     aggregateRating: {
       '@type': 'AggregateRating',
-      ratingValue: product.rating || '4.8',
-      reviewCount: product.reviews || '124'
-    }
-  };
+      ratingValue: '4.8',
+      reviewCount: '124',
+    },
+  }
 
   return (
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
     />
-  );
+  )
 }
