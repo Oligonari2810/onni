@@ -34,6 +34,7 @@ export default function Navbar() {
           <li><a href="#nosotras">Nosotras</a></li>
           <li><a href="#productos">Productos</a></li>
           <li><a href="#rutinas">Rutinas</a></li>
+          <li><a href="/blog">Blog</a></li>
           <li><a href="#reviews">Reviews</a></li>
         </ul>
 
@@ -72,6 +73,7 @@ export default function Navbar() {
               <a href="#nosotras" onClick={() => setMobileOpen(false)}>Nosotras</a>
               <a href="#productos" onClick={() => setMobileOpen(false)}>Productos</a>
               <a href="#rutinas" onClick={() => setMobileOpen(false)}>Rutinas</a>
+              <a href="/blog" onClick={() => setMobileOpen(false)}>Blog</a>
               <a href="#reviews" onClick={() => setMobileOpen(false)}>Reviews</a>
             </div>
           </div>
