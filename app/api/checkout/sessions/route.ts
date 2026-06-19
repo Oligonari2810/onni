@@ -25,7 +25,7 @@ function getStripeClient() {
   }
 
   return new Stripe(secretKey, {
-    apiVersion: '2026-04-22.dahlia',
+    apiVersion: '2026-05-27.dahlia',
   })
 }
 
@@ -152,7 +152,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ sessionId: session.id, url: session.url })
   } catch (error) {
-    console.error('Checkout error:', error)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Checkout error:', error)
+    } else {
+      console.error('Checkout error')
+    }
 
     if (error instanceof Error && error.message === 'Missing STRIPE_SECRET_KEY') {
       return NextResponse.json({ error: 'Checkout is not configured' }, { status: 500 })

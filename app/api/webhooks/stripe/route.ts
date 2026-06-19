@@ -10,7 +10,7 @@ function getStripeClient() {
   }
 
   return new Stripe(secretKey, {
-    apiVersion: '2026-04-22.dahlia',
+    apiVersion: '2026-05-27.dahlia',
   })
 }
 
@@ -29,7 +29,11 @@ export async function POST(request: NextRequest) {
     const stripe = getStripeClient()
     event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
   } catch (err) {
-    console.error('Webhook signature verification failed:', err)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Webhook signature verification failed:', err)
+    } else {
+      console.error('Webhook signature verification failed')
+    }
     return NextResponse.json(
       { error: 'Webhook signature verification failed' },
       { status: 400 },
@@ -132,12 +136,18 @@ Nuevo pedido completado:
         break
       }
       default:
-        console.log(`Unhandled event type: ${event.type}`)
+        if (process.env.NODE_ENV !== 'production') {
+          console.debug(`Unhandled event type: ${event.type}`)
+        }
     }
 
     return NextResponse.json({ received: true })
   } catch (error) {
-    console.error('Webhook handler error:', error)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Webhook handler error:', error)
+    } else {
+      console.error('Webhook handler error')
+    }
     return NextResponse.json({ error: 'Webhook handler failed' }, { status: 500 })
   }
 }
