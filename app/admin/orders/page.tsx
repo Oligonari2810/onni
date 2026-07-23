@@ -57,9 +57,17 @@ export default function AdminOrdersPage() {
   const [authChecked, setAuthChecked] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
-    checkAuth()
-  }, [])
+  const fetchOrders = async () => {
+    setLoading(true)
+    const { data, error } = await supabase
+      .from('orders')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error) console.error('Error fetching orders:', error)
+    else setOrders(data || [])
+    setLoading(false)
+  }
 
   const checkAuth = async () => {
     const { data: { session } } = await supabase.auth.getSession()
@@ -77,22 +85,14 @@ export default function AdminOrdersPage() {
   }
 
   useEffect(() => {
+    checkAuth()
+  }, [])
+
+  useEffect(() => {
     if (authChecked) {
       fetchOrders()
     }
   }, [filter, authChecked])
-
-  const fetchOrders = async () => {
-    setLoading(true)
-    const { data, error } = await supabase
-      .from('orders')
-      .select('*')
-      .order('created_at', { ascending: false })
-
-    if (error) console.error('Error fetching orders:', error)
-    else setOrders(data || [])
-    setLoading(false)
-  }
 
   const updateOrderStatus = async (orderId: number, status: string) => {
     setUpdatingStatus(orderId)

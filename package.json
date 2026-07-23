@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "npm run typecheck",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "check:assets": "node scripts/validate-assets.mjs",
     "test:e2e": "npx playwright test",
@@ -48,5 +48,9 @@
     "typescript": "^6.0.2",
     "zod": "^4.3.6",
     "zustand": "^5.0.12"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.2"
   }
 }

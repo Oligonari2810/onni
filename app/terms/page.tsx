@@ -11,7 +11,7 @@ export default function TermsPage() {
 
           <div style={{ fontSize: '16px', color: '#4b5563', lineHeight: '1.8' }}>
             <h2 style={{ fontSize: '24px', fontWeight: '600', marginTop: '32px', marginBottom: '16px', color: '#111827' }}>1. Aceptación de los Términos</h2>
-            <p>Al acceder y utilizar el sitio web www.onnicosmetics.com (en adelante, "el Sitio"), operado por ONNI Caribe (Arias Group Caribe SRL, RNC 1-33-63109-1), usted acepta y se obliga legalmente por estos Términos de Servicio.</p>
+            <p>Al acceder y utilizar el sitio web www.onnicosmetics.com (en adelante, &quot;el Sitio&quot;), operado por ONNI Caribe (Arias Group Caribe SRL, RNC 1-33-63109-1), usted acepta y se obliga legalmente por estos Términos de Servicio.</p>
 
             <h2 style={{ fontSize: '24px', fontWeight: '600', marginTop: '32px', marginBottom: '16px', color: '#111827' }}>2. Información de la Empresa</h2>
             <p><strong>ONNI Caribe</strong><br />
