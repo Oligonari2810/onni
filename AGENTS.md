@@ -25,7 +25,8 @@ npm run start
 ```
 
 ### Calidad de código
-Actualmente el script `lint` está mapeado a `npm run typecheck`; pasa como verificación de tipos, pero todavía falta configurar ESLint real para reglas de estilo, hooks y accesibilidad.
+- `npm run typecheck` ejecuta `tsc --noEmit` (verificación de tipos).
+- `npm run lint` ejecuta ESLint real (`eslint .`) con `eslint-config-next` (core-web-vitals): reglas de estilo, hooks de React y accesibilidad. Falla en errores; los warnings no rompen el build.
 
 ### Caveats / observaciones actuales
 - `npm run build` se validó sin secretos reales gracias a inicialización runtime de integraciones externas.

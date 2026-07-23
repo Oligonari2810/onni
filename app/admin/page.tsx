@@ -24,10 +24,6 @@ export default function AdminDashboard() {
   const [filter, setFilter] = useState('')
   const [typeFilter, setTypeFilter] = useState('')
 
-  useEffect(() => {
-    fetchInquiries()
-  }, [])
-
   async function fetchInquiries() {
     try {
       const { data, error } = await supabase
@@ -43,6 +39,10 @@ export default function AdminDashboard() {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    fetchInquiries()
+  }, [])
 
   function exportToCSV() {
     const headers = ['ID', 'Nombre', 'Establecimiento', 'Tipo', 'Ciudad', 'WhatsApp', 'Email', 'Mensaje', 'Fecha']

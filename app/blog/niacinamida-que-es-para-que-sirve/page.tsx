@@ -58,7 +58,7 @@ export default function NiacinamideArticle() {
                 La <strong>niacinamida</strong> (también conocida como nicotinamida) es una forma de <strong>vitamina B3</strong> que se ha convertido en uno de los ingredientes más populares y estudiados del skincare moderno.
               </p>
               <p style={{ marginBottom: '20px' }}>
-                A diferencia de otros activos potentes como el retinol o los AHA, la niacinamida es <strong>increíblemente versátil y bien tolerada</strong> por casi todos los tipos de piel, incluyendo la sensible. Esto la convierte en un ingrediente "comodín" que puede beneficiar a prácticamente cualquiera.
+                A diferencia de otros activos potentes como el retinol o los AHA, la niacinamida es <strong>increíblemente versátil y bien tolerada</strong> por casi todos los tipos de piel, incluyendo la sensible. Esto la convierte en un ingrediente &quot;comodín&quot; que puede beneficiar a prácticamente cualquiera.
               </p>
               <div style={{ backgroundColor: '#F0FDF4', padding: '24px', borderRadius: '8px', border: '1px solid #BBF7D0', margin: '32px 0' }}>
                 <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#166534', marginBottom: '12px' }}>

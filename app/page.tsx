@@ -214,7 +214,7 @@ export default function Home() {
         <div className="testi-grid">
           <div className="testi">
             <div className="testi-stars">★★★★★</div>
-            <p className="testi-text">"Por fin productos que funcionan en el clima de Santo Domingo. La textura ligera del cleanser es perfecta para mi piel grasa."</p>
+            <p className="testi-text">{'"Por fin productos que funcionan en el clima de Santo Domingo. La textura ligera del cleanser es perfecta para mi piel grasa."'}</p>
             <div className="testi-footer">
               <div className="testi-avatar">👩</div>
               <div>
@@ -225,7 +225,7 @@ export default function Home() {
           </div>
           <div className="testi">
             <div className="testi-stars">★★★★★</div>
-            <p className="testi-text">"Pedí la rutina Glow y llegó súper rápido. El Vitamina C ya me está quitando las manchas del sol."</p>
+            <p className="testi-text">{'"Pedí la rutina Glow y llegó súper rápido. El Vitamina C ya me está quitando las manchas del sol."'}</p>
             <div className="testi-footer">
               <div className="testi-avatar">👩</div>
               <div>
@@ -236,7 +236,7 @@ export default function Home() {
           </div>
           <div className="testi">
             <div className="testi-stars">★★★★★</div>
-            <p className="testi-text">"Llevo un año usando los productos y mi piel nunca ha estado mejor. El Reedle Shot es mi favorito."</p>
+            <p className="testi-text">{'"Llevo un año usando los productos y mi piel nunca ha estado mejor. El Reedle Shot es mi favorito."'}</p>
             <div className="testi-footer">
               <div className="testi-avatar">👩🏼</div>
               <div>
